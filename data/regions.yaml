@@ -1,0 +1,19 @@
+# 17개 시·도 코드표 (행정표준코드 앞 2자리)
+sido:
+  - { sido: 서울특별시, short: 서울, code: "11" }
+  - { sido: 부산광역시, short: 부산, code: "26" }
+  - { sido: 대구광역시, short: 대구, code: "27" }
+  - { sido: 인천광역시, short: 인천, code: "28" }
+  - { sido: 광주광역시, short: 광주, code: "29" }
+  - { sido: 대전광역시, short: 대전, code: "30" }
+  - { sido: 울산광역시, short: 울산, code: "31" }
+  - { sido: 세종특별자치시, short: 세종, code: "36" }
+  - { sido: 경기도, short: 경기, code: "41" }
+  - { sido: 강원특별자치도, short: 강원, code: "51", aliases: [강원도] }
+  - { sido: 충청북도, short: 충북, code: "43" }
+  - { sido: 충청남도, short: 충남, code: "44" }
+  - { sido: 전북특별자치도, short: 전북, code: "52", aliases: [전라북도] }
+  - { sido: 전라남도, short: 전남, code: "46" }
+  - { sido: 경상북도, short: 경북, code: "47" }
+  - { sido: 경상남도, short: 경남, code: "48" }
+  - { sido: 제주특별자치도, short: 제주, code: "50" }

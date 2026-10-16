@@ -1,0 +1,7 @@
+# 판례·해석 검수 (설계서 3.4 ③, 부록 B)
+# "<caseId>":
+#   review: approved | rejected
+#   issueTags: [쟁점]
+#   about: ["law:혈액관리법#제12조"]   # normId#조문
+#   note: 사유
+{}

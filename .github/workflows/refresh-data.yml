@@ -1,0 +1,48 @@
+name: Refresh data
+# 매주 월요일 06:00 KST(일요일 21:00 UTC) 수집 → PR → 담당자 확인 후 머지(=배포)
+on:
+  schedule:
+    - cron: '0 21 * * 0'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: npm }
+      - run: npm ci
+      - name: Check secret
+        id: secret
+        run: echo "has_oc=${{ secrets.LAW_OC != '' }}" >> "$GITHUB_OUTPUT"
+      - name: Collect
+        id: collect
+        if: steps.secret.outputs.has_oc == 'true'
+        continue-on-error: true
+        run: npm run data -- --check-links
+        env:
+          LAW_OC: ${{ secrets.LAW_OC }}
+      - name: Open issue on failure
+        if: steps.secret.outputs.has_oc == 'true' && steps.collect.outcome == 'failure'
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          gh issue create --title "데이터 수집 실패 $(date -u +%F)" \
+            --body "주간 수집이 실패했거나 건수가 급감해 기존 데이터를 유지했습니다. 클라우드 IP 차단이 의심되면 docs/manual-refresh.md 절차로 담당자 PC에서 수집하세요. 실행 로그: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      - name: PR summary
+        if: steps.collect.outcome == 'success'
+        run: node --import tsx scripts/pr-summary.ts > pr-body.md
+      - name: Create PR
+        if: steps.collect.outcome == 'success'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: data/refresh
+          title: '데이터 갱신 (주간 수집)'
+          body-path: pr-body.md
+          commit-message: 'data: 주간 수집 갱신'
+          add-paths: |
+            data/build/**
+            data/state.json

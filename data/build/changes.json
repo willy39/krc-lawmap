@@ -1,0 +1,76 @@
+{
+ "generatedAt": "2026-10-16T03:14:58.377Z",
+ "previousGeneratedAt": null,
+ "entries": [
+  {
+   "kind": "NORM_ADDED",
+   "id": "pi:demo-19",
+   "title": "개인정보 보호규정",
+   "date": "2026-10-01",
+   "detail": "규정"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "pi:demo-10",
+   "title": "임직원 행동강령",
+   "date": "2026-09-20",
+   "detail": "규정"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:demo-12",
+   "title": "[예시] 혈액원 업무위탁 계약 관련 분쟁",
+   "date": "2026-09-03",
+   "detail": "대법원"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:demo-08",
+   "title": "대전광역시 헌혈 장려 및 지원에 관한 조례(예시)",
+   "date": "2026-09-01",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "pi:demo-02",
+   "title": "인사규정",
+   "date": "2026-08-01",
+   "detail": "규정"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "pi:demo-03",
+   "title": "인사규정 시행규칙",
+   "date": "2026-08-01",
+   "detail": "시행규칙"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "pre:demo-11",
+   "title": "[예시] 대한적십자사 표장 사용 승인 선례",
+   "date": "2025-02-10",
+   "detail": "보건복지부"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "decc:demo-15",
+   "title": "[예시] 혈액원 개설 허가 관련 재결",
+   "date": "2024-10-07",
+   "detail": "중앙행정심판위원회"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "cgm:demo-08",
+   "title": "[예시] 헌혈 증서 사용 범위 질의",
+   "date": "2024-04-18",
+   "detail": "보건복지부"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "expc:demo-06",
+   "title": "[예시] 대한적십자사 임원 겸직 제한 해석",
+   "date": "2023-06-02",
+   "detail": "법제처"
+  }
+ ]
+}

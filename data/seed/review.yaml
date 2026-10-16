@@ -1,0 +1,10 @@
+# 데모 검수 기록 (시드 빌드 전용)
+"prec:demo-01": { review: approved, issueTags: [헌혈자 개인정보], about: ["law:혈액관리법#제12조"] }
+"prec:demo-02": { review: approved, issueTags: [혈액원 근로자 해고] }
+"prec:demo-03": { review: approved, issueTags: [적십자회비 법적 성격] }
+"detc:demo-05": { review: approved, issueTags: [적십자회비 법적 성격] }
+"cgm:demo-08":  { review: approved, issueTags: [헌혈증서] }
+"cgm:demo-09":  { review: approved, issueTags: [재난 구호물자] }
+"pre:demo-11":  { review: approved, issueTags: [적십자 표장] }
+"decc:demo-15": { review: approved }
+"expc:demo-14": { review: rejected, note: 기관명만 언급, 쟁점 무관 }

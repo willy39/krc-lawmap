@@ -1,0 +1,28 @@
+# 규범 보정 (설계서 6.1)
+# "<normId>": { shortTitle, primaryField, isCore, parentId }
+items: {}
+
+# 큐레이션 법령 목록 (L1r) — 이름은 law.go.kr 정식 법령명과 일치해야 한다.
+core_laws:
+  - { name: 대한민국헌법, level: L0_CONSTITUTION, field: ORG }
+  - { name: 대한적십자사 조직법, level: L1_ACT, field: ORG }
+  - { name: 대한적십자사 조직법 시행령, level: L2_DECREE, field: ORG, parent: 대한적십자사 조직법 }
+curated_laws:
+  - { name: 혈액관리법, field: BLD, isCore: true }
+  - { name: 혈액관리법 시행령, field: BLD, parent: 혈액관리법 }
+  - { name: 혈액관리법 시행규칙, field: BLD, parent: 혈액관리법 }
+  - { name: 재해구호법, field: DIS, isCore: true }
+  - { name: 공공기관의 운영에 관한 법률, field: ORG, isCore: true }
+
+# 행정규칙 검색어 (admrul)
+admrul_queries: [적십자, 혈액관리]
+
+# 공공기관 규정 기관명 필터 (pi)
+pi_agency: 대한적십자사
+
+# 자치법규 묶음별 검색어·기본 부모 (설계서 3.2)
+ordinance_bundles:
+  redcross: { queries: [적십자], parent: 대한적십자사 조직법, requireBody: false }
+  blood:    { queries: [헌혈], parent: 혈액관리법, requireBody: false }
+  disaster: { queries: [재해구호, 이재민], parent: 재해구호법, requireBody: true }
+  family:   { queries: [이산가족], parent: null, requireBody: true }

@@ -1,0 +1,24 @@
+# 내부 서버 운영
+#   웹 서비스:      docker compose up -d --build web          → http://<서버>:8080
+#   데이터 갱신:    docker compose --profile data run --rm collector && docker compose up -d --build web
+services:
+  web:
+    build:
+      context: .
+      target: web
+      args:
+        NEXT_PUBLIC_BASE_PATH: ${BASE_PATH:-}
+    image: krc-lawtree-web:latest
+    ports:
+      - "${WEB_PORT:-8080}:8080"
+    restart: unless-stopped
+
+  collector:
+    build:
+      context: .
+      target: collector
+    image: krc-lawtree-collector:latest
+    profiles: ["data"]
+    env_file: .env
+    volumes:
+      - ./data:/app/data

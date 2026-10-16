@@ -1,0 +1,37 @@
+[
+ {
+  "id": "prec:demo-04",
+  "source": "prec",
+  "sourceId": "demo-04",
+  "docNo": "예시-2012가합0004",
+  "title": "[예시] 수혈 감염 손해배상",
+  "issuer": "서울중앙지방법원",
+  "decidedAt": "2012-08-17",
+  "outcome": "판결",
+  "summary": "※ 데모용 가상 요지입니다. 수혈로 인한 감염에 대해 혈액원의 주의의무 위반 여부를 판단.",
+  "citedLaws": [
+   {
+    "lawName": "혈액관리법",
+    "article": "제8조",
+    "normId": "law:혈액관리법"
+   },
+   {
+    "lawName": "혈액관리법 시행규칙",
+    "article": "제2조",
+    "normId": "law:혈액관리법 시행규칙"
+   },
+   {
+    "lawName": "민법",
+    "article": "제750조"
+   }
+  ],
+  "fields": [
+   "BLD"
+  ],
+  "issueTags": [],
+  "relevance": 65,
+  "review": "candidate",
+  "url": "https://www.law.go.kr/LSW/totalSearch.do?query=%EC%88%98%ED%98%88%20%EA%B0%90%EC%97%BC%20%EC%86%90%ED%95%B4%EB%B0%B0%EC%83%81",
+  "demo": true
+ }
+]

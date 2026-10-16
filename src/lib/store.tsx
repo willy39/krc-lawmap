@@ -1,0 +1,87 @@
+'use client';
+// 전역 데이터 컨텍스트: 규범 축(초기 로딩) + 판례·해석 축(지연 로딩) + 상세 패널 상태
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import type { CaseItem, DatasetMeta, NormItem, Relation } from '@/types/model';
+import { withBase } from './links';
+
+export type DetailTab = 'overview' | 'articles' | 'cases' | 'ordinances' | 'summary' | 'norms' | 'same';
+export interface DetailState {
+  id: string;
+  tab?: DetailTab;
+  article?: string;
+}
+
+interface Store {
+  norms: NormItem[];
+  relations: Relation[];
+  meta: DatasetMeta;
+  aliases: string[][];
+  normById: Map<string, NormItem>;
+  childrenOf: Map<string | null, NormItem[]>;
+  detail: DetailState | null;
+  openDetail: (id: string, opts?: Omit<DetailState, 'id'>) => void;
+  closeDetail: () => void;
+  paletteOpen: boolean;
+  setPaletteOpen: (v: boolean) => void;
+}
+
+const Ctx = createContext<Store | null>(null);
+
+export function DataProvider(props: { norms: NormItem[]; relations: Relation[]; meta: DatasetMeta; aliases: string[][]; children: ReactNode }) {
+  const { norms, relations, meta, aliases } = props;
+  const [detail, setDetail] = useState<DetailState | null>(null);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  const normById = useMemo(() => new Map(norms.map((n) => [n.id, n])), [norms]);
+  const childrenOf = useMemo(() => {
+    const m = new Map<string | null, NormItem[]>();
+    for (const n of norms) {
+      const k = n.parentId;
+      if (!m.has(k)) m.set(k, []);
+      m.get(k)!.push(n);
+    }
+    return m;
+  }, [norms]);
+
+  const openDetail = useCallback((id: string, opts?: Omit<DetailState, 'id'>) => setDetail({ id, ...opts }), []);
+  const closeDetail = useCallback(() => setDetail(null), []);
+
+  const value = useMemo(
+    () => ({ norms, relations, meta, aliases, normById, childrenOf, detail, openDetail, closeDetail, paletteOpen, setPaletteOpen }),
+    [norms, relations, meta, aliases, normById, childrenOf, detail, openDetail, closeDetail, paletteOpen],
+  );
+  return <Ctx.Provider value={value}>{props.children}</Ctx.Provider>;
+}
+
+export function useStore(): Store {
+  const s = useContext(Ctx);
+  if (!s) throw new Error('DataProvider 누락');
+  return s;
+}
+
+// 판례·해석 축은 필요할 때 한 번만 내려받는다 (설계서 5장: cases.json 지연 로딩)
+let casesPromise: Promise<CaseItem[]> | null = null;
+let casesCache: CaseItem[] | null = null;
+export function loadCases(): Promise<CaseItem[]> {
+  casesPromise ??= fetch(withBase('/data/cases.json'))
+    .then((r) => (r.ok ? r.json() : []))
+    .then((c: CaseItem[]) => (casesCache = c))
+    .catch(() => {
+      casesPromise = null;
+      return [];
+    });
+  return casesPromise;
+}
+
+export function useCases(enabled = true, initial?: CaseItem[]): CaseItem[] | null {
+  const [cases, setCases] = useState<CaseItem[] | null>(initial ?? casesCache);
+  useEffect(() => {
+    if (!enabled || cases) return;
+    let alive = true;
+    loadCases().then((c) => alive && setCases(c));
+    return () => {
+      alive = false;
+    };
+  }, [enabled, cases]);
+  return cases;
+}

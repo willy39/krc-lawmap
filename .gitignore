@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env
+.env.local
+data/raw/*
+!data/raw/.gitkeep
+.DS_Store
+public/data/
+.claude/

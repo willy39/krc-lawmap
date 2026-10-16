@@ -1,0 +1,5 @@
+# 판례·해석 관련성 점수 가중치 (설계서 3.4 ②)
+weights: { citesOrgAct: 50, titleHasOrg: 40, partyIsOrg: 40, citesCurated: 25, bodyMention: 10 }
+threshold: { auto: 70, candidate: 40 }
+orgKeywords: [대한적십자사, 적십자사, 적십자병원, 혈액원]
+orgActNames: [대한적십자사 조직법, 대한적십자사 조직법 시행령]
