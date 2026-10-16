@@ -50,3 +50,26 @@ describe('reviewStatus', () => {
     expect(isVisible('approved')).toBe(true);
   });
 });
+
+describe('국제인도법 신호', () => {
+  const ihlCfg = { ...cfg, weights: { ...cfg.weights, ihlTopic: 40 }, ihlKeywords: ['국제인도법', '1949년 8월 12일자 제네바'], ihlLawNames: ['국제형사재판소 관할 범죄의 처벌 등에 관한 법률'] };
+  it('정밀 표현 → +40', () => {
+    expect(relevanceScore({ title: '인도심사청구', body: '국제인도법 위반 범죄', citedLaws: [], curatedLawNames: [] }, ihlCfg)).toBe(40);
+  });
+  it('IHL 이행 법률 인용 → +40', () => {
+    expect(relevanceScore({ title: 'x', citedLaws: [{ lawName: '국제형사재판소 관할 범죄의 처벌 등에 관한 법률', article: '제10조' }], curatedLawNames: [] }, ihlCfg)).toBe(40);
+  });
+  it('도로교통 제네바협약은 제외', () => {
+    expect(relevanceScore({ title: '도로교통법위반(무면허운전)', body: '1949년 도로교통에 관한 제네바협약', citedLaws: [], curatedLawNames: [] }, ihlCfg)).toBe(0);
+  });
+});
+
+describe('국제인도법 신호 — 검색어 근거', () => {
+  const c2 = { ...cfg, weights: { ...cfg.weights, ihlTopic: 40 }, ihlQueries: ['국제인도법'] };
+  it('IHL 검색어로 들어온 항목 → +40', () => {
+    expect(relevanceScore({ title: '인도심사청구', citedLaws: [], curatedLawNames: [], matchedQueries: ['국제인도법'] }, c2)).toBe(40);
+  });
+  it('기관명 검색어로만 들어온 항목은 가산 없음', () => {
+    expect(relevanceScore({ title: '손해배상', citedLaws: [], curatedLawNames: [], matchedQueries: ['혈액원'] }, c2)).toBe(0);
+  });
+});

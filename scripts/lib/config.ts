@@ -33,6 +33,8 @@ export interface Overrides {
   admrul_queries: string[];
   admrul_title_filter?: string;
   admrul_parent_rules?: { pattern: string; parent: string }[];
+  treaties?: { queries: string[]; include: string; exclude?: string; core?: string; parents?: { child: string; parent: string }[] };
+  case_queries?: string[];
   pi_agency: string;
   pi_target?: string;
   cgm_targets?: { ministry: string; target: string }[];

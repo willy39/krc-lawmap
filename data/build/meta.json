@@ -1,25 +1,25 @@
 {
  "baseDate": "2026-10-16",
- "generatedAt": "2026-10-16T08:31:54.776Z",
+ "generatedAt": "2026-10-16T09:15:37.626Z",
  "mode": "live",
  "counts": {
   "norms": {
-   "law": 8,
+   "law": 12,
    "eflaw": 0,
-   "admrul": 16,
+   "admrul": 19,
    "ordin": 494,
-   "trty": 6,
+   "trty": 26,
    "pi": 76,
-   "total": 600
+   "total": 627
   },
   "cases": {
-   "prec": 21,
-   "detc": 4,
+   "prec": 24,
+   "detc": 5,
    "expc": 2,
    "cgm": 0,
    "pre": 0,
    "decc": 6,
-   "total": 33,
+   "total": 37,
    "candidate": 1
   }
  },

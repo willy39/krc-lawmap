@@ -67,9 +67,13 @@ export function classifyNorms(drafts: NormDraft[], cfg: Config, today = new Date
         else if (d.parentName) item.parentId = byName.get(normalizeLawName(d.parentName)) ?? null;
         else item.parentId = constitution;
         break;
-      case 'trty':
-        item.parentId = null;
+      case 'trty': {
+        // 개정·의정서·유보·선언 문서를 본 조약 아래로 (overrides.yaml treaties.parents)
+        const rule = cfg.overrides.treaties?.parents?.find((r) => new RegExp(r.child).test(item.title));
+        const parent = rule ? items.find((x) => x.source === 'trty' && x.id !== item.id && new RegExp(rule.parent).test(x.title)) : undefined;
+        item.parentId = parent?.id ?? null;
         break;
+      }
       case 'pi':
         item.parentId = piParent(item, pis, orgAct, d.purpose);
         break;

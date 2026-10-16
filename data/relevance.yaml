@@ -1,6 +1,12 @@
 # 판례·해석 관련성 점수 가중치 (설계서 3.4 ②)
-weights: { citesOrgAct: 50, titleHasOrg: 40, partyIsOrg: 40, citesCurated: 25, bodyMention: 10 }
+weights: { citesOrgAct: 50, titleHasOrg: 40, partyIsOrg: 40, citesCurated: 25, bodyMention: 10, ihlTopic: 40 }
 # 2026-10-16 하향(70/40 → 40/20): 대한적십자사가 당사자·질의기관인 자료(+40)를 검수 전에도 노출
 threshold: { auto: 40, candidate: 20 }
 orgKeywords: [대한적십자사, 적십자사, 적십자병원, 혈액원]
 orgActNames: [대한적십자사 조직법, 대한적십자사 조직법 시행령]
+# 국제인도법 신호 (+ihlTopic): 제목·요지·본문에 아래 표현이 있거나 아래 법령을 인용하면 가산
+#   '제네바협약' 단독은 도로교통·어음 제네바협약과 섞이므로 쓰지 않는다
+ihlKeywords: [국제인도법, 전쟁법, 전시국제법, 1949년 8월 12일자 제네바, 제네바 제1협약, 제네바 제2협약, 제네바 제3협약, 제네바 제4협약, 포로의 대우에 관한, 전시에 있어서의 민간인의 보호, 제1추가의정서, 제2추가의정서, 적십자 표장]
+ihlLawNames: [국제형사재판소 관할 범죄의 처벌 등에 관한 법률]
+# 아래 검색어(overrides.yaml case_queries)로 본문 검색되어 들어온 항목은 국제인도법 관련 (본문에 해당 표현이 있다는 근거)
+ihlQueries: [국제인도법]

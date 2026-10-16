@@ -2,7 +2,7 @@
 import type { CaseItem, FieldCode } from '../src/types/model.ts';
 import { curatedLawNames, type Config } from './lib/config.ts';
 import { classifyFields } from './lib/classify.ts';
-import { relevanceScore, reviewStatus } from './lib/score.ts';
+import { isIhl, relevanceScore, reviewStatus } from './lib/score.ts';
 import type { NormalizedCase } from './normalize.ts';
 
 export interface ScoredCase extends CaseItem {
@@ -15,13 +15,15 @@ export function scoreCases(cases: NormalizedCase[], cfg: Config): ScoredCase[] {
   for (const c of cases) {
     const manual = cfg.review[c.id];
     const relevance = relevanceScore(
-      { title: c.title, party: c.party, body: [c.summary, c.body].filter(Boolean).join('\n'), citedLaws: c.citations, curatedLawNames: curated },
+      { title: c.title, party: c.party, body: [c.summary, c.body].filter(Boolean).join('\n'), citedLaws: c.citations, curatedLawNames: curated, matchedQueries: c.matchedQueries },
       cfg.relevance,
     );
     const status = reviewStatus(relevance, cfg.relevance, manual?.review);
     if (!status) continue;
     const auto = classifyFields(`${c.title} ${c.summary ?? ''}`, cfg.taxonomy.fields);
-    const fields: FieldCode[] = manual?.fields ?? [auto.primary, ...auto.secondary.slice(0, 2)];
+    const ihl = isIhl({ title: c.title, body: [c.summary, c.body].filter(Boolean).join('\n'), citedLaws: c.citations, matchedQueries: c.matchedQueries }, cfg.relevance);
+    const autoFields: FieldCode[] = [auto.primary, ...auto.secondary.slice(0, 2)].filter((f) => !(ihl && f === 'ETC'));
+    const fields: FieldCode[] = manual?.fields ?? [...new Set<FieldCode>(ihl ? ['INT', ...autoFields] : autoFields)];
     out.push({
       id: c.id,
       source: c.source,

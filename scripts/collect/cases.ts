@@ -21,11 +21,11 @@ interface TargetDef {
   detail: { summary: string[]; cited: string[]; body: string[]; outcome?: string[] };
 }
 
-const ORG_QUERIES = ['대한적십자사', '적십자사', '적십자병원', '혈액원', '대한적십자사 조직법'];
+const DEFAULT_QUERIES = ['대한적십자사', '적십자사', '적십자병원', '혈액원', '대한적십자사 조직법'];
 
 // P0 실측: 모든 유형에서 제목 검색(search=1)은 거의 0건이고 본문 검색(search=2)으로 후보가 모인다.
 function targets(cfg: Config): TargetDef[] {
-  const body = ORG_QUERIES.map((query) => ({ query, search: 2 as const }));
+  const body = (cfg.overrides.case_queries ?? DEFAULT_QUERIES).map((query) => ({ query, search: 2 as const }));
   const defs: TargetDef[] = [
     {
       source: 'prec', target: 'prec', queries: body,
@@ -83,7 +83,11 @@ export async function collectCases(cfg: Config, api: LawApiOptions, prevCache: C
         const sid = pick(i, def.list.id);
         if (!sid) continue;
         const id = `${def.source}:${sid}`;
-        if (drafts.has(id)) continue;
+        const prev = drafts.get(id);
+        if (prev) {
+          if (!prev.matchedQueries?.includes(q.query)) prev.matchedQueries = [...(prev.matchedQueries ?? []), q.query];
+          continue;
+        }
         const docNo = pick(i, def.list.docNo) ?? '';
         const decidedAt = isoDate(pick(i, def.list.date)) ?? '';
         const hash = `${docNo}|${decidedAt}`;
@@ -121,6 +125,7 @@ export async function collectCases(cfg: Config, api: LawApiOptions, prevCache: C
           party: [def.list.party ? pick(i, def.list.party) : '', det.party].filter(Boolean).join(' '),
           body: det.body,
           url: caseUrl(def.source, sid) ?? '',
+          matchedQueries: [q.query],
         });
       }
     }

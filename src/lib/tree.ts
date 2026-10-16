@@ -58,7 +58,13 @@ export function buildTree(norms: NormItem[]): TreeNode[] {
   };
 
   const roots = (children.get(null) ?? []).sort(order);
-  const top = roots.filter((r) => r.level === 'L0_CONSTITUTION' || r.level === 'L0_TREATY').map(make);
+  const top = roots.filter((r) => r.level === 'L0_CONSTITUTION').map(make);
+  // 조약은 하나의 묶음 노드 아래로 (핵심 조약 먼저)
+  const treaties = roots.filter((r) => r.level === 'L0_TREATY').sort((a, b) => Number(b.isCore) - Number(a.isCore) || (a.effectiveAt ?? '').localeCompare(b.effectiveAt ?? ''));
+  if (treaties.length) {
+    const total = norms.filter((n) => n.source === 'trty').length;
+    top.push({ key: '#treaties', label: '조약 — 제네바협약·국제인도법', kind: 'field', field: 'INT', count: total, children: treaties.map(make) });
+  }
   const orphans = roots.filter((r) => r.level !== 'L0_CONSTITUTION' && r.level !== 'L0_TREATY');
   if (orphans.length) {
     top.push({ key: '#orphan', label: '상위 근거 미지정', kind: 'orphan', count: orphans.length, children: orphans.map(make) });

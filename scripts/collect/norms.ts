@@ -148,25 +148,31 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
     }
   }
 
-  // 4) 조약 — 1949년 제네바협약(제1~4협약)·추가의정서 (정정·선언·개정·유보 문서 제외)
-  const treaties = await guarded('trty:제네바', failed, async () => (await search({ target: 'trty', query: '제네바' }, api)).items, []);
-  for (const i of treaties) {
-    const title = pick(i, ['조약명', '조약명한글']) ?? '';
-    if (!/1949년 8월 12일자 제네바협약/.test(title) || /정정|선언|개정|유보/.test(title)) continue;
-    const seq = pick(i, ['조약일련번호']) ?? '';
-    drafts.push({
-      id: `trty:${seq}`,
-      source: 'trty',
-      sourceId: seq,
-      title,
-      kind: '조약',
-      agency: '외교부',
-      url: trtySeqUrl(seq),
-      level: 'L0_TREATY',
-      field: 'INT',
-      isCore: true,
-      effectiveAt: isoDate(pick(i, ['발효일자'])),
-    });
+  // 4) 조약 — 제네바협약 계열 (overrides.yaml treaties: 검색어·포함/제외 규칙)
+  const tcfg = cfg.overrides.treaties ?? { queries: ['제네바'], include: '1949년 8월 12일자 제네바협약', exclude: '정정' };
+  const include = new RegExp(tcfg.include);
+  const exclude = tcfg.exclude ? new RegExp(tcfg.exclude) : null;
+  const core = tcfg.core ? new RegExp(tcfg.core) : null;
+  for (const q of tcfg.queries) {
+    const treaties = await guarded(`trty:${q}`, failed, async () => (await search({ target: 'trty', query: q }, api)).items, []);
+    for (const i of treaties) {
+      const title = pick(i, ['조약명', '조약명한글']) ?? '';
+      const seq = pick(i, ['조약일련번호']) ?? '';
+      if (!include.test(title) || exclude?.test(title) || drafts.some((d) => d.id === `trty:${seq}`)) continue;
+      drafts.push({
+        id: `trty:${seq}`,
+        source: 'trty',
+        sourceId: seq,
+        title,
+        kind: pick(i, ['조약구분명']) ?? '조약',
+        agency: '외교부',
+        url: trtySeqUrl(seq),
+        level: 'L0_TREATY',
+        field: 'INT',
+        isCore: core ? core.test(title) : false,
+        effectiveAt: isoDate(pick(i, ['발효일자'])),
+      });
+    }
   }
 
   // 5) 공공기관 정관·규정 (target=pi). 응답은 행정규칙 형식 필드를 쓴다.

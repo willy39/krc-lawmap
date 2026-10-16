@@ -36,6 +36,7 @@ export interface CaseDraft {
   citedRaw?: string; // 참조조문 원문
   party?: string; // 당사자·질의기관
   body?: string; // 관련성 판정용 본문 일부 (저장하지 않음)
+  matchedQueries?: string[]; // 이 항목을 찾아낸 본문 검색어 (검색어가 본문에 있다는 근거)
   url: string;
   demo?: boolean;
 }
