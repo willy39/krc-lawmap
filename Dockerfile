@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1
 # 대한적십자사 법규 나무 — 내부 서버 포팅용 이미지
 #   web       : 정적 산출물(out/)을 nginx(비루트, 8080)로 서비스
 #   collector : 법제처 Open API 수집 (npm run data) — data/ 볼륨에 결과 기록
