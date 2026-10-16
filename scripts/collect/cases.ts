@@ -4,7 +4,7 @@ import type { CaseSource } from '../../src/types/model.ts';
 import { caseUrl } from '../../src/lib/links.ts';
 import type { Config } from '../lib/config.ts';
 import { isoDate, stripTags, type CaseDraft } from '../lib/drafts.ts';
-import { normalizeDetailLink, pick, search, service, type LawApiOptions } from '../lib/lawApi.ts';
+import { pick, search, service, type LawApiOptions } from '../lib/lawApi.ts';
 
 type Json = Record<string, unknown>;
 
@@ -21,40 +21,38 @@ interface TargetDef {
   detail: { summary: string[]; cited: string[]; body: string[]; outcome?: string[] };
 }
 
-const ORG_QUERIES = ['대한적십자사', '적십자사', '적십자병원', '혈액원'];
+const ORG_QUERIES = ['대한적십자사', '적십자사', '적십자병원', '혈액원', '대한적십자사 조직법'];
 
+// P0 실측: 모든 유형에서 제목 검색(search=1)은 거의 0건이고 본문 검색(search=2)으로 후보가 모인다.
 function targets(cfg: Config): TargetDef[] {
-  const orgAndLaws = (search: 1 | 2) => [
-    ...ORG_QUERIES.map((query) => ({ query, search })),
-    { query: '대한적십자사 조직법', search },
-  ];
+  const body = ORG_QUERIES.map((query) => ({ query, search: 2 as const }));
   const defs: TargetDef[] = [
     {
-      source: 'prec', target: 'prec', queries: orgAndLaws(2),
-      list: { id: ['판례일련번호'], docNo: ['사건번호'], title: ['사건명'], date: ['선고일자'], issuer: ['법원명'], outcome: ['판결유형', '선고'], link: ['판례상세링크'] },
+      source: 'prec', target: 'prec', queries: body,
+      list: { id: ['판례일련번호'], docNo: ['사건번호'], title: ['사건명'], date: ['선고일자'], issuer: ['법원명', '데이터출처명'], outcome: ['판결유형'], link: ['판례상세링크'] },
       detail: { summary: ['판시사항', '판결요지'], cited: ['참조조문'], body: ['판례내용'] },
     },
     {
-      source: 'detc', target: 'detc', issuer: '헌법재판소', queries: orgAndLaws(1),
+      source: 'detc', target: 'detc', issuer: '헌법재판소', queries: body,
       list: { id: ['헌재결정례일련번호'], docNo: ['사건번호'], title: ['사건명'], date: ['종국일자', '선고일자'], link: ['헌재결정례상세링크'] },
-      detail: { summary: ['결정요지', '판시사항'], cited: ['참조조문'], body: ['전문'] },
+      detail: { summary: ['판시사항', '결정요지'], cited: ['참조조문', '심판대상조문'], body: ['전문'] },
     },
     {
-      source: 'expc', target: 'expc', issuer: '법제처', queries: orgAndLaws(1),
+      source: 'expc', target: 'expc', issuer: '법제처', queries: body,
       list: { id: ['법령해석례일련번호'], docNo: ['안건번호'], title: ['안건명'], date: ['회신일자', '해석일자'], party: ['질의기관명'], link: ['법령해석례상세링크'] },
       detail: { summary: ['질의요지', '회답'], cited: ['참조조문', '관련법령'], body: ['이유'] },
     },
     {
-      source: 'decc', target: 'decc', issuer: '중앙행정심판위원회', queries: orgAndLaws(1),
-      list: { id: ['행정심판재결례일련번호', '행정심판례일련번호'], docNo: ['사건번호'], title: ['사건명'], date: ['의결일자', '재결일자'], party: ['처분청'], outcome: ['재결구분명'], link: ['행정심판례상세링크'] },
+      source: 'decc', target: 'decc', issuer: '중앙행정심판위원회', queries: body,
+      list: { id: ['행정심판재결례일련번호', '행정심판례일련번호'], docNo: ['사건번호'], title: ['사건명'], date: ['의결일자', '재결일자'], issuer: ['재결청'], party: ['처분청'], outcome: ['재결구분명'], link: ['행정심판례상세링크'] },
       detail: { summary: ['재결요지', '주문'], cited: ['참조조문', '관련법령'], body: ['이유', '청구취지'] },
     },
   ];
   for (const c of cfg.overrides.cgm_targets ?? []) {
     defs.push({
-      source: 'cgm', target: c.target, issuer: c.ministry, queries: orgAndLaws(1),
-      list: { id: ['법령해석일련번호', '일련번호', 'ID'], docNo: ['안건번호', '해석번호'], title: ['안건명', '제목'], date: ['회신일자', '해석일자'], party: ['질의기관명'], link: ['상세링크'] },
-      detail: { summary: ['질의요지', '회답'], cited: ['참조조문', '관련법령'], body: ['이유'] },
+      source: 'cgm', target: c.target, issuer: c.ministry, queries: body,
+      list: { id: ['법령해석일련번호'], docNo: ['안건번호'], title: ['안건명'], date: ['해석일자', '회신일자'], issuer: ['해석기관명'], party: ['질의기관명'], link: ['법령해석상세링크'] },
+      detail: { summary: ['질의요지', '회답'], cited: ['관련법령', '참조조문'], body: ['이유'] },
     });
   }
   return defs;
@@ -122,7 +120,7 @@ export async function collectCases(cfg: Config, api: LawApiOptions, prevCache: C
           citedRaw: det.citedRaw,
           party: [def.list.party ? pick(i, def.list.party) : '', det.party].filter(Boolean).join(' '),
           body: det.body,
-          url: caseUrl(def.source, docNo) ?? normalizeDetailLink(pick(i, def.list.link)) ?? '',
+          url: caseUrl(def.source, sid) ?? '',
         });
       }
     }

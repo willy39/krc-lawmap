@@ -48,32 +48,55 @@ export function parseCitations(input: string | undefined | null): Citation[] {
   const out: Citation[] = [];
   let lastLaw: string | null = null;
 
-  for (const seg of segments) {
-    const m = seg.match(/^(.*?)\s*(제\d+조(?:의\d+)?)/);
-    let prefix = m ? m[1] : seg;
-    const article = m ? m[2] : undefined;
-    prefix = cleanLawName(prefix);
-
-    let lawName: string | null = null;
-    if (!prefix) {
-      lawName = lastLaw;
-    } else if (SAME_LAW.test(prefix)) {
+  const resolve = (prefix: string): string | null | undefined => {
+    // undefined = 법령 아님(건너뜀), null = 직전 법령 유지
+    if (!prefix) return null;
+    if (SAME_LAW.test(prefix)) {
       const rest = prefix.replace(SAME_LAW, '').trim();
-      if (!lastLaw) continue;
-      lawName = SUBORDINATE.test(rest) ? `${baseLawName(lastLaw)} ${rest}` : lastLaw;
-    } else if (SUBORDINATE.test(prefix) && lastLaw) {
-      lawName = `${baseLawName(lastLaw)} ${prefix}`;
-    } else if (/^같은\s*조/.test(prefix) || /^제\d+(항|호)/.test(prefix)) {
-      continue;
-    } else if (LAW_SUFFIX.test(prefix)) {
-      lawName = prefix;
-    } else {
+      if (!lastLaw) return undefined;
+      return SUBORDINATE.test(rest) ? `${baseLawName(lastLaw)} ${rest}` : lastLaw;
+    }
+    if (SUBORDINATE.test(prefix) && lastLaw) return `${baseLawName(lastLaw)} ${prefix}`;
+    if (/^같은\s*조/.test(prefix)) return undefined;
+    if (LAW_SUFFIX.test(prefix)) return prefix;
+    return undefined;
+  };
+  const push = (lawName: string, article?: string) => {
+    if (!out.some((c) => c.lawName === lawName && c.article === article)) out.push(article ? { lawName, article } : { lawName });
+  };
+
+  for (const seg of segments) {
+    // 한 구간에 "법령A 제n조 … 법령B 제m조"가 붙어 오는 경우(헌재 참조조문 등)를 위해 조문 단위로 끊어 읽는다
+    const parts = seg.split(/(제\d+조(?:의\d+)?)/);
+    if (parts.length === 1) {
+      const name = resolve(cleanLawName(seg).replace(/^(제\d+(항|호)\s*)+/, ''));
+      if (name) {
+        lastLaw = name;
+        push(name);
+      }
       continue;
     }
-    if (!lawName) continue;
-    lastLaw = lawName;
-    const dup = out.some((c) => c.lawName === lawName && c.article === article);
-    if (!dup) out.push(article ? { lawName, article } : { lawName });
+    for (let k = 0; k + 1 < parts.length; k += 2) {
+      // 조문 사이 텍스트에서 앞쪽 항·호 표기를 걷어내면 남는 것이 다음 법령명
+      const between = cleanLawName(parts[k].replace(/^\s*(제\d+(항|호)(의\d+)?\s*)+/, '').replace(/^(구|舊)\s*/, ''));
+      const name = resolve(between);
+      if (name === undefined && between) {
+        if (/^(제\d+(항|호)|같은\s*조)/.test(between) && lastLaw) {
+          /* 같은 법 계속 */
+        } else continue;
+      }
+      if (name) lastLaw = name;
+      if (!lastLaw) continue;
+      push(lastLaw, parts[k + 1]);
+    }
+    if (parts.length % 2 === 1) {
+      const tail = cleanLawName(parts[parts.length - 1].replace(/^\s*(제\d+(항|호)(의\d+)?\s*)+/, '').replace(/^(구|舊)\s*/, ''));
+      const name = tail ? resolve(tail) : null;
+      if (name) {
+        lastLaw = name;
+        push(name);
+      }
+    }
   }
   // 조문 없는 항목이 같은 법의 조문 항목과 겹치면 제거
   return out.filter((c) => c.article || !out.some((o) => o !== c && o.lawName === c.lawName && o.article));

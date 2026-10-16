@@ -44,7 +44,8 @@ export interface CaseDraft {
 export function isoDate(v: string | undefined): string | undefined {
   if (!v) return undefined;
   const d = v.replace(/[^\d]/g, '');
-  if (d.length !== 8) return undefined;
+  // 9999-12-31 은 API 의 '미정' 표기 — 날짜로 쓰지 않는다
+  if (d.length !== 8 || d.startsWith('9999')) return undefined;
   return `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}`;
 }
 

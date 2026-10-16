@@ -10,9 +10,9 @@
     "start": "npx serve out",
     "lint": "tsc --noEmit",
     "test": "vitest run",
-    "data": "node --import tsx scripts/build-data.ts",
+    "data": "NODE_USE_ENV_PROXY=1 node --import tsx scripts/build-data.ts",
     "data:seed": "node --import tsx scripts/build-data.ts --seed",
-    "probe": "node --import tsx scripts/probe.ts",
+    "probe": "NODE_USE_ENV_PROXY=1 node --import tsx scripts/probe.ts",
     "prebuild": "node --import tsx scripts/publish-data.ts",
     "predev": "node --import tsx scripts/publish-data.ts"
   },

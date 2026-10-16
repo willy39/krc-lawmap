@@ -1,10 +1,10 @@
 // 규범 축 수집: law · eflaw · admrul · ordin · trty · pi (설계서 4.1)
 import type { NormItem, OrdinanceBundle } from '../../src/types/model.ts';
-import { admrulUrl, lawUrl, ordinUrl } from '../../src/lib/links.ts';
+import { admrulSeqUrl, admrulUrl, lawUrl, ordinSeqUrl, ordinUrl, piSeqUrl, trtySeqUrl } from '../../src/lib/links.ts';
 import type { Config } from '../lib/config.ts';
 import { isoDate, stripTags, type NormDraft } from '../lib/drafts.ts';
 import { normalizeLawName } from '../lib/citation.ts';
-import { normalizeDetailLink, pick, search, service, type LawApiOptions } from '../lib/lawApi.ts';
+import { pick, search, service, type LawApiOptions } from '../lib/lawApi.ts';
 
 type Json = Record<string, unknown>;
 
@@ -82,20 +82,24 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
     if (d) drafts.push(d);
   }
 
-  // 2) 행정규칙
+  // 2) 행정규칙 — 본문(search=2)에 기관명이 등장하는 고시·훈령 (제목 검색은 실측상 0건)
+  const titleFilter = cfg.overrides.admrul_title_filter ? new RegExp(cfg.overrides.admrul_title_filter) : null;
   for (const q of cfg.overrides.admrul_queries) {
-    const items = await guarded(`admrul:${q}`, failed, async () => (await search({ target: 'admrul', query: q }, api)).items, []);
+    const items = await guarded(`admrul:${q}`, failed, async () => (await search({ target: 'admrul', query: q, search: 2 }, api)).items, []);
     for (const i of items) {
       const title = pick(i, ['행정규칙명']) ?? '';
-      if (!title || drafts.some((d) => d.source === 'admrul' && d.title === title)) continue;
+      const seq = pick(i, ['행정규칙일련번호']) ?? '';
+      const sid = pick(i, ['행정규칙ID']) ?? seq;
+      if (!title || drafts.some((d) => d.id === `admrul:${sid}`)) continue;
+      if (titleFilter && !titleFilter.test(title)) continue;
       drafts.push({
-        id: `admrul:${pick(i, ['행정규칙ID', '행정규칙일련번호'])}`,
+        id: `admrul:${sid}`,
         source: 'admrul',
-        sourceId: pick(i, ['행정규칙ID', '행정규칙일련번호']) ?? '',
+        sourceId: sid,
         title,
         kind: pick(i, ['행정규칙종류']) ?? '행정규칙',
         agency: pick(i, ['소관부처명']) ?? '',
-        url: admrulUrl(title),
+        url: seq ? admrulSeqUrl(seq) : admrulUrl(title),
         level: 'L1A_ADMRULE',
         promulgatedAt: isoDate(pick(i, ['발령일자'])),
         effectiveAt: isoDate(pick(i, ['시행일자'])),
@@ -104,7 +108,7 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
     }
   }
 
-  // 3) 자치법규 — 묶음별 검색어, 제1조(목적) 파싱용 본문 조회
+  // 3) 자치법규 — 묶음별 검색어(자치법규명), 제1조(목적) 파싱용 본문 조회
   for (const [bundle, def] of Object.entries(cfg.overrides.ordinance_bundles) as [OrdinanceBundle, (typeof cfg.overrides.ordinance_bundles)['redcross']][]) {
     for (const q of def.queries) {
       const items = await guarded(`ordin:${q}`, failed, async () => (await search({ target: 'ordin', query: q }, api)).items, []);
@@ -121,8 +125,11 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
           const list = Array.isArray(units) ? units : units ? [units] : [];
           bodyText = list.map((u) => stripTags(pick(u, ['조내용', '조문내용'])) ?? '').join('\n');
           purpose = stripTags(pick(list[0], ['조내용', '조문내용']));
+        } else if (def.requireBody) {
+          failed.push(`ordin:${q}`);
+          continue;
         }
-        if (def.requireBody && !/적십자/.test(bodyText)) continue;
+        if (def.requireBody && !/적십자/.test(`${title}\n${bodyText}`)) continue;
         drafts.push({
           id,
           source: 'ordin',
@@ -130,7 +137,7 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
           title,
           kind: pick(i, ['자치법규종류']) ?? '조례',
           agency: pick(i, ['지자체기관명']) ?? '',
-          url: ordinUrl(title),
+          url: mst ? ordinSeqUrl(mst) : ordinUrl(title),
           bundle,
           purpose,
           promulgatedAt: isoDate(pick(i, ['공포일자'])),
@@ -141,46 +148,59 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
     }
   }
 
-  // 4) 조약 — 제네바협약·추가의정서 ⚠️ trty target 실측 필요
+  // 4) 조약 — 1949년 제네바협약(제1~4협약)·추가의정서 (정정·선언·개정·유보 문서 제외)
   const treaties = await guarded('trty:제네바', failed, async () => (await search({ target: 'trty', query: '제네바' }, api)).items, []);
   for (const i of treaties) {
     const title = pick(i, ['조약명', '조약명한글']) ?? '';
-    if (!/제네바/.test(title)) continue;
+    if (!/1949년 8월 12일자 제네바협약/.test(title) || /정정|선언|개정|유보/.test(title)) continue;
+    const seq = pick(i, ['조약일련번호']) ?? '';
     drafts.push({
-      id: `trty:${pick(i, ['조약일련번호', '조약ID'])}`,
+      id: `trty:${seq}`,
       source: 'trty',
-      sourceId: pick(i, ['조약일련번호', '조약ID']) ?? '',
+      sourceId: seq,
       title,
       kind: '조약',
       agency: '외교부',
-      url: normalizeDetailLink(pick(i, ['조약상세링크'])) ?? lawUrl(title),
+      url: trtySeqUrl(seq),
       level: 'L0_TREATY',
       field: 'INT',
+      isCore: true,
       effectiveAt: isoDate(pick(i, ['발효일자'])),
     });
   }
 
-  // 5) 공공기관 규정 — 기관명 필터 ⚠️ target·필드명 실측 필요
+  // 5) 공공기관 정관·규정 (target=pi). 응답은 행정규칙 형식 필드를 쓴다.
+  //    같은 규정의 개정본이 '현행'으로 2건 이상 오는 경우가 있어, 시행일이 오늘 이전인 것 중 가장 최근 본만 남긴다.
   const piTarget = cfg.overrides.pi_target ?? 'pi';
   const pi = await guarded(`pi:${cfg.overrides.pi_agency}`, failed, async () => search({ target: piTarget, query: cfg.overrides.pi_agency }, api), null);
   let piTotal: number | null = null;
   if (pi) {
-    const own = pi.items.filter((i) => (pick(i, ['기관명', '공공기관명', '소관기관명']) ?? cfg.overrides.pi_agency).includes(cfg.overrides.pi_agency));
-    piTotal = own.length;
+    piTotal = pi.totalCnt;
+    const own = pi.items.filter((i) => (pick(i, ['소관부처명', '기관명']) ?? '').includes(cfg.overrides.pi_agency));
+    const latest = new Map<string, Json>();
     for (const i of own) {
-      const sid = pick(i, ['규정일련번호', '공공기관규정일련번호', '일련번호', 'ID']) ?? '';
-      const title = pick(i, ['규정명', '공공기관규정명', '법령명', '제목']) ?? '';
+      const title = pick(i, ['행정규칙명', '규정명']) ?? '';
+      const eff = pick(i, ['시행일자']) ?? '';
+      const cur = latest.get(title);
+      const curEff = cur ? (pick(cur, ['시행일자']) ?? '') : '';
+      const ok = (d: string) => d <= today.replace(/-/g, '');
+      if (!cur || (ok(eff) && (!ok(curEff) || eff > curEff)) || (!ok(eff) && !ok(curEff) && eff < curEff)) latest.set(title, i);
+    }
+    for (const [title, i] of latest) {
+      const link = pick(i, ['행정규칙상세링크', '상세링크']) ?? '';
+      const seq = link.match(/[?&]ID=(\d+)/)?.[1] ?? pick(i, ['행정규칙일련번호']) ?? '';
+      const sid = pick(i, ['행정규칙ID']) ?? seq;
       drafts.push({
         id: `pi:${sid}`,
         source: 'pi',
         sourceId: sid,
         title,
-        kind: /정관$/.test(title) ? '정관' : /시행규칙|세칙$/.test(title) ? '시행규칙' : /지침|요령$/.test(title) ? '지침' : '규정',
+        kind: /정관$/.test(title) ? '정관' : /(시행규칙|세칙)$/.test(title) ? '시행규칙' : /(지침|요령)$/.test(title) ? '지침' : '규정',
         agency: cfg.overrides.pi_agency,
-        url: normalizeDetailLink(pick(i, ['상세링크', '규정상세링크'])) ?? '',
-        promulgatedAt: isoDate(pick(i, ['공포일자', '제정일자'])),
+        url: piSeqUrl(seq),
+        promulgatedAt: isoDate(pick(i, ['발령일자', '공포일자'])),
         effectiveAt: isoDate(pick(i, ['시행일자'])),
-        revisionType: pick(i, ['제개정구분명', '제개정구분']),
+        revisionType: pick(i, ['제개정구분명']),
       });
     }
   }

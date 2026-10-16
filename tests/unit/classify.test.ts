@@ -55,3 +55,21 @@ describe('resolveRegion', () => {
   it('구 명칭 별칭', () => expect(resolveRegion('강원도 춘천시', sido)?.sido).toBe('강원특별자치도'));
   it('미상', () => expect(resolveRegion('알수없음', sido)).toBeUndefined());
 });
+
+describe('piParent — 실측 명명 규칙', () => {
+  const pool = [
+    { id: 'pi:a', title: '대한적십자사 정관', level: 'L3_ARTICLES' as const },
+    { id: 'pi:b', title: '대한적십자사 감사 운영규정', level: 'L4_REGULATION' as const },
+    { id: 'pi:c', title: '대한적십자사 감사 시행규칙', level: 'L5_RULE' as const },
+    { id: 'pi:d', title: '대한적십자사 보안업무 시행규칙', level: 'L5_RULE' as const },
+  ];
+  it('○○ 시행규칙 → ○○ 운영규정', () => expect(piParent(pool[2], pool, null)).toBe('pi:b'));
+  it('짝 규정 없으면 정관', () => expect(piParent(pool[3], pool, null)).toBe('pi:a'));
+});
+
+describe('resolveRegion — 통합·구 명칭', () => {
+  const merged = [{ sido: '전남광주통합특별시', short: '전남광주', code: '46', aliases: ['(구)광주광역시', '(구)전라남도', '광주광역시', '전라남도'] }];
+  it('통합특별시 하위 시군', () => expect(resolveRegion('전남광주통합특별시 강진군', merged)).toMatchObject({ sido: '전남광주통합특별시', sigungu: '강진군' }));
+  it('(구) 광역 명칭', () => expect(resolveRegion('(구)광주광역시', merged)).toMatchObject({ sido: '전남광주통합특별시', type: 'sido' }));
+  it('(구) 교육청', () => expect(resolveRegion('(구)광주광역시교육청', merged)?.type).toBe('edu'));
+});

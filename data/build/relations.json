@@ -1,92 +1,48 @@
 [
  {
-  "from": "prec:demo-01",
-  "to": "law:혈액관리법",
-  "article": "제12조",
-  "type": "CITES"
- },
- {
-  "from": "prec:demo-01",
+  "from": "detc:180931",
   "to": "law:대한적십자사 조직법",
-  "article": "제8조",
-  "type": "CITES"
- },
- {
-  "from": "prec:demo-02",
-  "to": "law:대한적십자사 조직법",
-  "article": "제14조",
-  "type": "CITES"
- },
- {
-  "from": "prec:demo-03",
-  "to": "law:대한적십자사 조직법",
-  "article": "제8조",
-  "type": "CITES"
- },
- {
-  "from": "detc:demo-05",
-  "to": "law:대한민국헌법",
-  "article": "제37조",
-  "type": "CITES"
- },
- {
-  "from": "detc:demo-05",
-  "to": "law:대한적십자사 조직법",
-  "article": "제8조",
-  "type": "CITES"
- },
- {
-  "from": "expc:demo-06",
-  "to": "law:대한적십자사 조직법",
-  "article": "제10조",
-  "type": "CITES"
- },
- {
-  "from": "expc:demo-06",
-  "to": "law:공공기관의 운영에 관한 법률",
-  "article": "제37조",
-  "type": "CITES"
- },
- {
-  "from": "cgm:demo-08",
-  "to": "law:혈액관리법",
-  "article": "제14조",
-  "type": "CITES"
- },
- {
-  "from": "cgm:demo-09",
-  "to": "law:재해구호법",
-  "article": "제4조",
-  "type": "CITES"
- },
- {
-  "from": "decc:demo-10",
-  "to": "law:대한적십자사 조직법",
-  "article": "제1조",
-  "type": "CITES"
- },
- {
-  "from": "pre:demo-11",
-  "to": "law:대한적십자사 조직법",
-  "article": "제25조",
-  "type": "CITES"
- },
- {
-  "from": "prec:demo-12",
-  "to": "law:혈액관리법",
   "article": "제6조",
   "type": "CITES"
  },
  {
-  "from": "prec:demo-12",
+  "from": "detc:180931",
   "to": "law:대한적십자사 조직법",
   "article": "제7조",
   "type": "CITES"
  },
  {
-  "from": "decc:demo-15",
-  "to": "law:혈액관리법",
-  "article": "제6조",
+  "from": "detc:180931",
+  "to": "law:대한적십자사 조직법",
+  "article": "제8조",
+  "type": "CITES"
+ },
+ {
+  "from": "detc:180931",
+  "to": "law:대한적십자사 조직법",
+  "article": "제22조",
+  "type": "CITES"
+ },
+ {
+  "from": "detc:180931",
+  "to": "law:대한적십자사 조직법",
+  "article": "제27조",
+  "type": "CITES"
+ },
+ {
+  "from": "detc:180931",
+  "to": "law:대한적십자사 조직법 시행령",
+  "article": "제2조",
+  "type": "CITES"
+ },
+ {
+  "from": "expc:329025",
+  "to": "law:대한적십자사 조직법",
+  "type": "CITES"
+ },
+ {
+  "from": "expc:331179",
+  "to": "law:대한적십자사 조직법",
   "type": "CITES"
  }
 ]

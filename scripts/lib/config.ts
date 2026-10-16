@@ -31,6 +31,8 @@ export interface Overrides {
   core_laws: CuratedLaw[];
   curated_laws: CuratedLaw[];
   admrul_queries: string[];
+  admrul_title_filter?: string;
+  admrul_parent_rules?: { pattern: string; parent: string }[];
   pi_agency: string;
   pi_target?: string;
   cgm_targets?: { ministry: string; target: string }[];

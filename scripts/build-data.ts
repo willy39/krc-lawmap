@@ -2,6 +2,7 @@
 //   npm run data            — 법제처 Open API 수집 (LAW_OC 필요)
 //   npm run data:seed       — data/seed/ 의 데모 데이터로 동일 파이프라인 실행 (키 없이 화면 확인용)
 //   옵션: --check-links     — 원문 링크 검사
+//         --initial         — 직전 스냅샷 비교 없이 변경 이력 새로 시작
 import { mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import YAML from 'yaml';
@@ -22,6 +23,8 @@ import { isVisible } from './lib/score.ts';
 const args = new Set(process.argv.slice(2));
 const SEED = args.has('--seed');
 const CHECK_LINKS = args.has('--check-links');
+// 첫 정식 수집 등 직전 스냅샷과의 비교가 의미 없을 때: 변경 이력을 새로 시작한다
+const INITIAL = args.has('--initial');
 
 interface State {
   lastRun?: string;
@@ -41,7 +44,7 @@ async function main() {
   const prevCases = readJson<CaseItem[]>(join(BUILD, 'cases.json'), []);
   const prevMeta = readJson<DatasetMeta | null>(join(BUILD, 'meta.json'), null);
   const state = readJson<State>(join(DATA, 'state.json'), {});
-  const sameMode = prevMeta?.mode === (SEED ? 'seed' : 'live');
+  const sameMode = !INITIAL && prevMeta?.mode === (SEED ? 'seed' : 'live');
 
   let normDrafts: NormDraft[];
   let caseDrafts: CaseDraft[];

@@ -38,12 +38,16 @@ export function ordinanceLevel(kind: string): Level {
  * (기관 접두어 "대한적십자사 "는 비교 시 무시)
  */
 export function piParent(item: Pick<NormItem, 'title' | 'level'>, pool: Pick<NormItem, 'id' | 'title' | 'level'>[], orgActId: string | null): string | null {
+  // 실측 명명 규칙: "대한적십자사 ○○ 운영규정" ↔ "대한적십자사 ○○ 시행규칙", "○○규정" ↔ "○○규정 시행규칙"
   const strip = (s: string) => normalizeLawName(s.replace(/^대한적십자사\s*/, ''));
+  const stem = (s: string) => strip(s).replace(/(운영규정|규정|시행규칙|시행세칙|세칙)$/, '');
   if (item.level === 'L3_ARTICLES') return orgActId;
-  const base = item.title.replace(/\s*(시행규칙|시행세칙|세칙)$/, '');
-  if (base !== item.title) {
-    const parent = pool.find((p) => p.title !== item.title && strip(p.title) === strip(base));
-    if (parent) return parent.id;
+  if (item.level === 'L5_RULE') {
+    const base = item.title.replace(/\s*(시행규칙|시행세칙|세칙)$/, '');
+    const exact = pool.find((p) => p.title !== item.title && strip(p.title) === strip(base));
+    if (exact) return exact.id;
+    const sameStem = pool.find((p) => p.level === 'L4_REGULATION' && stem(p.title) === stem(item.title));
+    if (sameStem) return sameStem.id;
   }
   const articles = pool.find((p) => p.level === 'L3_ARTICLES');
   return articles ? articles.id : null;
@@ -55,11 +59,12 @@ export function resolveRegion(
   sidoList: (RegionInfo & { aliases?: string[] })[],
 ): NormItem['region'] | undefined {
   const a = agency.replace(/\s+/g, ' ').trim();
+  const bare = a.replace(/^\(구\)/, '');
   for (const s of sidoList) {
     const names = [s.sido, ...(s.aliases ?? [])];
-    const hit = names.find((n) => a.startsWith(n));
+    const hit = names.find((n) => a.startsWith(n)) ?? names.find((n) => bare.startsWith(n));
     if (!hit) continue;
-    const rest = a.slice(hit.length).trim();
+    const rest = (a.startsWith(hit) ? a : bare).slice(hit.length).trim();
     if (/교육청/.test(rest) || /교육청$/.test(a)) return { sido: s.sido, code: s.code, type: 'edu' };
     if (rest) return { sido: s.sido, sigungu: rest, code: s.code, type: 'sigungu' };
     return { sido: s.sido, code: s.code, type: 'sido' };

@@ -9,21 +9,29 @@ export const lawArticleUrl = (name: string, article: string) => `${LAW}/법령/$
 export const admrulUrl = (name: string) => `${LAW}/행정규칙/${enc(name)}`;
 export const ordinUrl = (name: string) => `${LAW}/자치법규/${enc(name)}`;
 
-const CASE_PATH: Record<string, string> = {
-  prec: '판례',
-  detc: '헌재결정례',
-  expc: '법령해석례',
-  decc: '행정심판례',
+// 일련번호 기반 상세 화면 (P0 실측: 판례 등은 '사건번호' 한글주소가 동작하지 않아 일련번호 화면을 쓴다)
+const seqUrl = (page: string, param: string) => (seq: string) => `${LAW}/LSW/${page}?${param}=${enc(seq)}`;
+export const admrulSeqUrl = seqUrl('admRulInfoP.do', 'admRulSeq');
+export const ordinSeqUrl = seqUrl('ordinInfoP.do', 'ordinSeq');
+export const trtySeqUrl = seqUrl('trtyInfoP.do', 'trtySeq');
+export const piSeqUrl = seqUrl('schlPubRulInfoP.do', 'schlPubRulSeq');
+
+const CASE_SEQ: Partial<Record<string, (seq: string) => string>> = {
+  prec: seqUrl('precInfoP.do', 'precSeq'),
+  detc: seqUrl('detcInfoP.do', 'detcSeq'),
+  expc: seqUrl('expcInfoP.do', 'expcSeq'),
+  decc: seqUrl('deccInfoP.do', 'deccSeq'),
+  cgm: seqUrl('cgmExpcInfoR.do', 'cgmExpcDatSeq'),
 };
 
-export function caseUrl(source: string, docNo: string): string | undefined {
-  const p = CASE_PATH[source];
-  return p && docNo ? `${LAW}/${p}/(${enc(docNo)})` : undefined;
+export function caseUrl(source: string, seq: string): string | undefined {
+  const f = CASE_SEQ[source];
+  return f && seq ? f(seq) : undefined;
 }
 
-/** "law.go.kr에서 더 찾기" — 통합검색 딥링크 */
+/** "law.go.kr에서 더 찾기" — 판례 검색 화면 딥링크 */
 export function moreSearchUrl(query: string): string {
-  return `${LAW}/LSW/totalSearch.do?query=${enc(query)}`;
+  return `${LAW}/LSW/precSc.do?query=${enc(query)}`;
 }
 
 export function withBase(path: string): string {

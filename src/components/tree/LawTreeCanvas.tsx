@@ -47,7 +47,7 @@ export function LawTreeCanvas() {
   const router = useRouter();
   const roots = useMemo(() => buildTree(norms), [norms]);
   const constitution = roots.find((r) => r.norm?.level === 'L0_CONSTITUTION');
-  const treaty = roots.find((r) => r.norm?.level === 'L0_TREATY');
+  const treaties = roots.filter((r) => r.norm?.level === 'L0_TREATY');
 
   const layout = useMemo(() => {
     const top: VNode = {
@@ -217,11 +217,19 @@ export function LawTreeCanvas() {
                 <tspan className="hover:underline">{constitution.norm.title} ↗</tspan>
               </a>
             )}
-            {treaty?.norm && (
+            {treaties.length === 1 && treaties[0].norm && (
               <>
                 <tspan dx={6}> · </tspan>
-                <a href={treaty.norm.url} target="_blank" rel="noopener noreferrer">
-                  <tspan className="hover:underline">{treaty.norm.title} ↗</tspan>
+                <a href={treaties[0].norm.url} target="_blank" rel="noopener noreferrer">
+                  <tspan className="hover:underline">{treaties[0].norm.title} ↗</tspan>
+                </a>
+              </>
+            )}
+            {treaties.length > 1 && (
+              <>
+                <tspan dx={6}> · </tspan>
+                <a href={withBase('/list/?source=trty')}>
+                  <tspan className="hover:underline">제네바협약·추가의정서 {treaties.length}건</tspan>
                 </a>
               </>
             )}

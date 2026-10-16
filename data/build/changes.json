@@ -1,76 +1,153 @@
 {
- "generatedAt": "2026-10-16T03:14:58.377Z",
+ "generatedAt": "2026-10-16T05:21:29.091Z",
  "previousGeneratedAt": null,
  "entries": [
   {
    "kind": "NORM_ADDED",
-   "id": "pi:demo-19",
-   "title": "개인정보 보호규정",
-   "date": "2026-10-01",
-   "detail": "규정"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "pi:demo-10",
-   "title": "임직원 행동강령",
-   "date": "2026-09-20",
-   "detail": "규정"
-  },
-  {
-   "kind": "CASE_ADDED",
-   "id": "prec:demo-12",
-   "title": "[예시] 혈액원 업무위탁 계약 관련 분쟁",
-   "date": "2026-09-03",
-   "detail": "대법원"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:demo-08",
-   "title": "대전광역시 헌혈 장려 및 지원에 관한 조례(예시)",
-   "date": "2026-09-01",
+   "id": "ordin:2188956",
+   "title": "부산광역시 강서구 헌혈 권장에 관한 조례",
+   "date": "2026-10-06",
    "detail": "조례"
   },
   {
    "kind": "NORM_ADDED",
-   "id": "pi:demo-02",
-   "title": "인사규정",
-   "date": "2026-08-01",
-   "detail": "규정"
+   "id": "law:공공기관의 운영에 관한 법률",
+   "title": "공공기관의 운영에 관한 법률",
+   "date": "2026-10-02",
+   "detail": "법률"
   },
   {
    "kind": "NORM_ADDED",
-   "id": "pi:demo-03",
-   "title": "인사규정 시행규칙",
-   "date": "2026-08-01",
-   "detail": "시행규칙"
+   "id": "ordin:2162289",
+   "title": "충주시 헌혈권장 조례",
+   "date": "2026-10-02",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2211654",
+   "title": "대전광역시 서구 노루벌적십자생태원 관리 및 운영 조례",
+   "date": "2026-10-01",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2153026",
+   "title": "정선군 헌혈 장려 조례",
+   "date": "2026-09-18",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2053484",
+   "title": "대전광역시 헌혈 권장 조례",
+   "date": "2026-08-31",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2112022",
+   "title": "인천광역시 헌혈 권장에 관한 조례",
+   "date": "2026-08-24",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2209139",
+   "title": "부산광역시 북구 대한적십자사봉사회 활동 지원에 관한 조례",
+   "date": "2026-08-19",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2146210",
+   "title": "울산광역시 헌혈 권장 조례",
+   "date": "2026-08-13",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2211176",
+   "title": "완주군 대한적십자사봉사회 활동 지원 조례",
+   "date": "2026-08-10",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2174490",
+   "title": "화순군 헌혈 장려에 관한 조례",
+   "date": "2026-08-10",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2166588",
+   "title": "의왕시 헌혈 장려 및 지원 조례",
+   "date": "2026-08-06",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2023472",
+   "title": "거창군 헌혈장려 조례",
+   "date": "2026-08-05",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2061892",
+   "title": "부산광역시 동구 헌혈 권장에 관한 조례",
+   "date": "2026-07-31",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2189173",
+   "title": "함평군 대한적십자사 활동 지원에 관한 조례",
+   "date": "2026-07-31",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "admrul:97804",
+   "title": "중앙합동재난피해자지원센터 설치 및 운영 등에 관한 규정",
+   "date": "2026-07-22",
+   "detail": "훈령"
   },
   {
    "kind": "CASE_ADDED",
-   "id": "pre:demo-11",
-   "title": "[예시] 대한적십자사 표장 사용 승인 선례",
-   "date": "2025-02-10",
-   "detail": "보건복지부"
+   "id": "detc:180931",
+   "title": "대한적십자사 조직법  제8조  위헌확인 등",
+   "date": "2023-02-23",
+   "detail": "헌법재판소"
   },
   {
    "kind": "CASE_ADDED",
-   "id": "decc:demo-15",
-   "title": "[예시] 혈액원 개설 허가 관련 재결",
-   "date": "2024-10-07",
-   "detail": "중앙행정심판위원회"
-  },
-  {
-   "kind": "CASE_ADDED",
-   "id": "cgm:demo-08",
-   "title": "[예시] 헌혈 증서 사용 범위 질의",
-   "date": "2024-04-18",
-   "detail": "보건복지부"
-  },
-  {
-   "kind": "CASE_ADDED",
-   "id": "expc:demo-06",
-   "title": "[예시] 대한적십자사 임원 겸직 제한 해석",
-   "date": "2023-06-02",
+   "id": "expc:329025",
+   "title": "보건복지부 - 무상으로 사용ㆍ수익할 수 있는 국유재산 및 공유재산의 범위(「대한적십자사 조직법」 제23조 등 관련)",
+   "date": "2020-03-20",
    "detail": "법제처"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "expc:331179",
+   "title": "보건복지부 - 무상으로 사용ㆍ수익할 수 있는 국유재산 및 공유재산의 범위(「대한적십자사 조직법」 제23조 등 관련)",
+   "date": "2020-03-20",
+   "detail": "법제처"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "detc:52981",
+   "title": "대한적십자사 조직법 제14조 제1항 등 위헌소원",
+   "date": "2016-12-13",
+   "detail": "헌법재판소"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "detc:46947",
+   "title": "대한적십자사 조직법 제14조 제1항 등 위헌소원",
+   "date": "2015-07-07",
+   "detail": "헌법재판소"
   }
  ]
 }

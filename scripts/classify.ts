@@ -77,11 +77,12 @@ export function classifyNorms(drafts: NormDraft[], cfg: Config, today = new Date
         item.parentId = ordinanceParent(d.purpose, item.bundle ?? 'etc', laws, bundleDefaults);
         break;
       case 'admrul': {
-        // 행정규칙은 제목에 포함된 큐레이션 법령명을 부모로 (없으면 미지정)
+        // 제목에 큐레이션 법령명이 있으면 그 법령, 없으면 overrides.yaml 키워드 규칙
         const law = laws
           .filter((l) => l.level !== 'L0_CONSTITUTION' && normalizeLawName(item.title).includes(normalizeLawName(l.title)))
           .sort((a, b) => b.title.length - a.title.length)[0];
-        item.parentId = law?.id ?? null;
+        const rule = cfg.overrides.admrul_parent_rules?.find((r) => new RegExp(r.pattern).test(item.title));
+        item.parentId = law?.id ?? (rule ? (byName.get(normalizeLawName(rule.parent)) ?? null) : null);
         break;
       }
     }

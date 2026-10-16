@@ -14,11 +14,24 @@ curated_laws:
   - { name: 재해구호법, field: DIS, isCore: true }
   - { name: 공공기관의 운영에 관한 법률, field: ORG, isCore: true }
 
-# 행정규칙 검색어 (admrul)
-admrul_queries: [적십자, 혈액관리]
+# 행정규칙 검색어 (admrul, 본문 검색) — 본문에만 기관명이 스치는 고시가 많아 제목 키워드로 한 번 더 거른다
+admrul_queries: [대한적십자사, 혈액원]
+admrul_title_filter: "적십자|혈액|헌혈|수혈|채혈|혈장|이산가족|인도법|사할린|재해위문|재난피해자|구호"
+# 행정규칙 상위 법령: 제목 키워드 → 큐레이션 법령 (위에서부터 첫 일치)
+admrul_parent_rules:
+  - { pattern: "혈액|헌혈|수혈|채혈|혈장", parent: 혈액관리법 }
+  - { pattern: "재해|재난|구호", parent: 재해구호법 }
+  - { pattern: "적십자|인도법", parent: 대한적십자사 조직법 }
 
-# 공공기관 규정 기관명 필터 (pi)
+# 공공기관 정관·규정 (target=pi, 소관부처명으로 필터) — P0 실측 확인
 pi_agency: 대한적십자사
+pi_target: pi
+
+# 중앙부처 1차 해석 target (P0 실측: {부처약어}CgmExpc 형식 동작 확인)
+cgm_targets:
+  - { ministry: 보건복지부, target: mohwCgmExpc }
+  - { ministry: 행정안전부, target: moisCgmExpc }
+  - { ministry: 고용노동부, target: moelCgmExpc }
 
 # 자치법규 묶음별 검색어·기본 부모 (설계서 3.2)
 ordinance_bundles:

@@ -41,7 +41,7 @@ export default function AboutPage() {
           {m.apiTotalCnt.pi !== null && (
             <>
               <dt className="text-muted">기관규정 API 총건수</dt>
-              <dd>{m.apiTotalCnt.pi}건</dd>
+              <dd>{m.apiTotalCnt.pi}건 (같은 규정의 개정본 중복 포함 · 명칭별 최신 시행본 {m.counts.norms.pi}건 표시)</dd>
             </>
           )}
         </dl>

@@ -6,7 +6,9 @@
 - **해석·적용 축 (판례·해석 라이브러리)**: 판례 · 헌재결정례 · 법령해석례 · 중앙부처 1차 해석 · 결정선례 · 행정심판례
 - **연결**: 참조조문 파싱(조문 단위) + 담당자 지정으로 규범 ↔ 판례·해석 연결
 
-> ⚠️ 현재 저장소의 `data/build` 는 **데모(시드) 데이터**입니다. ‘예시’ 표시 항목의 명칭·일자·사건번호는 실제가 아닙니다. 법제처 Open API 인증키(OC)를 발급받아 `npm run data` 를 실행하면 실제 데이터로 바뀝니다.
+> 데이터: 법제처 국가법령정보 공동활용 Open API로 수집한 **실제 데이터** (기준일은 화면 헤더·`data/build/meta.json` 참조).
+> 판례·해석은 관련성 점수 70점 이상(자동분류) 또는 담당자 승인 항목만 노출되며, 40–69점 후보는 `data/build/review-queue.json` 에서 검수를 기다립니다 → [docs/review-guide.md](docs/review-guide.md)
+> 키 없이 화면만 확인하려면 `npm run data:seed` 로 데모 데이터를 빌드할 수 있습니다(‘예시’ 표시).
 
 ## 화면
 
@@ -39,7 +41,6 @@ src/                Next.js(static export) + Tailwind + d3-hierarchy
 
 ```bash
 npm ci
-npm run data:seed     # 데모 데이터로 data/build 생성
 npm run dev           # http://localhost:3000
 npm run lint && npm test && npm run build   # out/ 정적 산출물
 ```
@@ -57,7 +58,7 @@ npm run data -- --check-links
 
 ### GitHub Pages
 `main` 에 push 하면 [.github/workflows/pages.yml](.github/workflows/pages.yml) 이 `NEXT_PUBLIC_BASE_PATH=/<저장소명>` 으로 빌드해 배포합니다.
-주간 수집은 [refresh-data.yml](.github/workflows/refresh-data.yml) (매주 월 06:00 KST) — 저장소 Secret `LAW_OC` 설정 시 동작하며, 결과를 PR로 올립니다.
+주간 수집은 [refresh-data.yml](.github/workflows/refresh-data.yml) (매주 월 06:00 KST) — 저장소 Secret `LAW_OC`(등록됨)로 수집해 결과를 PR로 올립니다. 클라우드 IP가 차단되면 [docs/manual-refresh.md](docs/manual-refresh.md) 절차를 따르세요.
 
 ### 내부 서버 (Docker)
 

@@ -63,3 +63,20 @@ describe('parsePurposeParents', () => {
     expect(parsePurposeParents('이 조례는 주민 복리 증진을 목적으로 한다.')).toEqual([]);
   });
 });
+
+describe('붙어 있는 다중 법령 (헌재 참조조문 형식)', () => {
+  it('구분자 없이 이어진 법령·조문', () => {
+    expect(
+      parseCitations('대한적십자사 조직법(2015. 12. 29. 법률 제13648호로 개정된 것) 제6조, 제8조 제1항, 제4항, 제27조개인정보 보호법(2020. 2. 4. 법률 제16930호로 개정된 것) 제18조구 대한적십자사 조직법 시행령(2017. 1. 1. 대통령령 제1호) 제2조'),
+    ).toEqual([
+      { lawName: '대한적십자사 조직법', article: '제6조' },
+      { lawName: '대한적십자사 조직법', article: '제8조' },
+      { lawName: '대한적십자사 조직법', article: '제27조' },
+      { lawName: '개인정보 보호법', article: '제18조' },
+      { lawName: '대한적십자사 조직법 시행령', article: '제2조' },
+    ]);
+  });
+  it('조문+항 붙임 (관련법령 필드)', () => {
+    expect(parseCitations('의료법 제27조제3항')).toEqual([{ lawName: '의료법', article: '제27조' }]);
+  });
+});
