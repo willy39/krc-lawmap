@@ -8,6 +8,8 @@ export const metadata: Metadata = { title: '서비스 안내' };
 
 export default function AboutPage() {
   const m = getMeta();
+  const auto = m.relevance?.auto ?? 70;
+  const cand = m.relevance?.candidate ?? 40;
   return (
     <div className="mx-auto max-w-3xl space-y-8 leading-relaxed">
       <section>
@@ -53,7 +55,7 @@ export default function AboutPage() {
         </p>
         <ul className="list-disc space-y-1 pl-5 text-sm">
           <li>참조조문에 대한적십자사 조직법·시행령 포함 +50 / 사건명·안건명에 기관명 +40 / 당사자·질의기관이 대한적십자사 +40 / 큐레이션 관련 법률 인용 +25 / 본문에만 기관명 등장 +10 (상한 100)</li>
-          <li>70점 이상은 ‘자동분류’ 표시와 함께 노출, 40–69점은 검수 대기(비노출), 담당자가 승인한 자료는 노출, 제외한 자료는 어떤 경우에도 비노출</li>
+          <li>{auto}점 이상은 ‘자동분류’ 표시와 함께 노출, {cand}–{auto - 1}점은 검수 대기(비노출), 담당자가 승인한 자료는 노출, 제외한 자료는 어떤 경우에도 비노출</li>
           <li>요지는 600자 이내로 발췌하며 전문은 원문 링크로 연결합니다.</li>
         </ul>
       </section>

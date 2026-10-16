@@ -22,9 +22,10 @@ export function HierarchyTree({ compact = false }: { compact?: boolean }) {
   const focusId = params?.get('focus') ?? null;
 
   const [open, setOpen] = useState<Set<string>>(() => {
-    // 기본: 2단계까지 펼침
+    // 기본: 체계트리는 규정–시행규칙까지 모두 펼침, 모바일 홈(compact)은 2단계까지
     const s = new Set<string>();
-    const walk = (ns: TreeNode[], d: number) => ns.forEach((n) => d < 2 && (s.add(n.key), walk(n.children, d + 1)));
+    const depth = compact ? 2 : Infinity;
+    const walk = (ns: TreeNode[], d: number) => ns.forEach((n) => d < depth && (s.add(n.key), walk(n.children, d + 1)));
     walk(tree, 0);
     return s;
   });

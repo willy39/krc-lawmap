@@ -1,5 +1,53 @@
 [
  {
+  "from": "prec:68664",
+  "to": "law:혈액관리법",
+  "article": "제19조",
+  "type": "CITES"
+ },
+ {
+  "from": "prec:116312",
+  "to": "law:혈액관리법",
+  "article": "제4조",
+  "type": "CITES"
+ },
+ {
+  "from": "prec:116312",
+  "to": "law:혈액관리법",
+  "article": "제8조",
+  "type": "CITES"
+ },
+ {
+  "from": "prec:112374",
+  "to": "law:혈액관리법",
+  "article": "제4조",
+  "type": "CITES"
+ },
+ {
+  "from": "prec:112374",
+  "to": "law:혈액관리법",
+  "article": "제8조",
+  "type": "CITES"
+ },
+ {
+  "from": "prec:206760",
+  "to": "law:혈액관리법",
+  "article": "제7조",
+  "type": "CITES"
+ },
+ {
+  "from": "prec:206760",
+  "to": "law:혈액관리법",
+  "article": "제9조",
+  "type": "CITES"
+ },
+ {
+  "from": "prec:206760",
+  "to": "law:혈액관리법",
+  "article": "제11조의2",
+  "type": "CITES"
+ },
+ {
   "from": "detc:180931",
   "to": "law:대한적십자사 조직법",
   "article": "제6조",

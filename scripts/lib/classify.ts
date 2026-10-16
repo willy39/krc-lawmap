@@ -37,11 +37,24 @@ export function ordinanceLevel(kind: string): Level {
  * 기관규정 부모 판정: "○○규정 시행규칙" → "○○규정", 그 외 규정 → 정관, 정관 → 조직법
  * (기관 접두어 "대한적십자사 "는 비교 시 무시)
  */
-export function piParent(item: Pick<NormItem, 'title' | 'level'>, pool: Pick<NormItem, 'id' | 'title' | 'level'>[], orgActId: string | null): string | null {
-  // 실측 명명 규칙: "대한적십자사 ○○ 운영규정" ↔ "대한적십자사 ○○ 시행규칙", "○○규정" ↔ "○○규정 시행규칙"
+export function piParent(
+  item: Pick<NormItem, 'title' | 'level'>,
+  pool: Pick<NormItem, 'id' | 'title' | 'level'>[],
+  orgActId: string | null,
+  purpose?: string,
+): string | null {
   const strip = (s: string) => normalizeLawName(s.replace(/^대한적십자사\s*/, ''));
   const stem = (s: string) => strip(s).replace(/(운영규정|규정|시행규칙|시행세칙|세칙)$/, '');
+  const articles = pool.find((p) => p.level === 'L3_ARTICLES');
   if (item.level === 'L3_ARTICLES') return orgActId;
+
+  // 1) 제1조(목적)의 「」 인용 — 예: 「감사 운영규정」, 「직원 운영규정」, 「대한적십자사 정관」
+  for (const name of parsePurposeParents(purpose)) {
+    const hit = pool.find((p) => p.title !== item.title && strip(p.title) === strip(name));
+    if (hit) return hit.id;
+    if (/정관$/.test(name) && articles) return articles.id;
+  }
+  // 2) 명명 규칙: "○○규정 시행규칙" → "○○규정", "○○ 시행규칙" ↔ "○○ 운영규정"
   if (item.level === 'L5_RULE') {
     const base = item.title.replace(/\s*(시행규칙|시행세칙|세칙)$/, '');
     const exact = pool.find((p) => p.title !== item.title && strip(p.title) === strip(base));
@@ -49,7 +62,7 @@ export function piParent(item: Pick<NormItem, 'title' | 'level'>, pool: Pick<Nor
     const sameStem = pool.find((p) => p.level === 'L4_REGULATION' && stem(p.title) === stem(item.title));
     if (sameStem) return sameStem.id;
   }
-  const articles = pool.find((p) => p.level === 'L3_ARTICLES');
+  // 3) 기본: 정관
   return articles ? articles.id : null;
 }
 

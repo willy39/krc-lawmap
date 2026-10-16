@@ -88,6 +88,8 @@ export interface DatasetMeta {
   apiTotalCnt: { pi: number | null };
   brokenLinks: number;
   unverifiedLinks: number;
+  /** 판례·해석 노출 기준 (data/relevance.yaml) */
+  relevance?: { auto: number; candidate: number };
 }
 
 export interface ChangeEntry {

@@ -1,153 +1,209 @@
 {
- "generatedAt": "2026-10-16T05:21:29.091Z",
- "previousGeneratedAt": null,
+ "generatedAt": "2026-10-16T08:31:54.776Z",
+ "previousGeneratedAt": "2026-10-16T05:21:29.091Z",
  "entries": [
   {
    "kind": "NORM_ADDED",
-   "id": "ordin:2188956",
-   "title": "부산광역시 강서구 헌혈 권장에 관한 조례",
-   "date": "2026-10-06",
+   "id": "ordin:2268379",
+   "title": "인천광역시 검단구 대한적십자사 봉사회 활동 지원에 관한 조례",
+   "date": "2026-10-14",
    "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "law:공공기관의 운영에 관한 법률",
-   "title": "공공기관의 운영에 관한 법률",
-   "date": "2026-10-02",
-   "detail": "법률"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2162289",
-   "title": "충주시 헌혈권장 조례",
-   "date": "2026-10-02",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2211654",
-   "title": "대전광역시 서구 노루벌적십자생태원 관리 및 운영 조례",
-   "date": "2026-10-01",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2153026",
-   "title": "정선군 헌혈 장려 조례",
-   "date": "2026-09-18",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2053484",
-   "title": "대전광역시 헌혈 권장 조례",
-   "date": "2026-08-31",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2112022",
-   "title": "인천광역시 헌혈 권장에 관한 조례",
-   "date": "2026-08-24",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2209139",
-   "title": "부산광역시 북구 대한적십자사봉사회 활동 지원에 관한 조례",
-   "date": "2026-08-19",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2146210",
-   "title": "울산광역시 헌혈 권장 조례",
-   "date": "2026-08-13",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2211176",
-   "title": "완주군 대한적십자사봉사회 활동 지원 조례",
-   "date": "2026-08-10",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2174490",
-   "title": "화순군 헌혈 장려에 관한 조례",
-   "date": "2026-08-10",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2166588",
-   "title": "의왕시 헌혈 장려 및 지원 조례",
-   "date": "2026-08-06",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2023472",
-   "title": "거창군 헌혈장려 조례",
-   "date": "2026-08-05",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2061892",
-   "title": "부산광역시 동구 헌혈 권장에 관한 조례",
-   "date": "2026-07-31",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "ordin:2189173",
-   "title": "함평군 대한적십자사 활동 지원에 관한 조례",
-   "date": "2026-07-31",
-   "detail": "조례"
-  },
-  {
-   "kind": "NORM_ADDED",
-   "id": "admrul:97804",
-   "title": "중앙합동재난피해자지원센터 설치 및 운영 등에 관한 규정",
-   "date": "2026-07-22",
-   "detail": "훈령"
   },
   {
    "kind": "CASE_ADDED",
-   "id": "detc:180931",
-   "title": "대한적십자사 조직법  제8조  위헌확인 등",
-   "date": "2023-02-23",
+   "id": "prec:615695",
+   "title": "임금·임금·임금",
+   "date": "2025-08-28",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "detc:169013",
+   "title": "수용자 헌혈금지 등 위헌확인",
+   "date": "2021-09-28",
    "detail": "헌법재판소"
   },
   {
    "kind": "CASE_ADDED",
-   "id": "expc:329025",
-   "title": "보건복지부 - 무상으로 사용ㆍ수익할 수 있는 국유재산 및 공유재산의 범위(「대한적십자사 조직법」 제23조 등 관련)",
-   "date": "2020-03-20",
-   "detail": "법제처"
+   "id": "decc:252079",
+   "title": "정보공개 거부처분 취소청구",
+   "date": "2010-06-29",
+   "detail": "국민권익위원회"
   },
   {
    "kind": "CASE_ADDED",
-   "id": "expc:331179",
-   "title": "보건복지부 - 무상으로 사용ㆍ수익할 수 있는 국유재산 및 공유재산의 범위(「대한적십자사 조직법」 제23조 등 관련)",
-   "date": "2020-03-20",
-   "detail": "법제처"
+   "id": "prec:68664",
+   "title": "업무상과실치상·혈액관리법위반",
+   "date": "2007-05-10",
+   "detail": "대법원"
   },
   {
    "kind": "CASE_ADDED",
-   "id": "detc:52981",
-   "title": "대한적십자사 조직법 제14조 제1항 등 위헌소원",
-   "date": "2016-12-13",
-   "detail": "헌법재판소"
+   "id": "decc:247409",
+   "title": "국가유공자등록거부처분취소청구",
+   "date": "2006-04-04",
+   "detail": "국민권익위원회"
   },
   {
    "kind": "CASE_ADDED",
-   "id": "detc:46947",
-   "title": "대한적십자사 조직법 제14조 제1항 등 위헌소원",
-   "date": "2015-07-07",
-   "detail": "헌법재판소"
+   "id": "prec:83804",
+   "title": "구상금등",
+   "date": "2005-04-28",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "decc:232343",
+   "title": "진폐관리구분재심사청구기각결정처분취소청구",
+   "date": "2003-08-11",
+   "detail": "국민권익위원회"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:81760",
+   "title": "노동조합결의처분시정명령취소",
+   "date": "2002-07-26",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "decc:18071",
+   "title": "상이등급구분신체검사등외판정처분취소청구",
+   "date": "2001-04-09",
+   "detail": "국민권익위원회"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "decc:15168",
+   "title": "국가유공자등록거부처분취소청구",
+   "date": "1998-07-10",
+   "detail": "국민권익위원회"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:116312",
+   "title": "손해배상(의)",
+   "date": "1998-02-13",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:115570",
+   "title": "국가보안법위반{간첩(일부 인정된 죄명 : 회합·통신등)·잠입·탈출·회합·통신등·금품수수}",
+   "date": "1997-07-25",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "decc:3049",
+   "title": "의사면허자격정지처분취소청구",
+   "date": "1997-05-16",
+   "detail": "국민권익위원회"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:112374",
+   "title": "손해배상(의)",
+   "date": "1995-08-25",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:111799",
+   "title": "취득세부과처분취소·종합토지세등부과처분취소",
+   "date": "1995-04-14",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:199981",
+   "title": "손해배상(자)",
+   "date": "1994-09-13",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:119707",
+   "title": "손해배상(의)",
+   "date": "1993-12-22",
+   "detail": "서울지방법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:123489",
+   "title": "업무상과실치상",
+   "date": "1993-07-27",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:203369",
+   "title": "손해배상(기)",
+   "date": "1992-04-14",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:118939",
+   "title": "손해배상(의)",
+   "date": "1990-12-05",
+   "detail": "부산지방법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:106886",
+   "title": "손해배상(기)",
+   "date": "1990-06-12",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:100351",
+   "title": "양도소득세부과처분취소",
+   "date": "1985-04-09",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:206760",
+   "title": "종합소득세부과처분취소",
+   "date": "1984-12-11",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:75652",
+   "title": "사망급여금청구사건",
+   "date": "1984-03-08",
+   "detail": "서울민사지방법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:74624",
+   "title": "손해배상청구사건",
+   "date": "1979-02-28",
+   "detail": "대구고등법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:207270",
+   "title": "손해배상",
+   "date": "1976-09-14",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:150418",
+   "title": "건물철거등",
+   "date": "1962-04-12",
+   "detail": "대법원"
+  },
+  {
+   "kind": "CASE_ADDED",
+   "id": "prec:385900",
+   "title": "유족급여및장의비부지급처분취소",
+   "date": "0001-01-01",
+   "detail": "근로복지공단산재판례"
   }
  ]
 }

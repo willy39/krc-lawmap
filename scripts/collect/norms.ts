@@ -190,8 +190,17 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
       const link = pick(i, ['행정규칙상세링크', '상세링크']) ?? '';
       const seq = link.match(/[?&]ID=(\d+)/)?.[1] ?? pick(i, ['행정규칙일련번호']) ?? '';
       const sid = pick(i, ['행정규칙ID']) ?? seq;
+      // 제1조(목적)의 「」 인용으로 상위 규정을 판정한다 (예: "이 시행규칙은 「감사 운영규정」에서 위임된 사항…")
+      let purpose: string | undefined;
+      const detail = await service(piTarget, seq, api).catch(() => null);
+      if (detail) {
+        const arts = detail['조문내용'];
+        const list = (Array.isArray(arts) ? arts : arts ? [arts] : []).map((a) => (typeof a === 'string' ? a : (pick(a as Json, ['조문내용', 'content']) ?? '')));
+        purpose = stripTags(list.find((a) => /^\s*제1조/.test(a)));
+      }
       drafts.push({
         id: `pi:${sid}`,
+        purpose,
         source: 'pi',
         sourceId: sid,
         title,

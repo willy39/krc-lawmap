@@ -71,7 +71,7 @@ export function classifyNorms(drafts: NormDraft[], cfg: Config, today = new Date
         item.parentId = null;
         break;
       case 'pi':
-        item.parentId = piParent(item, pis, orgAct);
+        item.parentId = piParent(item, pis, orgAct, d.purpose);
         break;
       case 'ordin':
         item.parentId = ordinanceParent(d.purpose, item.bundle ?? 'etc', laws, bundleDefaults);

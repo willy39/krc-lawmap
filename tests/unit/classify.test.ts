@@ -73,3 +73,15 @@ describe('resolveRegion — 통합·구 명칭', () => {
   it('(구) 광역 명칭', () => expect(resolveRegion('(구)광주광역시', merged)).toMatchObject({ sido: '전남광주통합특별시', type: 'sido' }));
   it('(구) 교육청', () => expect(resolveRegion('(구)광주광역시교육청', merged)?.type).toBe('edu'));
 });
+
+describe('piParent — 제1조(목적) 인용', () => {
+  const pool = [
+    { id: 'pi:a', title: '대한적십자사 정관', level: 'L3_ARTICLES' as const },
+    { id: 'pi:r', title: '대한적십자사 직원 운영규정', level: 'L4_REGULATION' as const },
+    { id: 'pi:x', title: '대한적십자사 인사관리 시행규칙', level: 'L5_RULE' as const },
+  ];
+  it('「직원 운영규정」에서 위임 → 직원 운영규정', () =>
+    expect(piParent(pool[2], pool, null, '제1조(목적) 본 시행규칙은 「직원 운영규정」에서 위임된 사항…')).toBe('pi:r'));
+  it('「대한적십자사 정관」 인용 → 정관', () => expect(piParent(pool[1], pool, null, '「대한적십자사 정관」 제30조에 따라')).toBe('pi:a'));
+  it('인용 없으면 명명 규칙·정관', () => expect(piParent(pool[2], pool, null, '제1조(목적) 이 시행규칙은 민원사무를…')).toBe('pi:a'));
+});

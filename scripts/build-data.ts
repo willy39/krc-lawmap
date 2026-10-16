@@ -152,6 +152,7 @@ async function main() {
     apiTotalCnt: { pi: piTotal },
     brokenLinks: broken.length,
     unverifiedLinks: unverified.length,
+    relevance: cfg.relevance.threshold,
   };
 
   let changes = diffSnapshots(

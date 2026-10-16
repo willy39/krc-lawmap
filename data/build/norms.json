@@ -1805,7 +1805,7 @@
   ],
   "url": "https://www.law.go.kr/법령/%ED%98%88%EC%95%A1%EA%B4%80%EB%A6%AC%EB%B2%95",
   "isCore": true,
-  "caseCount": 0,
+  "caseCount": 4,
   "flags": []
  },
  {
@@ -1979,7 +1979,7 @@
   "secondaryFields": [
    "HR"
   ],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140523",
   "agency": "대한적십자사",
   "promulgatedAt": "2026-01-01",
   "effectiveAt": "2026-01-01",
@@ -2041,7 +2041,7 @@
   "level": "L4_REGULATION",
   "primaryField": "HR",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140523",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-01-01",
   "effectiveAt": "2025-01-01",
@@ -2224,7 +2224,7 @@
    "PAY",
    "FIN"
   ],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140525",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-04-01",
   "effectiveAt": "2025-04-01",
@@ -2390,7 +2390,7 @@
   "level": "L5_RULE",
   "primaryField": "HR",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140523",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-04-01",
   "effectiveAt": "2025-04-01",
@@ -2412,7 +2412,7 @@
   "secondaryFields": [
    "MED"
   ],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140525",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-04-01",
   "effectiveAt": "2025-04-01",
@@ -2454,7 +2454,7 @@
   "level": "L5_RULE",
   "primaryField": "FIN",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140525",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-01-01",
   "effectiveAt": "2025-01-01",
@@ -2494,7 +2494,7 @@
   "level": "L5_RULE",
   "primaryField": "FIN",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140525",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-04-01",
   "effectiveAt": "2025-04-01",
@@ -2514,7 +2514,7 @@
   "level": "L5_RULE",
   "primaryField": "PAY",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140523",
   "agency": "대한적십자사",
   "promulgatedAt": "2026-01-01",
   "effectiveAt": "2026-01-01",
@@ -2596,7 +2596,7 @@
   "secondaryFields": [
    "ORG"
   ],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2137271",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-04-01",
   "effectiveAt": "2025-04-01",
@@ -2676,7 +2676,7 @@
   "level": "L5_RULE",
   "primaryField": "VOL",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140563",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-04-01",
   "effectiveAt": "2025-04-01",
@@ -2756,7 +2756,7 @@
   "level": "L5_RULE",
   "primaryField": "DIS",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140563",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-01-01",
   "effectiveAt": "2025-01-01",
@@ -2818,7 +2818,7 @@
   "level": "L5_RULE",
   "primaryField": "HR",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140523",
   "agency": "대한적십자사",
   "promulgatedAt": "2026-01-01",
   "effectiveAt": "2026-01-01",
@@ -2882,7 +2882,7 @@
   "secondaryFields": [
    "ORG"
   ],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2137271",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-01-01",
   "effectiveAt": "2025-01-01",
@@ -2904,7 +2904,7 @@
   "secondaryFields": [
    "PAY"
   ],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140565",
   "agency": "대한적십자사",
   "promulgatedAt": "2026-01-01",
   "effectiveAt": "2026-01-01",
@@ -2924,7 +2924,7 @@
   "level": "L5_RULE",
   "primaryField": "INT",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140563",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-01-01",
   "effectiveAt": "2025-01-01",
@@ -2944,7 +2944,7 @@
   "level": "L5_RULE",
   "primaryField": "HR",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140523",
   "agency": "대한적십자사",
   "promulgatedAt": "2026-01-01",
   "effectiveAt": "2026-01-01",
@@ -2986,7 +2986,7 @@
   "level": "L5_RULE",
   "primaryField": "HR",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140563",
   "agency": "대한적십자사",
   "promulgatedAt": "2026-01-01",
   "effectiveAt": "2026-01-01",
@@ -3008,7 +3008,7 @@
   "secondaryFields": [
    "ORG"
   ],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140563",
   "agency": "대한적십자사",
   "promulgatedAt": "2026-01-01",
   "effectiveAt": "2026-01-01",
@@ -3070,7 +3070,7 @@
   "level": "L5_RULE",
   "primaryField": "ORG",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140563",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-04-01",
   "effectiveAt": "2025-04-01",
@@ -3230,7 +3230,7 @@
   "level": "L5_RULE",
   "primaryField": "PAY",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2137253",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-01-01",
   "effectiveAt": "2025-01-01",
@@ -3290,7 +3290,7 @@
   "level": "L5_RULE",
   "primaryField": "PAY",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2137253",
   "agency": "대한적십자사",
   "promulgatedAt": "2026-01-01",
   "effectiveAt": "2026-01-01",
@@ -3312,7 +3312,7 @@
   "secondaryFields": [
    "ORG"
   ],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140563",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-01-01",
   "effectiveAt": "2025-01-01",
@@ -3334,7 +3334,7 @@
   "secondaryFields": [
    "ORG"
   ],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2137267",
   "agency": "대한적십자사",
   "promulgatedAt": "2026-01-01",
   "effectiveAt": "2026-01-01",
@@ -3356,7 +3356,7 @@
   "secondaryFields": [
    "ORG"
   ],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140563",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-01-01",
   "effectiveAt": "2025-01-01",
@@ -3398,7 +3398,7 @@
   "secondaryFields": [
    "ORG"
   ],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140563",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-01-01",
   "effectiveAt": "2025-01-01",
@@ -3418,7 +3418,7 @@
   "level": "L5_RULE",
   "primaryField": "ORG",
   "secondaryFields": [],
-  "parentId": "pi:2117105",
+  "parentId": "pi:2140563",
   "agency": "대한적십자사",
   "promulgatedAt": "2025-04-01",
   "effectiveAt": "2025-04-01",
@@ -4197,32 +4197,6 @@
   "flags": []
  },
  {
-  "id": "ordin:2172648",
-  "source": "ordin",
-  "sourceId": "2172648",
-  "title": "고성군 대한적십자사 활동 지원에 관한 조례",
-  "kind": "조례",
-  "level": "LO_ORDINANCE",
-  "primaryField": "ETC",
-  "secondaryFields": [],
-  "parentId": "law:대한적십자사 조직법",
-  "agency": "경상남도 고성군",
-  "region": {
-   "sido": "경상남도",
-   "sigungu": "고성군",
-   "code": "48",
-   "type": "sigungu"
-  },
-  "bundle": "redcross",
-  "promulgatedAt": "2017-03-30",
-  "effectiveAt": "2017-03-30",
-  "revisionType": "제정",
-  "url": "https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=1282935",
-  "isCore": false,
-  "caseCount": 0,
-  "flags": []
- },
- {
   "id": "ordin:2166876",
   "source": "ordin",
   "sourceId": "2166876",
@@ -4244,6 +4218,32 @@
   "effectiveAt": "2020-05-12",
   "revisionType": "일부개정",
   "url": "https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=1492613",
+  "isCore": false,
+  "caseCount": 0,
+  "flags": []
+ },
+ {
+  "id": "ordin:2172648",
+  "source": "ordin",
+  "sourceId": "2172648",
+  "title": "고성군 대한적십자사 활동 지원에 관한 조례",
+  "kind": "조례",
+  "level": "LO_ORDINANCE",
+  "primaryField": "ETC",
+  "secondaryFields": [],
+  "parentId": "law:대한적십자사 조직법",
+  "agency": "경상남도 고성군",
+  "region": {
+   "sido": "경상남도",
+   "sigungu": "고성군",
+   "code": "48",
+   "type": "sigungu"
+  },
+  "bundle": "redcross",
+  "promulgatedAt": "2017-03-30",
+  "effectiveAt": "2017-03-30",
+  "revisionType": "제정",
+  "url": "https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=1282935",
   "isCore": false,
   "caseCount": 0,
   "flags": []
@@ -12885,6 +12885,34 @@
   "isCore": false,
   "caseCount": 0,
   "flags": []
+ },
+ {
+  "id": "ordin:2268379",
+  "source": "ordin",
+  "sourceId": "2268379",
+  "title": "인천광역시 검단구 대한적십자사 봉사회 활동 지원에 관한 조례",
+  "kind": "조례",
+  "level": "LO_ORDINANCE",
+  "primaryField": "VOL",
+  "secondaryFields": [],
+  "parentId": "law:대한적십자사 조직법",
+  "agency": "인천광역시 검단구",
+  "region": {
+   "sido": "인천광역시",
+   "sigungu": "검단구",
+   "code": "28",
+   "type": "sigungu"
+  },
+  "bundle": "redcross",
+  "promulgatedAt": "2026-10-14",
+  "effectiveAt": "2026-10-14",
+  "revisionType": "제정",
+  "url": "https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=2178935",
+  "isCore": false,
+  "caseCount": 0,
+  "flags": [
+   "RECENT"
+  ]
  },
  {
   "id": "ordin:2265618",
