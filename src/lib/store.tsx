@@ -16,6 +16,8 @@ interface Store {
   relations: Relation[];
   meta: DatasetMeta;
   aliases: string[][];
+  /** 법규집 편제 순번 (정규화 명칭 → 번호) */
+  rank: Record<string, number>;
   normById: Map<string, NormItem>;
   childrenOf: Map<string | null, NormItem[]>;
   detail: DetailState | null;
@@ -27,8 +29,8 @@ interface Store {
 
 const Ctx = createContext<Store | null>(null);
 
-export function DataProvider(props: { norms: NormItem[]; relations: Relation[]; meta: DatasetMeta; aliases: string[][]; children: ReactNode }) {
-  const { norms, relations, meta, aliases } = props;
+export function DataProvider(props: { norms: NormItem[]; relations: Relation[]; meta: DatasetMeta; aliases: string[][]; rank: Record<string, number>; children: ReactNode }) {
+  const { norms, relations, meta, aliases, rank } = props;
   const [detail, setDetail] = useState<DetailState | null>(null);
   const [paletteOpen, setPaletteOpen] = useState(false);
 
@@ -47,8 +49,8 @@ export function DataProvider(props: { norms: NormItem[]; relations: Relation[]; 
   const closeDetail = useCallback(() => setDetail(null), []);
 
   const value = useMemo(
-    () => ({ norms, relations, meta, aliases, normById, childrenOf, detail, openDetail, closeDetail, paletteOpen, setPaletteOpen }),
-    [norms, relations, meta, aliases, normById, childrenOf, detail, openDetail, closeDetail, paletteOpen],
+    () => ({ norms, relations, meta, aliases, rank, normById, childrenOf, detail, openDetail, closeDetail, paletteOpen, setPaletteOpen }),
+    [norms, relations, meta, aliases, rank, normById, childrenOf, detail, openDetail, closeDetail, paletteOpen],
   );
   return <Ctx.Provider value={value}>{props.children}</Ctx.Provider>;
 }

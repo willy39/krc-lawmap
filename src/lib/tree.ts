@@ -13,14 +13,17 @@ export interface TreeNode {
   children: TreeNode[];
 }
 
-export function buildTree(norms: NormItem[]): TreeNode[] {
+export function buildTree(norms: NormItem[], rank: Record<string, number> = {}): TreeNode[] {
   const children = new Map<string | null, NormItem[]>();
   for (const n of norms) {
     const k = n.parentId;
     if (!children.has(k)) children.set(k, []);
     children.get(k)!.push(n);
   }
-  const order = (a: NormItem, b: NormItem) => a.level.localeCompare(b.level) || Number(b.isCore) - Number(a.isCore) || a.title.localeCompare(b.title, 'ko');
+  // 기관규정은 법규집 편제 순서, 그 외는 위계·핵심 여부·가나다
+  const r = (n: NormItem) => rank[n.title.replace(/\s/g, '')] ?? 9999;
+  const order = (a: NormItem, b: NormItem) =>
+    a.level.localeCompare(b.level) || (a.source === 'pi' && b.source === 'pi' ? r(a) - r(b) : 0) || Number(b.isCore) - Number(a.isCore) || a.title.localeCompare(b.title, 'ko');
 
   const make = (n: NormItem): TreeNode => {
     const kids = (children.get(n.id) ?? []).sort(order);

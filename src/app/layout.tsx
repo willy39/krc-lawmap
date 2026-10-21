@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { DataProvider } from '@/lib/store';
-import { getAliases, getMeta, getNorms, getRelations } from '@/lib/data';
+import { getAliases, getMeta, getNorms, getOrderRank, getRelations } from '@/lib/data';
 import { DemoBanner, Footer, Header } from '@/components/common/Header';
 import { DetailPanel } from '@/components/common/DetailPanel';
 import { CommandPalette } from '@/components/common/CommandPalette';
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[70] focus:rounded focus:bg-surface focus:p-2">
           본문 바로가기
         </a>
-        <DataProvider norms={getNorms()} relations={getRelations()} meta={getMeta()} aliases={getAliases()}>
+        <DataProvider norms={getNorms()} relations={getRelations()} meta={getMeta()} aliases={getAliases()} rank={getOrderRank()}>
           <Header />
           <DemoBanner />
           <main id="main" className="mx-auto max-w-7xl px-4 py-6">

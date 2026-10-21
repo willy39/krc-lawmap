@@ -15,8 +15,8 @@ interface Flat {
 }
 
 export function HierarchyTree({ compact = false }: { compact?: boolean }) {
-  const { norms, openDetail } = useStore();
-  const tree = useMemo(() => buildTree(norms), [norms]);
+  const { norms, openDetail, rank } = useStore();
+  const tree = useMemo(() => buildTree(norms, rank), [norms, rank]);
   const params = useSearchParams();
   const router = useRouter();
   const focusId = params?.get('focus') ?? null;

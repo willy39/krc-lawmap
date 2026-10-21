@@ -23,6 +23,22 @@
 
   --tree-trunk: #7b5e43;
   --tree-leaf: #c9dcc1;
+
+  /* 법규 나무 장면 */
+  --sky-top: #eef5f1;
+  --sky-bottom: #fbfbf7;
+  --canopy-1: #b9d9b0;
+  --canopy-2: #9cc994;
+  --canopy-3: #d6e9cf;
+  --bark: #6e4f35;
+  --bark-light: #a17d5a;
+  --soil-top: #d9c7ad;
+  --soil-bottom: #b99d7a;
+  --root: #8a6a4b;
+  --fruit-1: #a77bcc;
+  --fruit-2: #6a3d8e;
+  --plaque: #ffffff;
+  --shadow: rgba(40, 30, 20, 0.18);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,6 +63,21 @@
 
     --tree-trunk: #a58363;
     --tree-leaf: #2c3d2a;
+
+    --sky-top: #13201b;
+    --sky-bottom: #181816;
+    --canopy-1: #24402a;
+    --canopy-2: #2d5134;
+    --canopy-3: #1d3322;
+    --bark: #8a6748;
+    --bark-light: #b48d68;
+    --soil-top: #3b3024;
+    --soil-bottom: #2a2219;
+    --root: #6f5640;
+    --fruit-1: #cfaaee;
+    --fruit-2: #8a5cb3;
+    --plaque: #24241f;
+    --shadow: rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -96,4 +127,16 @@ a.ext::after {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+/* 법규 나무 노드 */
+.lt-node {
+  transition: opacity 0.15s;
+}
+.lt-node:hover {
+  opacity: 0.88;
+}
+.lt-node [tabindex]:focus-visible,
+.lt-node[tabindex]:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
 }
