@@ -7,6 +7,7 @@ import { useCases, useStore, type DetailTab } from '@/lib/store';
 import { BUNDLE_NAMES, CASE_LABELS, LEVEL_NAMES } from '@/lib/labels';
 import { caseSlug, fmtDate } from '@/lib/format';
 import { lawArticleUrl } from '@/lib/links';
+import { ArticleText } from './ArticleText';
 import { CaseBadge, CaseTypeChip, DemoTag, ExtLink, FieldChip, KindChip, Relevance, ReviewTag, StatusBadges } from './Chips';
 
 function CopyLink({ path }: { path: string }) {
@@ -81,10 +82,12 @@ export function CaseMini({ c, article }: { c: CaseItem; article?: string }) {
   );
 }
 
-function NormDetail({ norm, initialTab, initialArticle }: { norm: NormItem; initialTab?: DetailTab; initialArticle?: string }) {
+function NormDetail({ norm, initialTab, initialArticle, initialQ }: { norm: NormItem; initialTab?: DetailTab; initialArticle?: string; initialQ?: string }) {
   const { relations, normById, childrenOf, openDetail } = useStore();
   const [tab, setTab] = useState<DetailTab>(initialTab ?? 'overview');
-  const [article, setArticle] = useState<string | undefined>(initialArticle);
+  // '#n' 은 조문 본문 탭의 n번째 조문, '제n조' 는 판례·해석 조문 필터
+  const focusIndex = initialArticle?.startsWith('#') ? Number(initialArticle.slice(1)) : undefined;
+  const [article, setArticle] = useState<string | undefined>(focusIndex === undefined ? initialArticle : undefined);
   const cases = useCases(tab === 'cases' || norm.caseCount > 0);
   const rels = useMemo(() => relations.filter((r) => r.to === norm.id), [relations, norm.id]);
   const parent = norm.parentId ? normById.get(norm.parentId) : undefined;
@@ -109,6 +112,7 @@ function NormDetail({ norm, initialTab, initialArticle }: { norm: NormItem; init
 
   const tabs: { id: DetailTab; label: string }[] = [{ id: 'overview', label: '개요' }];
   if (norm.source === 'law' && articles.length) tabs.push({ id: 'articles', label: '조문 목차' });
+  if (norm.source === 'law' || norm.source === 'pi' || norm.source === 'ordin') tabs.push({ id: 'text', label: '조문 본문' });
   tabs.push({ id: 'cases', label: `관련 판례·해석 ⚖ ${norm.caseCount}` });
   if (norm.source === 'law' && ordinances.length) tabs.push({ id: 'ordinances', label: `관련 조례 ${ordinances.length}` });
 
@@ -221,6 +225,7 @@ function NormDetail({ norm, initialTab, initialArticle }: { norm: NormItem; init
             {!norm.articles?.length && <li className="py-2 text-xs text-muted">조문 목차 수집 전 — 판례·해석이 인용한 조문만 표시합니다.</li>}
           </ul>
         )}
+        {tab === 'text' && <ArticleText norm={norm} initialQ={initialQ} focusIndex={focusIndex} />}
         {tab === 'cases' && (
           <div className="space-y-3">
             {articleCounts.size > 0 && (
@@ -425,7 +430,7 @@ export function DetailPanel() {
             닫기 ✕
           </button>
         </div>
-        {norm && <NormDetail key={`${norm.id}-${detail.tab}-${detail.article}`} norm={norm} initialTab={detail.tab} initialArticle={detail.article} />}
+        {norm && <NormDetail key={`${norm.id}-${detail.tab}-${detail.article}-${detail.q}`} norm={norm} initialTab={detail.tab} initialArticle={detail.article} initialQ={detail.q} />}
         {c && <CaseDetail c={c} />}
         {!norm && !c && <p className="p-4 text-sm text-muted">{cases ? '항목을 찾을 수 없습니다.' : '불러오는 중…'}</p>}
       </aside>

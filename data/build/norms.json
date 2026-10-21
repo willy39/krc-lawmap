@@ -645,23 +645,6 @@
   "flags": []
  },
  {
-  "id": "trty:2189",
-  "source": "trty",
-  "sourceId": "2189",
-  "title": "1996년 5월 3일 개정된 지뢰,부비트랩 및 기타장치의 사용금지 또는 제한에 관한 의정서 (과도한 상해 또는 무차별적 효과를 초래할 수 있는 특정재래식무기의 사용금지 및 제한에 관한 협약 개정제2의정서)",
-  "kind": "다자조약",
-  "level": "L0_TREATY",
-  "primaryField": "INT",
-  "secondaryFields": [],
-  "parentId": "trty:2191",
-  "agency": "외교부",
-  "effectiveAt": "1998-12-03",
-  "url": "https://www.law.go.kr/LSW/trtyInfoP.do?trtySeq=2189",
-  "isCore": false,
-  "caseCount": 0,
-  "flags": []
- },
- {
   "id": "trty:2191",
   "source": "trty",
   "sourceId": "2191",
@@ -672,7 +655,7 @@
   "secondaryFields": [],
   "parentId": null,
   "agency": "외교부",
-  "effectiveAt": "1983-12-02",
+  "effectiveAt": "2001-11-09",
   "url": "https://www.law.go.kr/LSW/trtyInfoP.do?trtySeq=2191",
   "isCore": false,
   "caseCount": 0,
@@ -887,6 +870,23 @@
   "flags": []
  },
  {
+  "id": "trty:2189",
+  "source": "trty",
+  "sourceId": "2189",
+  "title": "지뢰·부비트랩 및 기타장치의 사용금지 또는 제한에 관한 개정의정서 (과도한 상해 또는 무차별적 효과를 초래할 수 있는 특정재래식무기의 사용금지 및 제한에 관한 협약 개정제2의정서)",
+  "kind": "다자조약",
+  "level": "L0_TREATY",
+  "primaryField": "INT",
+  "secondaryFields": [],
+  "parentId": "trty:2191",
+  "agency": "외교부",
+  "effectiveAt": "2001-11-09",
+  "url": "https://www.law.go.kr/LSW/trtyInfoP.do?trtySeq=2189",
+  "isCore": false,
+  "caseCount": 0,
+  "flags": []
+ },
+ {
   "id": "trty:235",
   "source": "trty",
   "sourceId": "235",
@@ -924,14 +924,14 @@
   "id": "trty:2190",
   "source": "trty",
   "sourceId": "2190",
-  "title": "탐지 불능한 파편에 관한 의정서 (과도한 상해 또는 무차별적 효과를 초래할 수 있는 특정재래식무기의 사용금지 및 제한에 관한 협약 제1의정서)",
+  "title": "탐지 불능 파편에 관한 의정서 (과도한 상해 또는 무차별적 효과를 초래할 수 있는 특정재래식무기의 사용금지 및 제한에 관한 협약 제1의정서)",
   "kind": "다자조약",
   "level": "L0_TREATY",
   "primaryField": "INT",
   "secondaryFields": [],
   "parentId": "trty:2191",
   "agency": "외교부",
-  "effectiveAt": "1983-12-02",
+  "effectiveAt": "2001-11-09",
   "url": "https://www.law.go.kr/LSW/trtyInfoP.do?trtySeq=2190",
   "isCore": false,
   "caseCount": 0,
@@ -1386,9 +1386,7 @@
   "url": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000282572",
   "isCore": false,
   "caseCount": 0,
-  "flags": [
-   "RECENT"
-  ]
+  "flags": []
  },
  {
   "id": "admrul:61138",

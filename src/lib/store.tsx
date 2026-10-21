@@ -1,14 +1,16 @@
 'use client';
 // 전역 데이터 컨텍스트: 규범 축(초기 로딩) + 판례·해석 축(지연 로딩) + 상세 패널 상태
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import type { CaseItem, DatasetMeta, NormItem, Relation } from '@/types/model';
+import type { CaseItem, DatasetMeta, FullText, NormItem, Relation } from '@/types/model';
 import { withBase } from './links';
 
-export type DetailTab = 'overview' | 'articles' | 'cases' | 'ordinances' | 'summary' | 'norms' | 'same';
+export type DetailTab = 'overview' | 'articles' | 'text' | 'cases' | 'ordinances' | 'summary' | 'norms' | 'same';
 export interface DetailState {
   id: string;
   tab?: DetailTab;
   article?: string;
+  /** 조문 본문 탭에서 강조할 검색어 */
+  q?: string;
 }
 
 interface Store {
@@ -86,4 +88,31 @@ export function useCases(enabled = true, initial?: CaseItem[]): CaseItem[] | nul
     };
   }, [enabled, cases]);
   return cases;
+}
+
+// 조문 본문은 조문 내용 검색·본문 탭을 쓸 때만 내려받는다 (fulltext.json, 수백 KB)
+let ftPromise: Promise<FullText> | null = null;
+let ftCache: FullText | null = null;
+export function loadFullText(): Promise<FullText> {
+  ftPromise ??= fetch(withBase('/data/fulltext.json'))
+    .then((r) => (r.ok ? r.json() : {}))
+    .then((f: FullText) => (ftCache = f))
+    .catch(() => {
+      ftPromise = null;
+      return {};
+    });
+  return ftPromise;
+}
+
+export function useFullText(enabled: boolean): FullText | null {
+  const [ft, setFt] = useState<FullText | null>(ftCache);
+  useEffect(() => {
+    if (!enabled || ft) return;
+    let alive = true;
+    loadFullText().then((f) => alive && setFt(f));
+    return () => {
+      alive = false;
+    };
+  }, [enabled, ft]);
+  return ft;
 }

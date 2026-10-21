@@ -1,7 +1,8 @@
 'use client';
 // 규범 전체 일람 (/list) — 필터는 URL 쿼리와 동기화, CSV 다운로드
 import { useMemo } from 'react';
-import { useStore } from '@/lib/store';
+import { useFullText, useStore } from '@/lib/store';
+import { MIN_CONTENT_QUERY, matchCounts, searchText } from '@/lib/fulltextSearch';
 import { useQueryState } from '@/lib/url-state';
 import { FIELD_NAMES, LEVEL_NAMES, SOURCE_GROUP_NAMES } from '@/lib/labels';
 import { downloadCsv, fmtDate } from '@/lib/format';
@@ -17,6 +18,10 @@ export function NormList() {
   const field = get('field');
   const q = get('q');
   const recent = get('recent') === '1';
+  const content = get('content') === '1';
+  const contentOn = content && q.replace(/\s/g, '').length >= MIN_CONTENT_QUERY;
+  const ft = useFullText(contentOn);
+  const counts = useMemo(() => (contentOn && ft ? matchCounts(q, ft) : null), [contentOn, ft, q]);
 
   const rows = useMemo(
     () =>
@@ -24,10 +29,10 @@ export function NormList() {
         (n) =>
           (!source || n.source === source) &&
           (!field || n.primaryField === field || n.secondaryFields.includes(field as never)) &&
-          (!q || `${n.title} ${n.agency}`.replace(/\s/g, '').includes(q.replace(/\s/g, ''))) &&
+          (!q || `${n.title} ${n.agency}`.replace(/\s/g, '').includes(q.replace(/\s/g, '')) || !!counts?.get(n.id)) &&
           (!recent || n.flags.includes('RECENT') || n.flags.includes('UPCOMING')),
       ),
-    [norms, source, field, q, recent],
+    [norms, source, field, q, recent, counts],
   );
 
   const sel = 'rounded-md border border-border bg-surface px-2 py-1.5 text-sm';
@@ -57,8 +62,11 @@ export function NormList() {
           </select>
         </label>
         <label className="flex min-w-0 flex-1 flex-col text-xs text-muted">
-          명칭·소관 검색
-          <input className={sel} value={q} onChange={(e) => set({ q: e.target.value })} placeholder="예: 인사, 경기도" />
+          {content ? '명칭·소관·조문 내용 검색' : '명칭·소관 검색'}
+          <input className={sel} value={q} onChange={(e) => set({ q: e.target.value })} placeholder={content ? '예: 헌혈증서, 징계' : '예: 인사, 경기도'} />
+        </label>
+        <label className="flex items-center gap-1.5 py-1.5 text-sm" title="법령·기관규정·조례의 조문 본문에서도 찾습니다 (두 글자 이상)">
+          <input type="checkbox" checked={content} onChange={(e) => set({ content: e.target.checked ? '1' : null })} /> 조문 내용 포함
         </label>
         <label className="flex items-center gap-1.5 py-1.5 text-sm">
           <input type="checkbox" checked={recent} onChange={(e) => set({ recent: e.target.checked ? '1' : null })} /> 최근 개정·시행 예정만
@@ -91,6 +99,8 @@ export function NormList() {
       </div>
       <p className="tnum text-sm text-muted" aria-live="polite">
         {rows.length}건
+        {contentOn && !ft && ' · 조문 내용 불러오는 중…'}
+        {counts && ` · 조문 내용 일치 ${counts.size}개 규범 ${[...counts.values()].reduce((a, b) => a + b, 0)}개 조문`}
       </p>
 
       {/* 데스크톱 표 */}
@@ -118,6 +128,7 @@ export function NormList() {
                   </button>
                   <StatusBadges norm={n} />
                 </div>
+                <ContentHit id={n.id} q={q} ft={counts?.get(n.id) ? ft : null} count={counts?.get(n.id)} onOpen={(index) => openDetail(n.id, { tab: 'text', article: `#${index}`, q })} />
               </td>
               <td className="px-3 py-2">
                 <KindChip norm={n} />
@@ -150,9 +161,35 @@ export function NormList() {
             <p className="tnum text-xs text-muted">
               {n.agency || '—'} · 시행 {fmtDate(n.effectiveAt)}
             </p>
+            <ContentHit id={n.id} q={q} ft={counts?.get(n.id) ? ft : null} count={counts?.get(n.id)} onOpen={(index) => openDetail(n.id, { tab: 'text', article: `#${index}`, q })} />
           </li>
         ))}
       </ul>
     </div>
+  );
+}
+
+function ContentHit({ id, q, ft, count, onOpen }: { id: string; q: string; ft: ReturnType<typeof useFullText>; count?: number; onOpen: (index: number) => void }) {
+  if (!ft || !count) return null;
+  const h = searchText(q, ft, { ids: [id], limit: 1, perNorm: 1 }).hits[0];
+  if (!h) return null;
+  return (
+    <button
+      type="button"
+      onClick={(e) => {
+        e.stopPropagation();
+        onOpen(h.index);
+      }}
+      className="mt-1 block w-full rounded bg-case-bg/50 px-2 py-1 text-left text-xs text-muted hover:bg-case-bg"
+    >
+      <span className="font-semibold text-case">
+        {h.row[0]}
+        {h.row[1] ? `(${h.row[1]})` : ''}
+        {count > 1 ? ` 외 ${count - 1}개 조문` : ''}
+      </span>{' '}
+      {h.before}
+      <mark className="rounded-sm bg-case/25 px-0.5 text-text">{h.match}</mark>
+      {h.after}
+    </button>
   );
 }

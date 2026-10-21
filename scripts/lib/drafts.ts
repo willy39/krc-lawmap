@@ -1,5 +1,5 @@
 // 수집 단계의 중간 산출물(초안) 타입. 분류·연결·점수화를 거쳐 NormItem / CaseItem 이 된다.
-import type { CaseSource, FieldCode, Level, NormItem, NormSource, OrdinanceBundle } from '../../src/types/model.ts';
+import type { ArticleRow, CaseSource, FieldCode, Level, NormItem, NormSource, OrdinanceBundle } from '../../src/types/model.ts';
 
 export interface NormDraft {
   id: string;
@@ -20,6 +20,7 @@ export interface NormDraft {
   revisionType?: string;
   upcoming?: { effectiveAt: string };
   articles?: NormItem['articles'];
+  text?: ArticleRow[]; // 조문 본문 (fulltext.json 으로 분리 저장)
   demo?: boolean;
 }
 

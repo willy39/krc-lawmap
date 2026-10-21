@@ -111,3 +111,8 @@ export interface RegionInfo {
   short: string;
   code: string;
 }
+
+/** 조문 본문 한 줄: [조문번호("제3조", "제3조의2", 장·절 제목이면 ""), 조문제목, 본문] */
+export type ArticleRow = [string, string, string];
+/** 규범 ID → 조문 본문 (data/build/fulltext.json, 조문 내용 검색 시에만 지연 로딩) */
+export type FullText = Record<string, ArticleRow[]>;

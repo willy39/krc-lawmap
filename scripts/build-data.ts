@@ -6,7 +6,7 @@
 import { mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import YAML from 'yaml';
-import type { CaseItem, CaseSource, DatasetMeta, NormItem, NormSource, Relation } from '../src/types/model.ts';
+import type { CaseItem, CaseSource, DatasetMeta, FullText, NormItem, NormSource, Relation } from '../src/types/model.ts';
 import { CASE_SOURCES, NORM_SOURCES } from '../src/types/model.ts';
 import { BUILD, DATA, loadConfig, readJson, type ReviewEntry } from './lib/config.ts';
 import type { CaseDraft, NormDraft } from './lib/drafts.ts';
@@ -166,7 +166,15 @@ async function main() {
     changes = { ...changes, entries: changes.entries.filter((e) => recent.has(e.id) || recentCases.has(e.id)) };
   }
 
+  // 조문 본문: 이번 수집분 + (수집 실패 등으로 본문이 없으면) 직전 스냅샷 유지
+  const prevText = readJson<FullText>(join(BUILD, 'fulltext.json'), {});
+  const fulltext: FullText = {};
+  for (const d of normDrafts) if (d.text?.length) fulltext[d.id] = d.text;
+  for (const n of norms) if (!fulltext[n.id] && prevText[n.id] && sameMode) fulltext[n.id] = prevText[n.id];
+  const textCount = Object.keys(fulltext).length;
+
   write('norms.json', norms);
+  writeFileSync(join(BUILD, 'fulltext.json'), `${JSON.stringify(fulltext)}\n`);
   write('cases.json', visible);
   write('relations.json', visibleRelations);
   write('regions.json', cfg.regions.sido.map(({ aliases: _a, ...r }) => r));
@@ -177,6 +185,7 @@ async function main() {
     writeFileSync(join(DATA, 'state.json'), `${JSON.stringify({ lastRun: meta.generatedAt, mode: meta.mode, details: detailCache }, null, 1)}\n`);
   }
 
+  console.log(`  조문 본문: ${textCount}건 (${Object.values(fulltext).reduce((s, r) => s + r.length, 0)}개 조문)`);
   console.log(`✓ 규범 ${norms.length}건 · 판례·해석 ${visible.length}건(검수 대기 ${queue.length}) · 연결 ${visibleRelations.length}건 · 변경 ${changes.entries.length}건`);
   if (piTotal !== null) console.log(`  기관규정: API ${piTotal}건 / 표시 ${meta.counts.norms.pi}건`);
 }

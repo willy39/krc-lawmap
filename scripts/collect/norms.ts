@@ -5,6 +5,7 @@ import type { Config } from '../lib/config.ts';
 import { isoDate, stripTags, type NormDraft } from '../lib/drafts.ts';
 import { normalizeLawName } from '../lib/citation.ts';
 import { pick, search, service, type LawApiOptions } from '../lib/lawApi.ts';
+import { lawRows, ordinRows, piRows } from '../lib/fulltext.ts';
 
 type Json = Record<string, unknown>;
 
@@ -66,9 +67,16 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
         effectiveAt: isoDate(pick(hit, ['시행일자'])),
         revisionType: pick(hit, ['제개정구분명']),
       };
-      if (draft.isCore && mst) {
-        const detail = await service('law', mst, api, 'MST');
-        draft.articles = lawArticles(detail);
+      if (mst) {
+        // 조문 본문(내용 검색용)은 모든 큐레이션 법령, 조문 목차는 핵심 법령만
+        const detail = await service('law', mst, api, 'MST').catch((e) => {
+          if (draft.isCore) throw e;
+          return null;
+        });
+        if (detail) {
+          draft.text = lawRows(detail);
+          if (draft.isCore) draft.articles = lawArticles(detail);
+        }
       }
       const ef = await search({ target: 'eflaw', query: law.name }, api).catch(() => ({ items: [] as Json[] }));
       const future = ef.items
@@ -119,12 +127,14 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
         const title = pick(i, ['자치법규명']) ?? '';
         let purpose: string | undefined;
         let bodyText = '';
+        let ordinText: NormDraft['text'];
         const detail = await service('ordin', mst, api, 'MST').catch(() => null);
         if (detail) {
           const units = ((detail['조문'] as Json | undefined)?.['조'] ?? (detail['조문'] as Json | undefined)?.['조문단위']) as Json[] | Json | undefined;
           const list = Array.isArray(units) ? units : units ? [units] : [];
           bodyText = list.map((u) => stripTags(pick(u, ['조내용', '조문내용'])) ?? '').join('\n');
-          purpose = stripTags(pick(list[0], ['조내용', '조문내용']));
+          purpose = stripTags(pick(list.find((u) => /^\s*제\s*1\s*조/.test(pick(u, ['조내용', '조문내용']) ?? '')) ?? list[0], ['조내용', '조문내용']));
+          ordinText = ordinRows(detail);
         } else if (def.requireBody) {
           failed.push(`ordin:${q}`);
           continue;
@@ -140,6 +150,7 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
           url: mst ? ordinSeqUrl(mst) : ordinUrl(title),
           bundle,
           purpose,
+          text: ordinText,
           promulgatedAt: isoDate(pick(i, ['공포일자'])),
           effectiveAt: isoDate(pick(i, ['시행일자'])),
           revisionType: pick(i, ['제개정구분명']),
@@ -198,15 +209,18 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
       const sid = pick(i, ['행정규칙ID']) ?? seq;
       // 제1조(목적)의 「」 인용으로 상위 규정을 판정한다 (예: "이 시행규칙은 「감사 운영규정」에서 위임된 사항…")
       let purpose: string | undefined;
+      let piText: NormDraft['text'];
       const detail = await service(piTarget, seq, api).catch(() => null);
       if (detail) {
         const arts = detail['조문내용'];
         const list = (Array.isArray(arts) ? arts : arts ? [arts] : []).map((a) => (typeof a === 'string' ? a : (pick(a as Json, ['조문내용', 'content']) ?? '')));
         purpose = stripTags(list.find((a) => /^\s*제1조/.test(a)));
+        piText = piRows(detail);
       }
       drafts.push({
         id: `pi:${sid}`,
         purpose,
+        text: piText,
         source: 'pi',
         sourceId: sid,
         title,
