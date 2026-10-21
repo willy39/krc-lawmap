@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useStore } from '@/lib/store';
 import { fmtDate } from '@/lib/format';
 import { Legend } from './Legend';
+import { GuideButton } from './GuideDialog';
 
 const TABS = [
   { href: '/', label: '법규 나무' },
@@ -32,6 +33,7 @@ export function Header() {
           기준일 {fmtDate(meta.baseDate)} · 규범 {meta.counts.norms.total} · 판례·해석 {meta.counts.cases.total}
         </p>
         <div className="ml-auto flex items-center gap-3">
+          <GuideButton />
           <Legend />
           <button
             type="button"
@@ -89,7 +91,7 @@ export function Footer() {
           <a className="underline" href="https://www.law.go.kr" target="_blank" rel="noopener noreferrer">
             law.go.kr
           </a>
-          ) · <Link href="/about/" className="underline">서비스 안내·검수 기준</Link>
+          ) · <Link href="/guide/" className="underline">사용안내</Link> · <Link href="/about/" className="underline">서비스 안내·검수 기준</Link>
         </p>
       </div>
     </footer>
