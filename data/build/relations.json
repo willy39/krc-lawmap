@@ -84,12 +84,12 @@
   "type": "CITES"
  },
  {
-  "from": "expc:329025",
+  "from": "expc:331179",
   "to": "law:대한적십자사 조직법",
   "type": "CITES"
  },
  {
-  "from": "expc:331179",
+  "from": "expc:329025",
   "to": "law:대한적십자사 조직법",
   "type": "CITES"
  }

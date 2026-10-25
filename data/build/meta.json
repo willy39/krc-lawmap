@@ -1,6 +1,6 @@
 {
- "baseDate": "2026-10-21",
- "generatedAt": "2026-10-21T04:57:36.871Z",
+ "baseDate": "2026-10-25",
+ "generatedAt": "2026-10-25T23:05:07.125Z",
  "mode": "live",
  "counts": {
   "norms": {
@@ -24,10 +24,10 @@
   }
  },
  "apiTotalCnt": {
-  "pi": 94
+  "pi": 95
  },
  "brokenLinks": 0,
- "unverifiedLinks": 0,
+ "unverifiedLinks": 2,
  "relevance": {
   "auto": 40,
   "candidate": 20
