@@ -7,8 +7,8 @@ import { Legend } from './Legend';
 import { GuideButton } from './GuideDialog';
 
 const TABS = [
-  { href: '/', label: '법규 나무' },
-  { href: '/tree/', label: '체계트리' },
+  { href: '/', label: '체계도' },
+  { href: '/tree/', label: '트리 목록' },
   { href: '/list/', label: '일람' },
   { href: '/local/', label: '조례' },
   { href: '/cases/', label: '판례·해석' },
@@ -26,7 +26,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-t-4 border-b border-t-law border-b-border bg-surface/95 backdrop-blur">
       <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2">
         <Link href="/" className="flex items-center gap-2 text-lg font-bold text-law">
-          대한적십자사 법규 나무
+          대한적십자사 법규 지도
           <span className="rounded border border-border px-1 text-[10px] font-semibold tracking-wider text-muted">BETA</span>
         </Link>
         <p className="tnum text-xs text-muted">

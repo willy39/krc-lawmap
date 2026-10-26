@@ -1,8 +1,10 @@
-# 대한적십자사 법규 나무 (KRC Law Tree) — 시범서비스
+# 대한적십자사 법규 지도 (KRC Law Map) — 시범서비스
+
+공개 주소: https://willy39.github.io/krc-lawmap/
 
 국가법령정보센터(law.go.kr)에 흩어진 대한적십자사 관련 자료를 두 개의 축으로 정리해 한 화면에서 보고, 클릭 한 번으로 원문에 닿게 하는 **정적 웹서비스**입니다. 설계서: [docs/design.md](docs/design.md)
 
-- **규범 축 (법규 나무)**: 헌법·조약 → 법률·시행령 → 행정규칙 → 자치법규(조례·규칙) → 정관 → 규정 → 시행규칙
+- **규범 축 (법규 지도)**: 헌법·조약 → 법률·시행령 → 행정규칙 → 자치법규(조례·규칙) → 정관 → 규정 → 시행규칙
 - **해석·적용 축 (판례·해석 라이브러리)**: 판례 · 헌재결정례 · 법령해석례 · 중앙부처 1차 해석 · 결정선례 · 행정심판례
 - **연결**: 참조조문 파싱(조문 단위) + 담당자 지정으로 규범 ↔ 판례·해석 연결
 
@@ -15,7 +17,7 @@
 | 경로 | 내용 |
 |------|------|
 | `/` | 법규 체계도(아이시클: 헌법 띠가 아래로 쪼개지고 칸 폭 = 딸린 규범 수, 칸 선택 시 아래에 규정 목록) + 축별 요약·판례·해석 도서관 + 법규집 + 최근 변경 |
-| `/tree` | 체계트리 (WAI-ARIA tree, 키보드 ↑↓←→ / Enter / o) |
+| `/tree` | 트리 목록 (WAI-ARIA tree, 키보드 ↑↓←→ / Enter / o) |
 | `/list` | 규범 전체 일람 (URL 동기화 필터, CSV) |
 | `/local` | 자치법규 지역뷰 (시·도 타일 그리드, 0건 강조) |
 | `/cases`, `/cases/[id]` | 판례·해석 라이브러리 (유형 탭·필터·연도 막대·관련도) / 공유용 상세 |
@@ -72,7 +74,7 @@ docker compose --profile data run --rm collector
 docker compose up -d --build web
 ```
 
-- 하위 경로 배포: `BASE_PATH=/lawtree docker compose up -d --build web`
+- 하위 경로 배포: `BASE_PATH=/lawmap docker compose up -d --build web`
 - 포트 변경: `WEB_PORT=80`
 - 이미지: `web` = nginx-unprivileged(8080, 보안 헤더·CSP), `collector` = Node 24
 - 폐쇄망: 웹폰트(Pretendard CDN)가 차단되면 시스템 폰트로 대체됩니다.

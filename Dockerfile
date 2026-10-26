@@ -1,4 +1,4 @@
-# 대한적십자사 법규 나무 — 내부 서버 포팅용 이미지
+# 대한적십자사 법규 지도 — 내부 서버 포팅용 이미지
 #   web       : 정적 산출물(out/)을 nginx(비루트, 8080)로 서비스
 #   collector : 법제처 Open API 수집 (npm run data) — data/ 볼륨에 결과 기록
 
@@ -14,7 +14,7 @@ CMD ["npm", "run", "data"]
 
 FROM deps AS builder
 COPY . .
-# 하위 경로에 배포할 때만 지정 (예: /lawtree). 루트 배포는 비워 둔다.
+# 하위 경로에 배포할 때만 지정 (예: /lawmap). 루트 배포는 비워 둔다.
 ARG NEXT_PUBLIC_BASE_PATH=""
 ENV NEXT_PUBLIC_BASE_PATH=${NEXT_PUBLIC_BASE_PATH} NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
