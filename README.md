@@ -64,6 +64,15 @@ npm run data -- --check-links
 `main` 에 push 하면 [.github/workflows/pages.yml](.github/workflows/pages.yml) 이 `NEXT_PUBLIC_BASE_PATH=/<저장소명>` 으로 빌드해 배포합니다.
 주간 수집은 [refresh-data.yml](.github/workflows/refresh-data.yml) (매주 월 06:00 KST) — 저장소 Secret `LAW_OC`(등록됨)로 수집해 결과를 PR로 올립니다. 클라우드 IP가 차단되면 [docs/manual-refresh.md](docs/manual-refresh.md) 절차를 따르세요.
 
+### 내부 서버 — https://apps.redcross.or.kr/law/ (WebtoB)
+
+정적 파일만 서비스하므로 JEUS 없이 WebtoB 로 충분합니다. 설정 예시·배포·주간 갱신 절차: **[docs/deploy-webtob.md](docs/deploy-webtob.md)**
+
+```bash
+npm run package:internal   # → dist/krc-lawmap-law-YYYYMMDD-<커밋>.zip (+ .sha256), 경로 /law 로 빌드·검증
+```
+main 이 갱신될 때마다 GitHub Actions **Internal package** 워크플로가 같은 zip 을 아티팩트로 만듭니다.
+
 ### 내부 서버 (Docker)
 
 ```bash
@@ -77,7 +86,7 @@ docker compose up -d --build web
 - 하위 경로 배포: `BASE_PATH=/lawmap docker compose up -d --build web`
 - 포트 변경: `WEB_PORT=80`
 - 이미지: `web` = nginx-unprivileged(8080, 보안 헤더·CSP), `collector` = Node 24
-- 폐쇄망: 웹폰트(Pretendard CDN)가 차단되면 시스템 폰트로 대체됩니다.
+- 웹폰트(Pretendard, SIL OFL 1.1)는 `public/fonts/` 에 내장되어 폐쇄망에서도 외부 연결 없이 같은 글꼴로 보입니다.
 
 ## 면책
 

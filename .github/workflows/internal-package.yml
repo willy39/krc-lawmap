@@ -1,0 +1,34 @@
+name: Internal package (apps.redcross.or.kr/law)
+# 내부 서버(WebtoB) 반입용 zip 을 만들어 Actions 아티팩트로 올린다.
+# main 갱신(주간 데이터 PR 머지 포함) 때마다 자동 생성, 필요 시 수동 실행(BASE_PATH 지정 가능).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      base_path:
+        description: '배포 경로 (예: /law)'
+        default: '/law'
+        required: true
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: npm }
+      - run: npm ci
+      - run: npm test
+      - name: Build & package
+        run: npm run package:internal
+        env:
+          BASE_PATH: ${{ github.event.inputs.base_path || '/law' }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: krc-lawmap-internal-${{ github.sha }}
+          path: |
+            dist/*.zip
+            dist/*.sha256
+          retention-days: 30

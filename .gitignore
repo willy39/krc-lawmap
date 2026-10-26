@@ -10,3 +10,4 @@ data/raw/*
 .DS_Store
 public/data/
 .claude/
+dist/

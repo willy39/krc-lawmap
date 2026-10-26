@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { DataProvider } from '@/lib/store';
+import { withBase } from '@/lib/links';
 import { getAliases, getMeta, getNorms, getOrderRank, getRelations } from '@/lib/data';
 import { DemoBanner, Footer, Header } from '@/components/common/Header';
 import { DetailPanel } from '@/components/common/DetailPanel';
@@ -17,10 +18,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <head>
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
-        />
+        {/* 웹폰트는 서비스에 내장(public/fonts) — 내부망·폐쇄망에서도 외부 CDN 없이 동작 */}
+        <link rel="stylesheet" href={withBase('/fonts/pretendard/pretendardvariable-dynamic-subset.css')} />
       </head>
       <body className="min-h-screen antialiased">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[70] focus:rounded focus:bg-surface focus:p-2">

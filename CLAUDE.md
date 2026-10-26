@@ -18,4 +18,6 @@
 - `npm run probe` — P0 API 실측
 - `node --import tsx scripts/book-laws.ts` — 법규집 'VI. 유관법령조문'과 연계할 최신 법령(overrides.yaml `book_laws`)만 갱신 (`npm run data` 에도 포함)
 - `npm run build` — 정적 export(out/). GitHub Pages는 `NEXT_PUBLIC_BASE_PATH=/<repo>`
+- `npm run package:internal` — 내부 서버(https://apps.redcross.or.kr/law/, WebtoB)용 zip. 절차: docs/deploy-webtob.md
+- 외부 CDN 금지: 웹폰트 등 리소스는 public/ 에 내장한다(내부망 배포)
 - 번들러는 webpack(`--webpack`) 사용: Turbopack CSS 워커는 샌드박스 환경에서 포트 바인딩에 실패한다.

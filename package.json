@@ -14,7 +14,8 @@
     "data:seed": "node --import tsx scripts/build-data.ts --seed",
     "probe": "NODE_USE_ENV_PROXY=1 node --import tsx scripts/probe.ts",
     "prebuild": "node --import tsx scripts/publish-data.ts",
-    "predev": "node --import tsx scripts/publish-data.ts"
+    "predev": "node --import tsx scripts/publish-data.ts",
+    "package:internal": "bash scripts/package-internal.sh"
   },
   "dependencies": {
     "d3-hierarchy": "^3.1.2",
