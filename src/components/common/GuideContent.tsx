@@ -19,7 +19,7 @@ function Section({ id, title, children }: { id: string; title: string; children:
 export const GUIDE_TOC = [
   ['g-search', '검색창 사용법'],
   ['g-screens', '화면 구성'],
-  ['g-tree', '법규 나무·체계트리'],
+  ['g-tree', '법규 체계도·체계트리'],
   ['g-detail', '상세 패널'],
   ['g-cases', '판례·해석 보는 법'],
   ['g-legend', '표시·배지'],
@@ -115,7 +115,7 @@ export function GuideContent({ onNavigate }: { onNavigate?: () => void }) {
       <Section id="g-screens" title="🗂 화면 구성">
         <ul className="list-disc space-y-1 pl-5">
           <li>
-            <b>법규 나무</b> — 한눈에 보는 조감도와 대한적십자사 법규집(법령·정관·운영규정·시행규칙, 법규집 편제 순서), 최근 변경
+            <b>법규 나무</b>(첫 화면) — 법규 체계도와 칸별 규정 목록, 대한적십자사 법규집(법규집 편제 순서), 최근 변경
           </li>
           <li>
             <b>체계트리</b> — 헌법·조약 → 법률 → 정관 → 운영규정 → 시행규칙의 상하 관계를 펼쳐 봅니다
@@ -136,18 +136,23 @@ export function GuideContent({ onNavigate }: { onNavigate?: () => void }) {
         <p className="text-muted">필터를 바꾸면 주소(URL)에 반영되므로, 그 주소를 복사해 같은 화면을 공유할 수 있습니다.</p>
       </Section>
 
-      <Section id="g-tree" title="🌳 법규 나무·체계트리">
+      <Section id="g-tree" title="🧊 법규 체계도·체계트리">
         <ul className="list-disc space-y-1 pl-5">
           <li>
-            <b>법령 표지판</b>을 누르면 상세 패널, 이름 옆 <b>↗</b>를 누르면 law.go.kr 원문이 새 탭으로 열립니다.
+            <b>법규 체계도</b>는 맨 위 <b>대한민국헌법</b> 띠가 아래로 내려가며 법률 → 시행령·정관·조례 → 업무분야로 쪼개지는 그림입니다. <b>칸 폭</b>은 그 칸에 딸린 규범 수입니다.
           </li>
           <li>
-            <b>열매</b>는 분야별 기관규정 묶음이며 숫자는 건수입니다. 누르면 체계트리의 해당 묶음으로 이동합니다.
+            칸을 누르면 바로 아래에 <b>그 칸의 규정 목록</b>이 열립니다. 운영규정 아래에 그 운영규정에서 위임한 시행규칙이 들여쓰기로 붙습니다. 처음에는 <b>정관</b>(전체 기관규정)이 선택되어 있습니다.
           </li>
           <li>
-            <b>점선 곁가지</b>는 자치법규(조례)입니다. 누르면 조례 지역뷰로 이동합니다.
+            목록 위의 경로(예: 대한민국헌법 › 대한적십자사 조직법 › 정관)를 눌러 상위 칸으로 돌아갈 수 있고, 선택한 칸은 주소에 남아 그대로 공유됩니다.
           </li>
-          <li>가지가 굵을수록 그 아래에 딸린 규범이 많습니다.</li>
+          <li>
+            <b>기관규정 중심</b>(기본)에서는 조례 칸을 좁게 고정하고, <b>조례 포함 실제 비율</b>을 누르면 조례 건수만큼 폭을 넓혀 보여 줍니다.
+          </li>
+          <li>
+            색: <span className="font-semibold text-law">파랑</span> 법령 · <span className="font-semibold text-inst">보라</span> 정관·기관규정 · <span className="font-semibold text-local">초록 점선</span> 조례 · <span className="font-semibold text-trty">청록</span> 조약
+          </li>
           <li>
             체계트리 키보드: <Kbd>↑</Kbd> <Kbd>↓</Kbd> 이동 · <Kbd>→</Kbd> 펼치기 · <Kbd>←</Kbd> 접기 · <Kbd>Enter</Kbd> 상세 · <Kbd>o</Kbd> 원문
           </li>

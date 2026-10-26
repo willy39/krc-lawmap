@@ -6,6 +6,7 @@ export interface NormDraft {
   source: NormSource;
   sourceId: string;
   title: string;
+  shortTitle?: string; // 법령약칭명 등
   kind: string;
   agency: string;
   url: string;

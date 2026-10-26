@@ -28,7 +28,7 @@ export function classifyNorms(drafts: NormDraft[], cfg: Config, today = new Date
       source: d.source,
       sourceId: d.sourceId,
       title: d.title,
-      shortTitle: d.source === 'pi' ? d.title.replace(/^대한적십자사\s*/, '') : undefined,
+      shortTitle: d.source === 'pi' ? d.title.replace(/^대한적십자사\s*/, '') : d.shortTitle,
       kind: d.kind,
       level,
       primaryField: primary,

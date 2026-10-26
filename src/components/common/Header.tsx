@@ -23,9 +23,9 @@ export function Header() {
   const active = (href: string) => (href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, '')));
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-surface/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2">
-        <Link href="/" className="flex items-center gap-2 text-lg font-bold">
+    <header className="sticky top-0 z-40 border-t-4 border-b border-t-law border-b-border bg-surface/95 backdrop-blur">
+      <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2">
+        <Link href="/" className="flex items-center gap-2 text-lg font-bold text-law">
           대한적십자사 법규 나무
           <span className="rounded border border-border px-1 text-[10px] font-semibold tracking-wider text-muted">BETA</span>
         </Link>
@@ -47,7 +47,7 @@ export function Header() {
           </button>
         </div>
       </div>
-      <nav aria-label="주요 화면" className="mx-auto max-w-7xl overflow-x-auto px-2">
+      <nav aria-label="주요 화면" className="mx-auto max-w-[1440px] overflow-x-auto px-2">
         <ul className="flex min-w-max gap-1">
           {TABS.map((t) => (
             <li key={t.href}>
@@ -81,7 +81,7 @@ export function DemoBanner() {
 export function Footer() {
   return (
     <footer className="mt-16 border-t border-border bg-surface px-4 py-8 text-sm text-muted">
-      <div className="mx-auto max-w-7xl space-y-2">
+      <div className="mx-auto max-w-[1440px] space-y-2">
         <p>
           본 서비스는 열람 편의를 위한 시범서비스이며 법적 효력은 국가법령정보센터 원문에 있습니다. 판례·해석은 담당자 검수 또는 자동분류로 선별한 일부이며 전부가 아닙니다.
         </p>

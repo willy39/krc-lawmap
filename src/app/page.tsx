@@ -5,8 +5,7 @@ import type { NormItem } from '@/types/model';
 import { CASE_LABELS, FIELD_NAMES } from '@/lib/labels';
 import { caseSlug, fmtDate } from '@/lib/format';
 import { CASE_SOURCES } from '@/types/model';
-import { LawTreeCanvas } from '@/components/tree/LawTreeCanvas';
-import { HierarchyTree } from '@/components/tree/HierarchyTree';
+import { Icicle } from '@/components/tree/Icicle';
 import { ChangeList } from '@/components/common/ChangeList';
 import { RegulationBook, type BookGroup } from '@/components/common/RegulationBook';
 
@@ -63,17 +62,11 @@ export default function Home() {
     <div className="space-y-10">
       <section aria-labelledby="tree-h">
         <h1 id="tree-h" className="sr-only">
-          법규 나무
+          대한적십자사 법규 체계도
         </h1>
-        <div className="hidden md:block">
-          <LawTreeCanvas />
-        </div>
-        <div className="md:hidden">
-          <p className="mb-2 text-sm text-muted">모바일에서는 체계트리로 표시합니다.</p>
-          <Suspense>
-            <HierarchyTree compact />
-          </Suspense>
-        </div>
+        <Suspense>
+          <Icicle />
+        </Suspense>
       </section>
 
       <section aria-labelledby="sum-h" className="grid gap-4 lg:grid-cols-[1fr_340px]">

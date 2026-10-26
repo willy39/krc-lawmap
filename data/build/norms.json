@@ -993,6 +993,7 @@
   "source": "law",
   "sourceId": "000207",
   "title": "대한적십자사 조직법",
+  "shortTitle": "적십자법",
   "kind": "법률",
   "level": "L1_ACT",
   "primaryField": "ORG",
@@ -1138,7 +1139,7 @@
   "level": "L1A_ADMRULE",
   "primaryField": "ETC",
   "secondaryFields": [],
-  "parentId": "law:군인의 지위 및 복무에 관한 기본법",
+  "parentId": null,
   "agency": "국방부",
   "promulgatedAt": "2024-08-23",
   "effectiveAt": "2024-08-23",
@@ -1146,7 +1147,9 @@
   "url": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000246350",
   "isCore": false,
   "caseCount": 0,
-  "flags": []
+  "flags": [
+   "NO_PARENT"
+  ]
  },
  {
   "id": "admrul:76733",
@@ -1199,7 +1202,7 @@
   "level": "L1A_ADMRULE",
   "primaryField": "FIN",
   "secondaryFields": [],
-  "parentId": "law:군인의 지위 및 복무에 관한 기본법",
+  "parentId": null,
   "agency": "국방부",
   "promulgatedAt": "2024-07-08",
   "effectiveAt": "2024-07-08",
@@ -1207,7 +1210,9 @@
   "url": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000244410",
   "isCore": false,
   "caseCount": 0,
-  "flags": []
+  "flags": [
+   "NO_PARENT"
+  ]
  },
  {
   "id": "admrul:34882",
@@ -1359,7 +1364,7 @@
   "level": "L1A_ADMRULE",
   "primaryField": "ETC",
   "secondaryFields": [],
-  "parentId": "law:군인의 지위 및 복무에 관한 기본법",
+  "parentId": null,
   "agency": "국방부",
   "promulgatedAt": "2025-12-31",
   "effectiveAt": "2025-12-31",
@@ -1367,7 +1372,9 @@
   "url": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000270894",
   "isCore": false,
   "caseCount": 0,
-  "flags": []
+  "flags": [
+   "NO_PARENT"
+  ]
  },
  {
   "id": "admrul:97804",
@@ -1509,6 +1516,7 @@
   "source": "law",
   "sourceId": "010375",
   "title": "공공기관의 운영에 관한 법률",
+  "shortTitle": "공공기관운영법",
   "kind": "법률",
   "level": "L1R_RELATED",
   "primaryField": "ORG",
@@ -1812,31 +1820,11 @@
   ]
  },
  {
-  "id": "law:국제형사사법 공조법",
-  "source": "law",
-  "sourceId": "001113",
-  "title": "국제형사사법 공조법",
-  "kind": "법률",
-  "level": "L1R_RELATED",
-  "primaryField": "INT",
-  "secondaryFields": [],
-  "parentId": "law:대한민국헌법",
-  "agency": "법무부",
-  "promulgatedAt": "2026-03-24",
-  "effectiveAt": "2026-10-02",
-  "revisionType": "타법개정",
-  "url": "https://www.law.go.kr/법령/%EA%B5%AD%EC%A0%9C%ED%98%95%EC%82%AC%EC%82%AC%EB%B2%95%20%EA%B3%B5%EC%A1%B0%EB%B2%95",
-  "isCore": false,
-  "caseCount": 0,
-  "flags": [
-   "RECENT"
-  ]
- },
- {
   "id": "law:국제형사재판소 관할 범죄의 처벌 등에 관한 법률",
   "source": "law",
   "sourceId": "010590",
   "title": "국제형사재판소 관할 범죄의 처벌 등에 관한 법률",
+  "shortTitle": "국제형사범죄법",
   "kind": "법률",
   "level": "L1R_RELATED",
   "primaryField": "INT",
@@ -1932,30 +1920,6 @@
   "isCore": true,
   "caseCount": 0,
   "flags": []
- },
- {
-  "id": "law:군인의 지위 및 복무에 관한 기본법",
-  "source": "law",
-  "sourceId": "012438",
-  "title": "군인의 지위 및 복무에 관한 기본법",
-  "kind": "법률",
-  "level": "L1R_RELATED",
-  "primaryField": "INT",
-  "secondaryFields": [],
-  "parentId": "law:대한민국헌법",
-  "agency": "국방부",
-  "promulgatedAt": "2025-01-07",
-  "effectiveAt": "2026-01-08",
-  "revisionType": "일부개정",
-  "upcoming": {
-   "effectiveAt": "2026-12-10"
-  },
-  "url": "https://www.law.go.kr/법령/%EA%B5%B0%EC%9D%B8%EC%9D%98%20%EC%A7%80%EC%9C%84%20%EB%B0%8F%20%EB%B3%B5%EB%AC%B4%EC%97%90%20%EA%B4%80%ED%95%9C%20%EA%B8%B0%EB%B3%B8%EB%B2%95",
-  "isCore": false,
-  "caseCount": 0,
-  "flags": [
-   "UPCOMING"
-  ]
  },
  {
   "id": "law:재해구호법",
@@ -2398,6 +2362,7 @@
   "source": "law",
   "sourceId": "000317",
   "title": "화학무기ㆍ생물무기의 금지와 특정화학물질ㆍ생물작용제 등의 제조ㆍ수출입 규제 등에 관한 법률",
+  "shortTitle": "생화학무기법",
   "kind": "법률",
   "level": "L1R_RELATED",
   "primaryField": "INT",
@@ -2834,10 +2799,10 @@
   "secondaryFields": [],
   "parentId": "pi:2117105",
   "agency": "대한적십자사",
-  "promulgatedAt": "2026-01-01",
-  "effectiveAt": "2026-01-01",
+  "promulgatedAt": "2026-04-01",
+  "effectiveAt": "2026-04-01",
   "revisionType": "일부개정",
-  "url": "https://www.law.go.kr/LSW/schlPubRulInfoP.do?schlPubRulSeq=2200000152165",
+  "url": "https://www.law.go.kr/LSW/schlPubRulInfoP.do?schlPubRulSeq=2200000161015",
   "isCore": false,
   "caseCount": 0,
   "flags": []
@@ -2863,9 +2828,9 @@
   "flags": []
  },
  {
-  "id": "pi:2137207",
+  "id": "pi:2141981",
   "source": "pi",
-  "sourceId": "2137207",
+  "sourceId": "2141981",
   "title": "대한적십자사 포상 운영규정",
   "shortTitle": "포상 운영규정",
   "kind": "규정",
@@ -2874,10 +2839,10 @@
   "secondaryFields": [],
   "parentId": "pi:2117105",
   "agency": "대한적십자사",
-  "promulgatedAt": "2025-04-01",
-  "effectiveAt": "2025-04-01",
+  "promulgatedAt": "2026-04-01",
+  "effectiveAt": "2026-04-01",
   "revisionType": "일부개정",
-  "url": "https://www.law.go.kr/LSW/schlPubRulInfoP.do?schlPubRulSeq=2200000146579",
+  "url": "https://www.law.go.kr/LSW/schlPubRulInfoP.do?schlPubRulSeq=2200000161013",
   "isCore": false,
   "caseCount": 0,
   "flags": []
@@ -4763,32 +4728,6 @@
   "flags": []
  },
  {
-  "id": "ordin:2166876",
-  "source": "ordin",
-  "sourceId": "2166876",
-  "title": "고성군 대한적십자사 활동 지원에 관한 조례",
-  "kind": "조례",
-  "level": "LO_ORDINANCE",
-  "primaryField": "ETC",
-  "secondaryFields": [],
-  "parentId": "law:대한적십자사 조직법",
-  "agency": "강원특별자치도 고성군",
-  "region": {
-   "sido": "강원특별자치도",
-   "sigungu": "고성군",
-   "code": "51",
-   "type": "sigungu"
-  },
-  "bundle": "redcross",
-  "promulgatedAt": "2020-05-12",
-  "effectiveAt": "2020-05-12",
-  "revisionType": "일부개정",
-  "url": "https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=1492613",
-  "isCore": false,
-  "caseCount": 0,
-  "flags": []
- },
- {
   "id": "ordin:2172648",
   "source": "ordin",
   "sourceId": "2172648",
@@ -4810,6 +4749,32 @@
   "effectiveAt": "2017-03-30",
   "revisionType": "제정",
   "url": "https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=1282935",
+  "isCore": false,
+  "caseCount": 0,
+  "flags": []
+ },
+ {
+  "id": "ordin:2166876",
+  "source": "ordin",
+  "sourceId": "2166876",
+  "title": "고성군 대한적십자사 활동 지원에 관한 조례",
+  "kind": "조례",
+  "level": "LO_ORDINANCE",
+  "primaryField": "ETC",
+  "secondaryFields": [],
+  "parentId": "law:대한적십자사 조직법",
+  "agency": "강원특별자치도 고성군",
+  "region": {
+   "sido": "강원특별자치도",
+   "sigungu": "고성군",
+   "code": "51",
+   "type": "sigungu"
+  },
+  "bundle": "redcross",
+  "promulgatedAt": "2020-05-12",
+  "effectiveAt": "2020-05-12",
+  "revisionType": "일부개정",
+  "url": "https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=1492613",
   "isCore": false,
   "caseCount": 0,
   "flags": []

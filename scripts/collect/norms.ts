@@ -56,6 +56,7 @@ export async function collectNorms(cfg: Config, api: LawApiOptions): Promise<Nor
         source: 'law',
         sourceId: pick(hit, ['법령ID']) ?? mst,
         title: law.name,
+        shortTitle: pick(hit, ['법령약칭명']),
         kind: pick(hit, ['법령구분명']) ?? '법률',
         agency: pick(hit, ['소관부처명']) ?? '',
         url: lawUrl(law.name),

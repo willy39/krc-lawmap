@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <DataProvider norms={getNorms()} relations={getRelations()} meta={getMeta()} aliases={getAliases()} rank={getOrderRank()}>
           <Header />
           <DemoBanner />
-          <main id="main" className="mx-auto max-w-7xl px-4 py-6">
+          <main id="main" className="mx-auto max-w-[1440px] px-4 py-6">
             {children}
           </main>
           <Footer />
