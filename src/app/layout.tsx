@@ -7,7 +7,7 @@ import { DetailPanel } from '@/components/common/DetailPanel';
 import { CommandPalette } from '@/components/common/CommandPalette';
 
 export const metadata: Metadata = {
-  title: { default: '대한적십자사 법규 나무', template: '%s · 대한적십자사 법규 나무' },
+  title: { default: '대한적십자사 법규 지도', template: '%s · 대한적십자사 법규 지도' },
   description: '국가법령정보센터에 흩어진 대한적십자사 관련 법령·조례·기관규정과 판례·해석을 한 화면에서 정리한 시범서비스',
 };
 

@@ -134,7 +134,7 @@ export default function Home() {
             대한적십자사 법규집 <span className="text-sm font-normal text-muted">법령 · 정관 · 운영규정 · 시행규칙 · 기타규칙 · 유관법령 · 폐지규정</span>
           </h2>
           <Link href="/tree/" className="text-sm underline">
-            상하 관계로 보기(체계트리)
+            상하 관계로 보기(트리 목록)
           </Link>
         </div>
         <RegulationBook groups={book} source={order.source} checkedAt={order.checkedAt} />

@@ -1,4 +1,4 @@
-// 규범 위계 트리 구성 (체계트리·법규 나무 공용)
+// 규범 위계 트리 구성 (트리 목록·법규 체계도 공용)
 import type { FieldCode, NormItem, OrdinanceBundle } from '@/types/model';
 import { BUNDLE_NAMES, FIELD_NAMES } from './labels';
 
@@ -75,7 +75,7 @@ export function buildTree(norms: NormItem[], rank: Record<string, number> = {}):
   return top;
 }
 
-/** id → 조상 key 목록 (체계트리 focus 펼침용) */
+/** id → 조상 key 목록 (트리 목록 focus 펼침용) */
 export function ancestorsOf(tree: TreeNode[], key: string): string[] | null {
   for (const n of tree) {
     if (n.key === key) return [];

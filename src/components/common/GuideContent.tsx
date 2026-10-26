@@ -19,7 +19,7 @@ function Section({ id, title, children }: { id: string; title: string; children:
 export const GUIDE_TOC = [
   ['g-search', '검색창 사용법'],
   ['g-screens', '화면 구성'],
-  ['g-tree', '법규 체계도·체계트리'],
+  ['g-tree', '법규 체계도·트리 목록'],
   ['g-detail', '상세 패널'],
   ['g-cases', '판례·해석 보는 법'],
   ['g-legend', '표시·배지'],
@@ -115,10 +115,10 @@ export function GuideContent({ onNavigate }: { onNavigate?: () => void }) {
       <Section id="g-screens" title="🗂 화면 구성">
         <ul className="list-disc space-y-1 pl-5">
           <li>
-            <b>법규 나무</b>(첫 화면) — 법규 체계도와 칸별 규정 목록, 대한적십자사 법규집(법규집 편제 순서), 최근 변경
+            <b>법규 체계도</b>(첫 화면) — 법규 체계도와 칸별 규정 목록, 대한적십자사 법규집(법규집 편제 순서), 최근 변경
           </li>
           <li>
-            <b>체계트리</b> — 헌법·조약 → 법률 → 정관 → 운영규정 → 시행규칙의 상하 관계를 펼쳐 봅니다
+            <b>트리 목록</b> — 헌법·조약 → 법률 → 정관 → 운영규정 → 시행규칙의 상하 관계를 펼쳐 봅니다
           </li>
           <li>
             <b>일람</b> — 모든 규범을 표로 보고 구분·분야·명칭으로 거릅니다. <b>조문 내용 포함</b>을 켜면 본문 문구로도 찾습니다. 걸러진 결과는 <b>CSV 다운로드</b>
@@ -136,7 +136,7 @@ export function GuideContent({ onNavigate }: { onNavigate?: () => void }) {
         <p className="text-muted">필터를 바꾸면 주소(URL)에 반영되므로, 그 주소를 복사해 같은 화면을 공유할 수 있습니다.</p>
       </Section>
 
-      <Section id="g-tree" title="🧊 법규 체계도·체계트리">
+      <Section id="g-tree" title="🧊 법규 체계도·트리 목록">
         <ul className="list-disc space-y-1 pl-5">
           <li>
             <b>법규 체계도</b>는 맨 위 <b>대한민국헌법</b> 띠가 아래로 내려가며 법률 → 시행령·정관·조례 → 업무분야로 쪼개지는 그림입니다. <b>칸 폭</b>은 그 칸에 딸린 규범 수입니다.
@@ -154,7 +154,7 @@ export function GuideContent({ onNavigate }: { onNavigate?: () => void }) {
             색: <span className="font-semibold text-law">파랑</span> 법령 · <span className="font-semibold text-inst">보라</span> 정관·기관규정 · <span className="font-semibold text-local">초록 점선</span> 조례 · <span className="font-semibold text-trty">청록</span> 조약
           </li>
           <li>
-            체계트리 키보드: <Kbd>↑</Kbd> <Kbd>↓</Kbd> 이동 · <Kbd>→</Kbd> 펼치기 · <Kbd>←</Kbd> 접기 · <Kbd>Enter</Kbd> 상세 · <Kbd>o</Kbd> 원문
+            트리 목록 키보드: <Kbd>↑</Kbd> <Kbd>↓</Kbd> 이동 · <Kbd>→</Kbd> 펼치기 · <Kbd>←</Kbd> 접기 · <Kbd>Enter</Kbd> 상세 · <Kbd>o</Kbd> 원문
           </li>
         </ul>
       </Section>

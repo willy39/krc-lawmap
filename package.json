@@ -1,8 +1,8 @@
 {
-  "name": "krc-lawtree",
+  "name": "krc-lawmap",
   "version": "0.1.0",
   "private": true,
-  "description": "대한적십자사 법규 나무 — 시범서비스",
+  "description": "대한적십자사 법규 지도 — 시범서비스",
   "type": "module",
   "scripts": {
     "dev": "next dev --webpack",
