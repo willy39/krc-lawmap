@@ -44,7 +44,7 @@ export function RegulationBook({ groups, source, checkedAt }: { groups: BookGrou
     <div className="rounded-2xl border border-border bg-surface p-4 md:p-6">
       <div className="columns-1 gap-10 lg:columns-2 [column-rule:1px_solid_var(--border)]">
         {groups.map((g) => (
-          <section key={g.no} className="mb-6">
+          <section key={g.no} id={`book-${g.no}`} className="mb-6 scroll-mt-28">
             <h3 className="mb-2 flex items-baseline gap-2 border-b-2 border-text pb-1 font-bold break-after-avoid">
               <span className="text-muted">{g.no}.</span> {g.title}
               <span className="tnum ml-auto text-xs font-normal text-muted">{g.items.length}건</span>

@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { getCases, getChanges, getMeta, getNorms, getOfficialOrder } from '@/lib/data';
-import type { NormItem } from '@/types/model';
+import { getCases, getChanges, getMeta, getNorms } from '@/lib/data';
+import { getBook } from '@/lib/book';
 import { CASE_LABELS, FIELD_NAMES } from '@/lib/labels';
 import { caseSlug, fmtDate } from '@/lib/format';
 import { CASE_SOURCES } from '@/types/model';
 import { Icicle } from '@/components/tree/Icicle';
 import { ChangeList } from '@/components/common/ChangeList';
-import { RegulationBook, type BookGroup } from '@/components/common/RegulationBook';
+import { RegulationBook } from '@/components/common/RegulationBook';
 
 export default function Home() {
   const meta = getMeta();
@@ -16,36 +16,7 @@ export default function Home() {
   const changes = getChanges().entries.slice(0, 5);
   const sidoCount = new Set(norms.filter((n) => n.source === 'ordin' && n.region).map((n) => n.region!.sido)).size;
   const c = meta.counts;
-  // 법규집 편제: 법규집 순서대로 우리 수집본과 매칭, 법규집에 없는 수집본은 해당 편 끝에
-  const order = getOfficialOrder();
-  const key = (t: string) => t.replace(/\s/g, '');
-  const alias = (t: string) => order.aliases[t] ?? t;
-  const pis = norms.filter((n) => n.source === 'pi');
-  const used = new Set<string>();
-  const find = (title: string, pool: NormItem[]) => {
-    const n = pool.find((x) => !used.has(x.id) && key(alias(x.title)) === key(title));
-    if (n) used.add(n.id);
-    return n;
-  };
-  const shorten = (t: string) => t.replace(/^대한적십자사\s+(?!조직법)/, '');
-  // 법규집 7개 편(법령·정관·운영규정·시행규칙·기타규칙·유관법령조문·폐지규정)을 법규집과 같은 순번(편마다 1부터)으로.
-  // I~IV 는 law.go.kr 수집본과 연결, V~VII 은 법규집에만 있는 항목이라 법규집 뷰어로 연결한다.
-  const pools: Record<string, NormItem[]> = {
-    법령: norms.filter((n) => n.level === 'L1_ACT' || n.level === 'L2_DECREE'),
-    정관: pis,
-    운영규정: pis,
-    시행규칙: pis,
-  };
-  const book: BookGroup[] = order.parts.map((part) => ({
-    no: part.no,
-    title: part.title,
-    items: part.items.map((e, i) => {
-      const english = /^[A-Z]/.test(e.title);
-      const pool = pools[part.title];
-      const n = pool && !english ? find(e.title, pool) : undefined;
-      return { no: i + 1, label: english ? e.title : shorten(n?.title ?? e.title), norm: n, english, krcUrl: e.url, note: e.note, krcOnly: !pool };
-    }),
-  }));
+  const book = getBook();
 
   const cards = [
     { href: '/list/?source=law', label: '법령·행정규칙', n: c.norms.law + c.norms.admrul + c.norms.trty, sub: '헌법·조약·법률·시행령·고시' },
@@ -137,7 +108,7 @@ export default function Home() {
             상하 관계로 보기(트리 목록)
           </Link>
         </div>
-        <RegulationBook groups={book} source={order.source} checkedAt={order.checkedAt} />
+        <RegulationBook {...book} />
       </section>
 
       <section aria-labelledby="chg-h">

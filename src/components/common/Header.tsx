@@ -8,6 +8,7 @@ import { GuideButton } from './GuideDialog';
 
 const TABS = [
   { href: '/', label: '체계도' },
+  { href: '/book/', label: '법규집' },
   { href: '/tree/', label: '트리 목록' },
   { href: '/list/', label: '일람' },
   { href: '/local/', label: '조례' },
