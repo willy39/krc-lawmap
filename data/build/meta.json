@@ -1,16 +1,16 @@
 {
  "baseDate": "2026-10-26",
- "generatedAt": "2026-10-26T01:50:20.734Z",
+ "generatedAt": "2026-10-26T06:41:21.314Z",
  "mode": "live",
  "counts": {
   "norms": {
-   "law": 10,
+   "law": 9,
    "eflaw": 0,
    "admrul": 16,
    "ordin": 494,
    "trty": 26,
    "pi": 76,
-   "total": 622
+   "total": 621
   },
   "cases": {
    "prec": 24,
@@ -27,7 +27,7 @@
   "pi": 95
  },
  "brokenLinks": 0,
- "unverifiedLinks": 0,
+ "unverifiedLinks": 1,
  "relevance": {
   "auto": 40,
   "candidate": 20

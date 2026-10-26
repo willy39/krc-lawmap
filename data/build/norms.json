@@ -2295,26 +2295,6 @@
   "flags": []
  },
  {
-  "id": "law:화학무기ㆍ생물무기의 금지와 특정화학물질ㆍ생물작용제 등의 제조ㆍ수출입 규제 등에 관한 법률",
-  "source": "law",
-  "sourceId": "000317",
-  "title": "화학무기ㆍ생물무기의 금지와 특정화학물질ㆍ생물작용제 등의 제조ㆍ수출입 규제 등에 관한 법률",
-  "shortTitle": "생화학무기법",
-  "kind": "법률",
-  "level": "L1R_RELATED",
-  "primaryField": "INT",
-  "secondaryFields": [],
-  "parentId": "law:대한민국헌법",
-  "agency": "산업통상부",
-  "promulgatedAt": "2025-10-01",
-  "effectiveAt": "2025-10-01",
-  "revisionType": "타법개정",
-  "url": "https://www.law.go.kr/법령/%ED%99%94%ED%95%99%EB%AC%B4%EA%B8%B0%E3%86%8D%EC%83%9D%EB%AC%BC%EB%AC%B4%EA%B8%B0%EC%9D%98%20%EA%B8%88%EC%A7%80%EC%99%80%20%ED%8A%B9%EC%A0%95%ED%99%94%ED%95%99%EB%AC%BC%EC%A7%88%E3%86%8D%EC%83%9D%EB%AC%BC%EC%9E%91%EC%9A%A9%EC%A0%9C%20%EB%93%B1%EC%9D%98%20%EC%A0%9C%EC%A1%B0%E3%86%8D%EC%88%98%EC%B6%9C%EC%9E%85%20%EA%B7%9C%EC%A0%9C%20%EB%93%B1%EC%97%90%20%EA%B4%80%ED%95%9C%20%EB%B2%95%EB%A5%A0",
-  "isCore": false,
-  "caseCount": 0,
-  "flags": []
- },
- {
   "id": "law:대한적십자사 조직법 시행령",
   "source": "law",
   "sourceId": "003381",
