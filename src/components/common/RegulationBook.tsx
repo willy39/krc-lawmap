@@ -1,7 +1,7 @@
 'use client';
 // 대한적십자사 법규집 편제 (I 법령 ~ VII 폐지규정) — 법규집과 같은 순서·순번(편마다 1부터), 2단 배치
 // I~IV: law.go.kr 수집본과 연결(상세·원문·⚖) + 법규집 뷰어 링크 / V~VII: 법규집에만 있는 항목 → 법규집 뷰어로
-import type { NormItem } from '@/types/model';
+import type { BookLaw, NormItem } from '@/types/model';
 import { useStore } from '@/lib/store';
 import { fmtDate } from '@/lib/format';
 import { CaseBadge, StatusBadges } from './Chips';
@@ -14,6 +14,7 @@ export interface BookItem {
   krcUrl?: string; // 법규집 뷰어
   note?: string; // 법규집에 적힌 개정·폐지 정보
   krcOnly?: boolean; // 법규집에만 있는 편(V~VII)
+  latest?: BookLaw & { newer: boolean }; // 유관법령의 최신 법령(국가법령정보센터)
 }
 
 export interface BookGroup {
@@ -92,7 +93,28 @@ export function RegulationBook({ groups, source, checkedAt }: { groups: BookGrou
                             </span>
                             {repealed && <span className="rounded bg-surface-2 px-1.5 text-[11px] text-muted">폐지</span>}
                           </div>
-                          {it.note && <p className="tnum text-xs text-muted">{it.note}</p>}
+                          {it.note && (
+                            <p className="tnum text-xs text-muted">
+                              {it.latest ? '법규집 수록본: ' : ''}
+                              {it.note}
+                            </p>
+                          )}
+                          {it.latest && (
+                            <p className="tnum mt-0.5 flex flex-wrap items-center gap-x-1.5 text-xs">
+                              <span className="text-muted">최신 법령:</span>
+                              <a href={it.latest.url} target="_blank" rel="noopener noreferrer" className="font-medium text-law hover:underline" aria-label={`${it.latest.name} 최신 법령 원문 (새 탭)`}>
+                                {it.latest.name} 원문↗
+                              </a>
+                              <span className="text-muted">
+                                시행 {fmtDate(it.latest.effectiveAt)} ({fmtDate(it.latest.promulgatedAt)} {it.latest.revisionType})
+                              </span>
+                              {it.latest.newer && (
+                                <span className="rounded bg-case-bg px-1.5 font-semibold text-case" title="법규집 수록본 이후에 개정된 법령입니다. 최신 조문은 국가법령정보센터 원문에서 확인하세요.">
+                                  법규집 이후 개정
+                                </span>
+                              )}
+                            </p>
+                          )}
                         </>
                       ) : (
                         <div className="flex flex-wrap items-center gap-x-1.5">

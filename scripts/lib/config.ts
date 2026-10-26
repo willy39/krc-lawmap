@@ -35,6 +35,8 @@ export interface Overrides {
   admrul_parent_rules?: { pattern: string; parent: string }[];
   treaties?: { queries: string[]; include: string; exclude?: string; core?: string; parents?: { child: string; parent: string }[] };
   case_queries?: string[];
+  /** 법규집 'VI. 유관법령조문'과 연계할 최신 법령 (체계도·검색 대상 아님) */
+  book_laws?: string[];
   pi_agency: string;
   pi_target?: string;
   cgm_targets?: { ministry: string; target: string }[];

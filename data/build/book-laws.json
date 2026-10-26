@@ -1,0 +1,20 @@
+[
+ {
+  "name": "근로기준법",
+  "kind": "법률",
+  "agency": "고용노동부",
+  "promulgatedAt": "2026-04-07",
+  "effectiveAt": "2026-10-08",
+  "revisionType": "일부개정",
+  "url": "https://www.law.go.kr/법령/%EA%B7%BC%EB%A1%9C%EA%B8%B0%EC%A4%80%EB%B2%95"
+ },
+ {
+  "name": "근로기준법 시행령",
+  "kind": "대통령령",
+  "agency": "고용노동부",
+  "promulgatedAt": "2025-04-08",
+  "effectiveAt": "2025-10-23",
+  "revisionType": "일부개정",
+  "url": "https://www.law.go.kr/법령/%EA%B7%BC%EB%A1%9C%EA%B8%B0%EC%A4%80%EB%B2%95%20%EC%8B%9C%ED%96%89%EB%A0%B9"
+ }
+]

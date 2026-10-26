@@ -2,7 +2,7 @@
 import 'server-only';
 import type { NormItem } from '@/types/model';
 import type { BookGroup } from '@/components/common/RegulationBook';
-import { getNorms, getOfficialOrder } from './data';
+import { getBookLaws, getNorms, getOfficialOrder } from './data';
 
 /**
  * 법규집 7개 편을 법규집과 같은 순번(편마다 1부터)으로.
@@ -28,6 +28,12 @@ export function getBook(): { groups: BookGroup[]; source: string; checkedAt: str
     운영규정: pis,
     시행규칙: pis,
   };
+  // 법규집 수록일 '2021.5.18., 일부개정' → '2021-05-18'
+  const noteDate = (note?: string) => {
+    const m = note?.match(/(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})/);
+    return m ? `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}` : undefined;
+  };
+  const bookLaws = getBookLaws();
   const groups: BookGroup[] = order.parts.map((part) => ({
     no: part.no,
     title: part.title,
@@ -35,7 +41,10 @@ export function getBook(): { groups: BookGroup[]; source: string; checkedAt: str
       const english = /^[A-Z]/.test(e.title);
       const pool = pools[part.title];
       const n = pool && !english ? find(e.title, pool) : undefined;
-      return { no: i + 1, label: english ? e.title : shorten(n?.title ?? e.title), norm: n, english, krcUrl: e.url, note: e.note, krcOnly: !pool };
+      // 유관법령: 법규집 수록본과 최신 법령을 함께 (법규집보다 뒤에 공포된 개정이 있으면 표시)
+      const law = !pool ? bookLaws.find((l) => key(l.name) === key(e.title)) : undefined;
+      const latest = law && { ...law, newer: !!(law.promulgatedAt && noteDate(e.note) && law.promulgatedAt > noteDate(e.note)!) };
+      return { no: i + 1, label: english ? e.title : shorten(n?.title ?? e.title), norm: n, english, krcUrl: e.url, note: e.note, krcOnly: !pool, latest };
     }),
   }));
   return { groups, source: order.source, checkedAt: order.checkedAt };

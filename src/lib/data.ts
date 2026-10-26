@@ -2,7 +2,7 @@
 import 'server-only';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { CaseItem, ChangeSet, DatasetMeta, NormItem, RegionInfo, Relation } from '@/types/model';
+import type { BookLaw, CaseItem, ChangeSet, DatasetMeta, NormItem, RegionInfo, Relation } from '@/types/model';
 
 const dir = join(process.cwd(), 'data', 'build');
 const cache = new Map<string, unknown>();
@@ -17,6 +17,13 @@ export const getRelations = () => load<Relation[]>('relations.json');
 export const getMeta = () => load<DatasetMeta>('meta.json');
 export const getChanges = () => load<ChangeSet>('changes.json');
 export const getRegions = () => load<RegionInfo[]>('regions.json');
+export const getBookLaws = (): BookLaw[] => {
+  try {
+    return load<BookLaw[]>('book-laws.json');
+  } catch {
+    return [];
+  }
+};
 
 import YAML from 'yaml';
 export function getAliases(): string[][] {

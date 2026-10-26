@@ -112,6 +112,17 @@ export interface RegionInfo {
   code: string;
 }
 
+/** 법규집 유관법령(근로기준법 등)과 연계할 최신 법령 메타 (data/build/book-laws.json) */
+export interface BookLaw {
+  name: string;
+  kind: string;
+  agency: string;
+  promulgatedAt?: string;
+  effectiveAt?: string;
+  revisionType?: string;
+  url: string;
+}
+
 /** 조문 본문 한 줄: [조문번호("제3조", "제3조의2", 장·절 제목이면 ""), 조문제목, 본문] */
 export type ArticleRow = [string, string, string];
 /** 규범 ID → 조문 본문 (data/build/fulltext.json, 조문 내용 검색 시에만 지연 로딩) */
