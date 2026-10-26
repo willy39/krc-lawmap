@@ -28,29 +28,24 @@ export default function Home() {
     return n;
   };
   const shorten = (t: string) => t.replace(/^대한적십자사\s+(?!조직법)/, '');
-  // 순번: 대한적십자사 법규집처럼 편마다 1부터. 영문본(law.go.kr 미등재)도 법규집 순번을 차지하므로 자리를 지킨다
-  const book: BookGroup[] = (
-    [
-      ['I', '법령', order.groups.법령, norms.filter((n) => n.level === 'L1_ACT' || n.level === 'L2_DECREE'), null],
-      ['II', '정관', order.groups.정관, pis, 'L3_ARTICLES'],
-      ['III', '운영규정', order.groups.운영규정, pis, 'L4_REGULATION'],
-      ['IV', '시행규칙', order.groups.시행규칙, pis, 'L5_RULE'],
-    ] as const
-  ).map(([gno, title, names, pool, level]) => {
-    let no = 0;
-    const items: BookGroup['items'] = names.map((t) => {
-      const english = /^[A-Z]/.test(t);
-      const n = english ? undefined : find(t, pool as NormItem[]);
-      return { no: ++no, label: english ? t : shorten(n?.title ?? t), norm: n, english };
-    });
-    // 법규집에 없는 수집본(예: law.go.kr 에만 남은 옛 명칭)은 그 편 끝에 이어 붙인다
-    const rest = (pool as NormItem[]).filter((x) => !used.has(x.id) && (level ? x.level === level || (level === 'L5_RULE' && x.level === 'L6_GUIDELINE') : true));
-    for (const n of rest) {
-      used.add(n.id);
-      items.push({ no: ++no, label: shorten(n.title), norm: n, extra: true });
-    }
-    return { no: gno, title, items };
-  });
+  // 법규집 7개 편(법령·정관·운영규정·시행규칙·기타규칙·유관법령조문·폐지규정)을 법규집과 같은 순번(편마다 1부터)으로.
+  // I~IV 는 law.go.kr 수집본과 연결, V~VII 은 법규집에만 있는 항목이라 법규집 뷰어로 연결한다.
+  const pools: Record<string, NormItem[]> = {
+    법령: norms.filter((n) => n.level === 'L1_ACT' || n.level === 'L2_DECREE'),
+    정관: pis,
+    운영규정: pis,
+    시행규칙: pis,
+  };
+  const book: BookGroup[] = order.parts.map((part) => ({
+    no: part.no,
+    title: part.title,
+    items: part.items.map((e, i) => {
+      const english = /^[A-Z]/.test(e.title);
+      const pool = pools[part.title];
+      const n = pool && !english ? find(e.title, pool) : undefined;
+      return { no: i + 1, label: english ? e.title : shorten(n?.title ?? e.title), norm: n, english, krcUrl: e.url, note: e.note, krcOnly: !pool };
+    }),
+  }));
 
   const cards = [
     { href: '/list/?source=law', label: '법령·행정규칙', n: c.norms.law + c.norms.admrul + c.norms.trty, sub: '헌법·조약·법률·시행령·고시' },
@@ -136,7 +131,7 @@ export default function Home() {
       <section aria-labelledby="book-h">
         <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
           <h2 id="book-h" className="font-bold">
-            대한적십자사 법규집 <span className="text-sm font-normal text-muted">법령 · 정관 · 운영규정 · 시행규칙</span>
+            대한적십자사 법규집 <span className="text-sm font-normal text-muted">법령 · 정관 · 운영규정 · 시행규칙 · 기타규칙 · 유관법령 · 폐지규정</span>
           </h2>
           <Link href="/tree/" className="text-sm underline">
             상하 관계로 보기(체계트리)

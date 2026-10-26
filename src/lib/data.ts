@@ -24,16 +24,30 @@ export function getAliases(): string[][] {
   return t.aliases ?? [];
 }
 
+export interface BookEntry {
+  title: string;
+  note?: string; // 법규집에 적힌 개정·폐지 정보
+  url: string; // 법규집 뷰어
+}
 export interface OfficialOrder {
   source: string;
   checkedAt: string;
+  parts: { no: string; title: string; items: BookEntry[] }[];
   groups: { 법령: string[]; 정관: string[]; 운영규정: string[]; 시행규칙: string[] };
   aliases: Record<string, string>;
 }
 /** 대한적십자사 법규집 편제 순서 (data/krc-order.yaml) */
 export function getOfficialOrder(): OfficialOrder {
   const y = YAML.parse(readFileSync(join(process.cwd(), 'data', 'krc-order.yaml'), 'utf8'));
-  return { source: y.source, checkedAt: y.checkedAt, groups: { 법령: y.법령, 정관: y.정관, 운영규정: y.운영규정, 시행규칙: y.시행규칙 }, aliases: y.aliases ?? {} };
+  const parts: OfficialOrder['parts'] = y.parts;
+  const titles = (name: string) => parts.find((p) => p.title === name)?.items.map((i) => i.title) ?? [];
+  return {
+    source: y.source,
+    checkedAt: y.checkedAt,
+    parts,
+    groups: { 법령: titles('법령'), 정관: titles('정관'), 운영규정: titles('운영규정'), 시행규칙: titles('시행규칙') },
+    aliases: y.aliases ?? {},
+  };
 }
 
 /** 정규화된 명칭 → 법규집 순번 (편제 전체에서 연속 번호) */

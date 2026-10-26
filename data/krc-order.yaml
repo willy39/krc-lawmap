@@ -1,91 +1,139 @@
-# 대한적십자사 법규집 편제 순서 (출처: http://law.redcross.or.kr/law , 확인 2026-10-26)
-# 순번은 편(법령·정관·운영규정·시행규칙)마다 1부터 다시 매기며, 영문본도 법규집 순번을 차지하므로 그대로 둔다(law.go.kr 미등재).
-# 명칭은 법규집 표기 그대로이며, law.go.kr 명칭과 다르면 aliases 로 연결한다.
+# 대한적십자사 법규집 편제·순서 (출처: http://law.redcross.or.kr/law , 확인 2026-10-26)
+# - 순번은 편마다 1부터 다시 매기며, 영문본도 법규집 순번을 차지하므로 그대로 둔다(law.go.kr 미등재).
+# - title: 법규집 표기, note: 법규집에 적힌 개정·폐지 정보, url: 법규집 뷰어(HTTPS 미제공)
+# - I~IV 는 law.go.kr 수집본과 명칭으로 연결(다르면 aliases), V~VII 은 법규집에만 있는 항목
 source: http://law.redcross.or.kr/law
 checkedAt: "2026-10-26"
-법령:
-  - "대한적십자사 조직법"
-  - "대한적십자사 조직법 시행령"
-  - "ORGANIZATION OF THE REPUBLIC OF KOREA NATIONAL RED CROSS ACT"
-정관:
-  - "대한적십자사 정관"
-  - "STATUTE OF THE REPUBLIC OF KOREA NATIONAL RED CROSS"
-운영규정:
-  - "대한적십자사 지사 운영규정"
-  - "대한적십자사 사업기관 등 설치 운영규정"
-  - "대한적십자사 포상 운영규정"
-  - "대한적십자사 직원 운영규정"
-  - "대한적십자사 직원 보수 운영규정"
-  - "대한적십자사 고용원 운영규정"
-  - "대한적십자사 직원 및 고용원 정원 운영규정"
-  - "대한적십자사 신원보증 운영규정"
-  - "대한적십자사 재무 운영규정"
-  - "대한적십자사 보건기관 특별회계 운영규정"
-  - "대한적십자사 직원 및 고용원 퇴직금 특별회계 운영규정"
-  - "대한적십자사 헌혈환급적립금 특별회계 운영규정"
-  - "대한적십자사 여비 운영규정"
-  - "대한적십자사 임원, 고문 및 위원의 예우에 관한 운영규정"
-  - "대한적십자사 감사 운영규정"
-  - "대한적십자사 구호 운영규정"
-  - "대한적십자사 전문위원회 운영규정"
-  - "대한적십자사 친선대사 등 위촉 및 직무 등에 관한 운영규정"
-  - "대한적십자사 혈액관리본부 운영규정"
-  - "대한적십자사 무기계약직원 운영규정"
-  - "대한적십자사 시간선택제직원 운영규정"
-  - "대한적십자사 의료원 및 병원 운영규정"
-시행규칙:
-  - "대한적십자사 인사관리 시행규칙"
-  - "대한적십자사 인사위원회 시행규칙"
-  - "대한적십자사 사무관리 시행규칙"
-  - "대한적십자사 직무대리 시행규칙"
-  - "대한적십자사 재산관리 시행규칙"
-  - "대한적십자사 물품관리 시행규칙"
-  - "대한적십자사 계약사무 시행규칙"
-  - "대한적십자사 본사 직제 시행규칙"
-  - "대한적십자사 지사 직제 시행규칙"
-  - "대한적십자사 병원 직제 시행규칙"
-  - "대한적십자사 혈액관리본부 직제 시행규칙"
-  - "대한적십자사 혈액원 직제 시행규칙"
-  - "대한적십자사 인재개발원 직제 시행규칙"
-  - "대한적십자사 제 자문위원회 설치 시행규칙"
-  - "대한적십자사 봉사회 시행규칙"
-  - "대한적십자사 퇴직금 지급 시행규칙"
-  - "대한적십자사 보조금 관리 시행규칙"
-  - "대한적십자사 학자금 대여에 관한 시행규칙"
-  - "대한적십자사 학술연구 및 연구비 지급 시행규칙"
-  - "대한적십자사 의사 및 약사 등 확보조정비 지급 시행규칙"
-  - "대한적십자사 연수 시행규칙"
-  - "대한적십자사 감사 시행규칙"
-  - "대한적십자사 보안업무 시행규칙"
-  - "대한적십자사 혈장분획센터 직제 시행규칙"
-  - "대한적십자사 적십자회관 직제 시행규칙"
-  - "대한적십자사 봉사관 시행규칙"
-  - "대한적십자사 보건기관 장비 심의 시행규칙"
-  - "대한적십자사 특정수혈부작용 및 채혈부작용 보상금 지급 시행규칙"
-  - "대한적십자사 인도법연구소 시행규칙"
-  - "대한적십자사 안전사업 시행규칙"
-  - "대한적십자사 사고 보상 위자료 지급 시행규칙"
-  - "대한적십자사 정보화 업무 시행규칙"
-  - "대한적십자사 재외동포지원본부 시행규칙"
-  - "대한적십자사 주택자금 대부 시행규칙"
-  - "대한적십자사 청소년적십자사업 시행규칙"
-  - "대한적십자사 혈액수혈연구원 직제 시행규칙"
-  - "대한적십자사 명예퇴직 수당 등 지급 시행규칙"
-  - "대한적십자사 민원사무 처리 시행규칙"
-  - "대한적십자사 국외 파견직원 복무 지원 등에 관한 시행규칙"
-  - "대한적십자사 후원조직 시행규칙"
-  - "대한적십자사 수품센터 운영 등에 관한 시행규칙"
-  - "대한적십자사 혈액검사센터 직제 시행규칙"
-  - "대한적십자사 개방형직위 운영 등에 관한 시행규칙"
-  - "대한적십자사 유산관리프로그램 운영에 관한 시행규칙"
-  - "대한적십자사 기부물품 관리 및 회계처리 시행규칙"
-  - "대한적십자사 지역보건사업 시행규칙"
-  - "대한적십자사 법규공개 등에 관한 시행규칙"
-  - "대한적십자사 기록물 관리 시행규칙"
-  - "대한적십자사 의료원 직제 시행규칙"
-  - "대한적십자사 안전보건 관리 시행규칙"
-  - "대한적십자사 기금관리 시행규칙"
-  - "대한적십자사 인재개발원 제주캠퍼스 운영 등에 관한 시행규칙"
+parts:
+  - no: I
+    title: 법령
+    items:
+      - { title: "대한적십자사 조직법", note: "2025.10. 1., 타법개정", url: "http://law.redcross.or.kr/r/viewer/content/law/a767634449c0004c" }
+      - { title: "대한적십자사 조직법 시행령", note: "2021.6.29., 일부개정", url: "http://law.redcross.or.kr/r/viewer/content/law/874e992ea6a5b776" }
+      - { title: "ORGANIZATION OF THE REPUBLIC OF KOREA NATIONAL RED CROSS ACT", url: "http://law.redcross.or.kr/r/viewer/content/law/7878db2bff74292b" }
+  - no: II
+    title: 정관
+    items:
+      - { title: "대한적십자사 정관", note: "개정 2026.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/f9737d1dbf3fed1f" }
+      - { title: "STATUTE OF THE REPUBLIC OF KOREA NATIONAL RED CROSS", url: "http://law.redcross.or.kr/r/viewer/content/law/96b5e965df015ff1" }
+  - no: III
+    title: 운영규정
+    items:
+      - { title: "대한적십자사 지사 운영규정", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/fafcba66003a23c5" }
+      - { title: "대한적십자사 사업기관 등 설치 운영규정", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/63de97f30693ee08" }
+      - { title: "대한적십자사 포상 운영규정", note: "개정 2026.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/441230c2489b6e5f" }
+      - { title: "대한적십자사 직원 운영규정", note: "개정 2026.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/cf7868058846244a" }
+      - { title: "대한적십자사 직원 보수 운영규정", note: "개정 2026.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/0120dcf7e52bc657" }
+      - { title: "대한적십자사 고용원 운영규정", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/d1f2c517a5bcc5ea" }
+      - { title: "대한적십자사 직원 및 고용원 정원 운영규정", note: "개정 2026.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/9d93aeaf6900c89c" }
+      - { title: "대한적십자사 신원보증 운영규정", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/ddde083b3168380e" }
+      - { title: "대한적십자사 재무 운영규정", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/8c5cde0af067cdc7" }
+      - { title: "대한적십자사 보건기관 특별회계 운영규정", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/b247c2485ad0c200" }
+      - { title: "대한적십자사 직원 및 고용원 퇴직금 특별회계 운영규정", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/b144beb6880dfc7f" }
+      - { title: "대한적십자사 헌혈환급적립금 특별회계 운영규정", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/97d1adff259cf72f" }
+      - { title: "대한적십자사 여비 운영규정", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/0fe8165bdece40b8" }
+      - { title: "대한적십자사 임원, 고문 및 위원의 예우에 관한 운영규정", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/c3051a41b759cb6f" }
+      - { title: "대한적십자사 감사 운영규정", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/1896a8c370bce109" }
+      - { title: "대한적십자사 구호 운영규정", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/ce592a4032f9b2d1" }
+      - { title: "대한적십자사 전문위원회 운영규정", note: "개정 2017.6.3", url: "http://law.redcross.or.kr/r/viewer/content/law/4693829d891ecd3e" }
+      - { title: "대한적십자사 친선대사 등 위촉 및 직무 등에 관한 운영규정", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/c8e17b2d770bf2f4" }
+      - { title: "대한적십자사 혈액관리본부 운영규정", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/149e5069fc264d8c" }
+      - { title: "대한적십자사 무기계약직원 운영규정", note: "개정 2026.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/ccd991725d7eec13" }
+      - { title: "대한적십자사 시간선택제직원 운영규정", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/fc28459f1366746c" }
+      - { title: "대한적십자사 의료원 및 병원 운영규정", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/e3899853cc7d7e0f" }
+  - no: IV
+    title: 시행규칙
+    items:
+      - { title: "대한적십자사 인사관리 시행규칙", note: "개정 2026.10.1", url: "http://law.redcross.or.kr/r/viewer/content/law/f675782e853c9011" }
+      - { title: "대한적십자사 인사위원회 시행규칙", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/566805d3d8ff0853" }
+      - { title: "대한적십자사 사무관리 시행규칙", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/5c8666c51ca06d22" }
+      - { title: "대한적십자사 직무대리 시행규칙", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/19b9b010b62f238a" }
+      - { title: "대한적십자사 재산관리 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/11eefc0a6cdd69cd" }
+      - { title: "대한적십자사 물품관리 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/1c26583e2bbfbd97" }
+      - { title: "대한적십자사 계약사무 시행규칙", note: "개정 2026.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/0ed06bb34c73e1e9" }
+      - { title: "대한적십자사 본사 직제 시행규칙", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/fbdad599838fc220" }
+      - { title: "대한적십자사 지사 직제 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/10ebe52b0293a47b" }
+      - { title: "대한적십자사 병원 직제 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/e0d29b5bc2e2f751" }
+      - { title: "대한적십자사 혈액관리본부 직제 시행규칙", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/eb44b701c24c8ac2" }
+      - { title: "대한적십자사 혈액원 직제 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/b5558103aa507c84" }
+      - { title: "대한적십자사 인재개발원 직제 시행규칙", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/911620fe87b7f544" }
+      - { title: "대한적십자사 제 자문위원회 설치 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/5503346205e56a46" }
+      - { title: "대한적십자사 봉사회 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/10c7190f61450afa" }
+      - { title: "대한적십자사 퇴직금 지급 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/aa9f0ff56d7fef05" }
+      - { title: "대한적십자사 보조금 관리 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/e2055e15c82b9913" }
+      - { title: "대한적십자사 학자금 대여에 관한 시행규칙", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/fa00337e7c807d2c" }
+      - { title: "대한적십자사 학술연구 및 연구비 지급 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/e053f62a9ed1e5fe" }
+      - { title: "대한적십자사 의사 및 약사 등 확보조정비 지급 시행규칙", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/896563c2787f79af" }
+      - { title: "대한적십자사 연수 시행규칙", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/65b98068f7cc8ca2" }
+      - { title: "대한적십자사 감사 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/a0e52141676a4d17" }
+      - { title: "대한적십자사 보안업무 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/34f836b35f6c93cc" }
+      - { title: "대한적십자사 혈장분획센터 직제 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/b114c9c6c9c4cec5" }
+      - { title: "대한적십자사 적십자회관 직제 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/2ee842fd7f9b8792" }
+      - { title: "대한적십자사 봉사관 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/abf343a0c7adc39c" }
+      - { title: "대한적십자사 보건기관 장비 심의 시행규칙", note: "개정 2026.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/f09ec750ab876336" }
+      - { title: "대한적십자사 특정수혈부작용 및 채혈부작용 보상금 지급 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/c4294cd157796204" }
+      - { title: "대한적십자사 인도법연구소 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/fdd358d5d53e9267" }
+      - { title: "대한적십자사 안전사업 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/892c0ce7d2aaa8d0" }
+      - { title: "대한적십자사 사고 보상 위자료 지급 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/224921927b63d9c3" }
+      - { title: "대한적십자사 정보화 업무 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/8ab8bd1c99e1dadd" }
+      - { title: "대한적십자사 재외동포지원본부 시행규칙", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/93c9856c48741afa" }
+      - { title: "대한적십자사 주택자금 대부 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/49c2793ed79a3612" }
+      - { title: "대한적십자사 청소년적십자사업 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/6fc26a03a0c48b5a" }
+      - { title: "대한적십자사 혈액수혈연구원 직제 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/0ca587a2f9e90118" }
+      - { title: "대한적십자사 명예퇴직 수당 등 지급 시행규칙", note: "개정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/9df8c56985619c98" }
+      - { title: "대한적십자사 민원사무 처리 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/4a22da0c11ada5fa" }
+      - { title: "대한적십자사 국외 파견직원 복무 지원 등에 관한 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/8dde4e5fb2cacce6" }
+      - { title: "대한적십자사 후원조직 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/32015eb1f287b1f8" }
+      - { title: "대한적십자사 수품센터 운영 등에 관한 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/0328056691307720" }
+      - { title: "대한적십자사 혈액검사센터 직제 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/9f08146cf63b0d93" }
+      - { title: "대한적십자사 개방형직위 운영 등에 관한 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/82b4ea567a863f74" }
+      - { title: "대한적십자사 유산관리프로그램 운영에 관한 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/cb0e35937335bf8e" }
+      - { title: "대한적십자사 기부물품 관리 및 회계처리 시행규칙", note: "개정 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/92983926faafc9e8" }
+      - { title: "대한적십자사 지역보건사업 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/ee13122b3834107b" }
+      - { title: "대한적십자사 법규공개 등에 관한 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/e6bdc67d45d41d87" }
+      - { title: "대한적십자사 기록물 관리 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/1979b19725a59022" }
+      - { title: "대한적십자사 의료원 직제 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/ea7c3fba1ef55b44" }
+      - { title: "대한적십자사 안전보건 관리 시행규칙", note: "개정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/49d864a5e68f4c47" }
+      - { title: "대한적십자사 기금관리 시행규칙", note: "제정 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/650c8e626d2b7be2" }
+      - { title: "대한적십자사 인재개발원 제주캠퍼스 운영 등에 관한 시행규칙", note: "제정 2026.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/d18fb5512de600e0" }
+  - no: V
+    title: 기타규칙
+    items:
+      - { title: "구 대한적십자사규칙", url: "http://law.redcross.or.kr/r/viewer/content/law/d8d75ab6db5455db" }
+      - { title: "적십자표장사용규칙", url: "http://law.redcross.or.kr/r/viewer/content/law/2f722cc212d4ebed" }
+      - { title: "대한적십자사 본사 및 혈액관리본부, 의료원 위임전결내규", note: "2024.10.15 개정", url: "http://law.redcross.or.kr/r/viewer/content/law/cf857e40fdd14e32" }
+      - { title: "사업장회계사무집행요령", url: "http://law.redcross.or.kr/r/viewer/content/law/4b96d7a93f4a3c85" }
+  - no: VI
+    title: 유관법령조문 및 행정조치
+    items:
+      - { title: "근로기준법", note: "2021.5.18., 일부개정", url: "http://law.redcross.or.kr/r/viewer/content/law/51e23b6e549e9098" }
+      - { title: "근로기준법 시행령", note: "2021.11.19., 일부개정", url: "http://law.redcross.or.kr/r/viewer/content/law/7b199517c5d04fc6" }
+      - { title: "행정조치", url: "http://law.redcross.or.kr/r/viewer/content/law/a5153c2fbcaebd61" }
+  - no: VII
+    title: 폐지규정
+    items:
+      - { title: "대한적십자사 인도적남북회담에관한임시조치운영규정", note: "폐지 1997.11.1", url: "http://law.redcross.or.kr/r/viewer/content/law/2a9e8ce545e4ba32" }
+      - { title: "대한적십자사 사업기금적립운영규정", note: "폐지 1995.12.1", url: "http://law.redcross.or.kr/r/viewer/content/law/04c3aba8a113637a" }
+      - { title: "대한적십자사 국제협력기금관리운영규정", note: "폐지 2000.1.18", url: "http://law.redcross.or.kr/r/viewer/content/law/213f0afcb43d4040" }
+      - { title: "대한적십자사 홍보위원회시행규칙", note: "폐지 2001.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/99f3d62560ee2daf" }
+      - { title: "대한적십자사 응급환자정보센터직제시행규칙", note: "폐지 2001.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/fea92edb6e6fad70" }
+      - { title: "대한적십자사 중앙적십자혈액원직제시행규칙", note: "폐지 2002.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/32d16fd719a73f58" }
+      - { title: "대한적십자사 지사혈액원직제시행규칙", note: "폐지 2002.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/311cb15713beb00f" }
+      - { title: "대한적십자사 사업후원조직시행규칙", note: "폐지 2002.11.20", url: "http://law.redcross.or.kr/r/viewer/content/law/6075ff2bc5932d5b" }
+      - { title: "대한적십자사 100주년기념사업기금관리시행규칙", note: "폐지 2006.12.31", url: "http://law.redcross.or.kr/r/viewer/content/law/44de70cf847b9c2b" }
+      - { title: "대한적십자사 희망퇴직실시에관한운영규정", note: "폐지 2007.6.30", url: "http://law.redcross.or.kr/r/viewer/content/law/d7a3adb4d0b5fef0" }
+      - { title: "대한적십자사 수당등의지급에관한시행규칙", note: "폐지 2010.9.1", url: "http://law.redcross.or.kr/r/viewer/content/law/c7af7f6000e8a149" }
+      - { title: "대한적십자사 인장시행규칙", note: "폐지 2014.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/758802354b2f768c" }
+      - { title: "대한적십자사 군병원봉사실시행규칙", note: "폐지 2017.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/0aef8f52519cea8a" }
+      - { title: "대한적십자사 서울적십자병원직제시행규칙", note: "폐지 2017.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/af6f5de95a5cee9f" }
+      - { title: "대한적십자사 병원책임운영기관설치운영규정", note: "폐지 2021.7.1", url: "http://law.redcross.or.kr/r/viewer/content/law/4cc80892d9ac0d3c" }
+      - { title: "대한적십자사 헌혈혈액원지원장비관리시행규칙", note: "개정 2017.6.3", url: "http://law.redcross.or.kr/r/viewer/content/law/f2ed128bc9512acb" }
+      - { title: "대한적십자사 청소년적십자활동 기금관리 시행규칙", note: "폐지 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/6b266d4eee43f4df" }
+      - { title: "대한적십자사 남북교류 기금관리 시행규칙", note: "폐지 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/3ce1395b81290ca7" }
+      - { title: "대한적십자사 국제협력 기금관리 시행규칙", note: "폐지 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/bd87c82a21e0a185" }
+      - { title: "대한적십자사 장기등기증에관한시행규칙", note: "폐지 2025.1.1", url: "http://law.redcross.or.kr/r/viewer/content/law/469653644926ba4c" }
+      - { title: "대한적십자사 임원, 법률고문 및 위원회의참가비지급운영규정", note: "폐지 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/c1066dbff401d481" }
+      - { title: "대한적십자사 직원 및 고용원 퇴직급여 기금 적립 운영규정", note: "폐지 2025.4.1", url: "http://law.redcross.or.kr/r/viewer/content/law/4651984716b79651" }
 # law.go.kr 명칭 → 법규집 명칭
 aliases:
   "대한적십자사 개방혁직위 운영 등에 관한 시행규칙": "대한적십자사 개방형직위 운영 등에 관한 시행규칙"
