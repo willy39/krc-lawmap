@@ -1131,27 +1131,6 @@
   "flags": []
  },
  {
-  "id": "admrul:32085",
-  "source": "admrul",
-  "sourceId": "32085",
-  "title": "국군의 해외파병업무 훈령",
-  "kind": "훈령",
-  "level": "L1A_ADMRULE",
-  "primaryField": "ETC",
-  "secondaryFields": [],
-  "parentId": null,
-  "agency": "국방부",
-  "promulgatedAt": "2024-08-23",
-  "effectiveAt": "2024-08-23",
-  "revisionType": "일부개정",
-  "url": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000246350",
-  "isCore": false,
-  "caseCount": 0,
-  "flags": [
-   "NO_PARENT"
-  ]
- },
- {
   "id": "admrul:76733",
   "source": "admrul",
   "sourceId": "76733",
@@ -1192,27 +1171,6 @@
   "isCore": false,
   "caseCount": 0,
   "flags": []
- },
- {
-  "id": "admrul:51907",
-  "source": "admrul",
-  "sourceId": "51907",
-  "title": "군 국가유산보호 훈령",
-  "kind": "훈령",
-  "level": "L1A_ADMRULE",
-  "primaryField": "FIN",
-  "secondaryFields": [],
-  "parentId": null,
-  "agency": "국방부",
-  "promulgatedAt": "2024-07-08",
-  "effectiveAt": "2024-07-08",
-  "revisionType": "일부개정",
-  "url": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000244410",
-  "isCore": false,
-  "caseCount": 0,
-  "flags": [
-   "NO_PARENT"
-  ]
  },
  {
   "id": "admrul:34882",
@@ -1354,27 +1312,6 @@
   "isCore": false,
   "caseCount": 0,
   "flags": []
- },
- {
-  "id": "admrul:32074",
-  "source": "admrul",
-  "sourceId": "32074",
-  "title": "전쟁법 준수를 위한 훈령",
-  "kind": "훈령",
-  "level": "L1A_ADMRULE",
-  "primaryField": "ETC",
-  "secondaryFields": [],
-  "parentId": null,
-  "agency": "국방부",
-  "promulgatedAt": "2025-12-31",
-  "effectiveAt": "2025-12-31",
-  "revisionType": "일부개정",
-  "url": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000270894",
-  "isCore": false,
-  "caseCount": 0,
-  "flags": [
-   "NO_PARENT"
-  ]
  },
  {
   "id": "admrul:97804",

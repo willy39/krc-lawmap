@@ -8,7 +8,7 @@ import { CaseBadge, StatusBadges } from './Chips';
 export interface BookGroup {
   no: string; // I, II …
   title: string;
-  items: { no: number; label: string; norm?: NormItem }[];
+  items: { no: number; label: string; norm?: NormItem; english?: boolean; extra?: boolean }[];
 }
 
 export function RegulationBook({ groups, source, checkedAt }: { groups: BookGroup[]; source: string; checkedAt: string }) {
@@ -41,6 +41,11 @@ export function RegulationBook({ groups, source, checkedAt }: { groups: BookGrou
                             </a>
                             <StatusBadges norm={{ ...n, flags: n.flags.filter((f) => f !== 'NO_PARENT') }} />
                             <CaseBadge norm={n} />
+                            {it.extra && (
+                              <span className="rounded border border-dashed border-border px-1 text-[11px] text-muted" title="국가법령정보센터에는 있으나 대한적십자사 법규집 목록에는 없음">
+                                법규집 미수록
+                              </span>
+                            )}
                           </div>
                           <p className="tnum text-xs text-muted">
                             시행 {fmtDate(n.effectiveAt)}
@@ -49,7 +54,7 @@ export function RegulationBook({ groups, source, checkedAt }: { groups: BookGrou
                         </>
                       ) : (
                         <span className="text-muted" title="국가법령정보센터(law.go.kr) 미등재 — 대한적십자사 법규집에서 확인">
-                          {it.label} <span className="text-xs">(law.go.kr 미등재)</span>
+                          {it.label} <span className="text-xs">({it.english ? '영문본 · ' : ''}law.go.kr 미등재)</span>
                         </span>
                       )}
                     </div>
@@ -61,7 +66,7 @@ export function RegulationBook({ groups, source, checkedAt }: { groups: BookGrou
         ))}
       </div>
       <p className="mt-2 text-xs text-muted">
-        편제·순서: 대한적십자사 법규집(
+        편제·순서·순번: 대한적십자사 법규집(
         <a className="underline" href={source} target="_blank" rel="noopener noreferrer">
           {source.replace(/^https?:\/\//, '')}
         </a>

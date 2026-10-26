@@ -28,7 +28,7 @@ export default function Home() {
     return n;
   };
   const shorten = (t: string) => t.replace(/^대한적십자사\s+(?!조직법)/, '');
-  let no = 0;
+  // 순번: 대한적십자사 법규집처럼 편마다 1부터. 영문본(law.go.kr 미등재)도 법규집 순번을 차지하므로 자리를 지킨다
   const book: BookGroup[] = (
     [
       ['I', '법령', order.groups.법령, norms.filter((n) => n.level === 'L1_ACT' || n.level === 'L2_DECREE'), null],
@@ -37,16 +37,17 @@ export default function Home() {
       ['IV', '시행규칙', order.groups.시행규칙, pis, 'L5_RULE'],
     ] as const
   ).map(([gno, title, names, pool, level]) => {
-    const items: BookGroup['items'] = names
-      .filter((t) => !/^[A-Z]/.test(t))
-      .map((t) => {
-        const n = find(t, pool as NormItem[]);
-        return { no: ++no, label: shorten(n?.title ?? t), norm: n };
-      });
+    let no = 0;
+    const items: BookGroup['items'] = names.map((t) => {
+      const english = /^[A-Z]/.test(t);
+      const n = english ? undefined : find(t, pool as NormItem[]);
+      return { no: ++no, label: english ? t : shorten(n?.title ?? t), norm: n, english };
+    });
+    // 법규집에 없는 수집본(예: law.go.kr 에만 남은 옛 명칭)은 그 편 끝에 이어 붙인다
     const rest = (pool as NormItem[]).filter((x) => !used.has(x.id) && (level ? x.level === level || (level === 'L5_RULE' && x.level === 'L6_GUIDELINE') : true));
     for (const n of rest) {
       used.add(n.id);
-      items.push({ no: ++no, label: shorten(n.title), norm: n });
+      items.push({ no: ++no, label: shorten(n.title), norm: n, extra: true });
     }
     return { no: gno, title, items };
   });

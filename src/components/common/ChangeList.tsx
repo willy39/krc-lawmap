@@ -7,7 +7,7 @@ import { useStore } from '@/lib/store';
 const KIND: Record<ChangeEntry['kind'], { label: string; cls: string }> = {
   NORM_ADDED: { label: '규범 추가', cls: 'bg-law-bg text-law' },
   NORM_REVISED: { label: '규범 개정', cls: 'bg-accent/10 text-accent' },
-  NORM_REMOVED: { label: '규범 폐지', cls: 'bg-surface-2 text-muted' },
+  NORM_REMOVED: { label: '목록에서 제외', cls: 'bg-surface-2 text-muted' },
   CASE_ADDED: { label: '신규 판례·해석', cls: 'bg-case-bg text-case' },
 };
 

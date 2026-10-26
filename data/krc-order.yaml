@@ -1,12 +1,15 @@
-# 대한적십자사 법규집 편제 순서 (출처: http://law.redcross.or.kr/law , 확인 2026-10-21)
-# 홈·체계트리의 정관·운영규정·시행규칙 표시 순서에 사용. 명칭은 법규집 표기 그대로이며, law.go.kr 명칭과 다르면 aliases 로 연결한다.
+# 대한적십자사 법규집 편제 순서 (출처: http://law.redcross.or.kr/law , 확인 2026-10-26)
+# 순번은 편(법령·정관·운영규정·시행규칙)마다 1부터 다시 매기며, 영문본도 법규집 순번을 차지하므로 그대로 둔다(law.go.kr 미등재).
+# 명칭은 법규집 표기 그대로이며, law.go.kr 명칭과 다르면 aliases 로 연결한다.
 source: http://law.redcross.or.kr/law
-checkedAt: "2026-10-21"
+checkedAt: "2026-10-26"
 법령:
   - "대한적십자사 조직법"
   - "대한적십자사 조직법 시행령"
+  - "ORGANIZATION OF THE REPUBLIC OF KOREA NATIONAL RED CROSS ACT"
 정관:
   - "대한적십자사 정관"
+  - "STATUTE OF THE REPUBLIC OF KOREA NATIONAL RED CROSS"
 운영규정:
   - "대한적십자사 지사 운영규정"
   - "대한적십자사 사업기관 등 설치 운영규정"
