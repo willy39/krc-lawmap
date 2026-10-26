@@ -11,3 +11,5 @@ data/raw/*
 public/data/
 .claude/
 dist/
+.vercel
+.env*

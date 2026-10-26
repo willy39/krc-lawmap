@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+dist
+data/raw
+public/data
+.claude
+.env
+.env.*

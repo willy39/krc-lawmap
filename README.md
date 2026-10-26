@@ -1,6 +1,6 @@
 # 대한적십자사 법규 지도 (KRC Law Map) — 시범서비스
 
-공개 주소: https://willy39.github.io/krc-lawmap/
+공개 주소: https://willy39.github.io/krc-lawmap/ (GitHub Pages) · https://krc-lawmap.vercel.app/ (Vercel)
 
 국가법령정보센터(law.go.kr)에 흩어진 대한적십자사 관련 자료를 두 개의 축으로 정리해 한 화면에서 보고, 클릭 한 번으로 원문에 닿게 하는 **정적 웹서비스**입니다. 설계서: [docs/design.md](docs/design.md)
 
@@ -63,6 +63,14 @@ npm run data -- --check-links
 ### GitHub Pages
 `main` 에 push 하면 [.github/workflows/pages.yml](.github/workflows/pages.yml) 이 `NEXT_PUBLIC_BASE_PATH=/<저장소명>` 으로 빌드해 배포합니다.
 주간 수집은 [refresh-data.yml](.github/workflows/refresh-data.yml) (매주 월 06:00 KST) — 저장소 Secret `LAW_OC`(등록됨)로 수집해 결과를 PR로 올립니다. 클라우드 IP가 차단되면 [docs/manual-refresh.md](docs/manual-refresh.md) 절차를 따르세요.
+
+### Vercel — https://krc-lawmap.vercel.app/
+
+루트 경로(`/`)로 빌드됩니다(BASE_PATH 없음). 보안 헤더·캐시는 [vercel.json](vercel.json), 업로드 제외는 [.vercelignore](.vercelignore).
+
+```bash
+vercel deploy --prod      # 로컬에서 수동 배포 (프로젝트: hwangdonghwan-7895s-projects/krc-lawmap)
+```
 
 ### 내부 서버 — https://apps.redcross.or.kr/law/ (WebtoB)
 
