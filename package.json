@@ -18,6 +18,7 @@
     "package:internal": "bash scripts/package-internal.sh"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "d3-hierarchy": "^3.1.2",
     "next": "^16.4.2",
     "react": "^19.3.1",

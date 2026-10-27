@@ -6,6 +6,7 @@ import { getAliases, getMeta, getNorms, getOrderRank, getRelations } from '@/lib
 import { DemoBanner, Footer, Header } from '@/components/common/Header';
 import { DetailPanel } from '@/components/common/DetailPanel';
 import { CommandPalette } from '@/components/common/CommandPalette';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: { default: '대한적십자사 법규 지도', template: '%s · 대한적십자사 법규 지도' },
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <DetailPanel />
           <CommandPalette />
         </DataProvider>
+        <Analytics />
       </body>
     </html>
   );
