@@ -1,8 +1,11 @@
 'use client';
 // 대한적십자사 법규집 편제 (I 법령 ~ VII 폐지규정) — 법규집과 같은 순서·순번(편마다 1부터), 2단 배치
-// I~IV: law.go.kr 수집본과 연결(상세·원문·⚖) + 법규집 뷰어 링크 / V~VII: 법규집에만 있는 항목 → 법규집 뷰어로
+// 항목을 누르면 법규집 읽기 팝업(BookReader)으로 본문을 연다. I~IV: law.go.kr 수집본(원문·⚖) / V~VII: 법규집에만 있는 항목
+// 법규집 뷰어(law.redcross.or.kr) 링크는 HTTPS 보완 전까지 숨긴다(krc-order.yaml viewerLinks)
+import { useCallback, useMemo, useState } from 'react';
 import type { BookLaw, NormItem } from '@/types/model';
 import { useStore } from '@/lib/store';
+import { BookReader, type BookEntryRef } from './BookReader';
 import { fmtDate } from '@/lib/format';
 import { CaseBadge, StatusBadges } from './Chips';
 
@@ -39,8 +42,12 @@ function KrcLink({ it }: { it: BookItem }) {
   );
 }
 
-export function RegulationBook({ groups, source, checkedAt }: { groups: BookGroup[]; source: string; checkedAt: string }) {
-  const { openDetail, normById } = useStore();
+export function RegulationBook({ groups, source, checkedAt, viewerLinks }: { groups: BookGroup[]; source: string; checkedAt: string; viewerLinks: boolean }) {
+  const { normById } = useStore();
+  const entries = useMemo<BookEntryRef[]>(() => groups.flatMap((group) => group.items.map((item) => ({ group, item }))), [groups]);
+  const [reading, setReading] = useState<number | null>(null);
+  const open = (g: BookGroup, it: BookItem) => setReading(entries.findIndex((e) => e.group === g && e.item === it));
+  const close = useCallback(() => setReading(null), []);
   return (
     <div className="rounded-2xl border border-border bg-surface p-4 md:p-6">
       <div className="columns-1 gap-10 lg:columns-2 [column-rule:1px_solid_var(--border)]">
@@ -62,7 +69,7 @@ export function RegulationBook({ groups, source, checkedAt }: { groups: BookGrou
                       {n ? (
                         <>
                           <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
-                            <button type="button" onClick={() => openDetail(n.id)} className="text-left font-medium hover:underline">
+                            <button type="button" onClick={() => open(g, it)} className="text-left font-medium hover:underline" aria-haspopup="dialog">
                               {it.label}
                             </button>
                             <a href={n.url} target="_blank" rel="noopener noreferrer" className="text-xs text-muted hover:text-text" aria-label={`${it.label} 원문 (새 탭)`}>
@@ -81,16 +88,10 @@ export function RegulationBook({ groups, source, checkedAt }: { groups: BookGrou
                       ) : it.krcOnly ? (
                         <>
                           <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
-                            {it.krcUrl ? (
-                              <a href={it.krcUrl} target="_blank" rel="noopener noreferrer" className={`font-medium hover:underline ${repealed ? 'text-muted' : ''}`}>
-                                {it.label}
-                              </a>
-                            ) : (
-                              <span className="font-medium">{it.label}</span>
-                            )}
-                            <span className="text-xs text-muted" aria-hidden>
-                              ↗ 법규집
-                            </span>
+                            <button type="button" onClick={() => open(g, it)} className={`text-left font-medium hover:underline ${repealed ? 'text-muted' : ''}`} aria-haspopup="dialog">
+                              {it.label}
+                            </button>
+                            <KrcLink it={it} />
                             {repealed && <span className="rounded bg-surface-2 px-1.5 text-[11px] text-muted">폐지</span>}
                           </div>
                           {it.note && (
@@ -118,9 +119,9 @@ export function RegulationBook({ groups, source, checkedAt }: { groups: BookGrou
                         </>
                       ) : (
                         <div className="flex flex-wrap items-center gap-x-1.5">
-                          <span className="text-muted" title="국가법령정보센터(law.go.kr) 미등재 — 대한적십자사 법규집에서 확인">
+                          <button type="button" onClick={() => open(g, it)} className="text-left text-muted hover:underline" aria-haspopup="dialog" title="국가법령정보센터(law.go.kr) 미등재">
                             {it.label} <span className="text-xs">({it.english ? '영문본 · ' : ''}law.go.kr 미등재)</span>
-                          </span>
+                          </button>
                           <KrcLink it={it} />
                         </div>
                       )}
@@ -134,11 +135,16 @@ export function RegulationBook({ groups, source, checkedAt }: { groups: BookGrou
       </div>
       <p className="mt-2 text-xs text-muted">
         편제·순서·순번: 대한적십자사 법규집(
-        <a className="underline" href={source} target="_blank" rel="noopener noreferrer">
-          {source.replace(/^https?:\/\//, '')}
-        </a>
-        , {fmtDate(checkedAt)} 확인) · I~IV 내용·시행일: 국가법령정보센터 수집본 · V~VII: 법규집에만 수록(법규집 뷰어로 연결)
+        {viewerLinks ? (
+          <a className="underline" href={source} target="_blank" rel="noopener noreferrer">
+            {source.replace(/^https?:\/\//, '')}
+          </a>
+        ) : (
+          'law.redcross.or.kr'
+        )}
+        , {fmtDate(checkedAt)} 확인) · I~IV 내용·시행일: 국가법령정보센터 수집본 · V~VII: 법규집에만 수록 · 항목을 누르면 본문 팝업
       </p>
+      {reading !== null && reading >= 0 && <BookReader entries={entries} index={reading} onIndex={setReading} onClose={close} />}
     </div>
   );
 }

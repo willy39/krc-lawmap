@@ -39,6 +39,8 @@ export interface BookEntry {
 export interface OfficialOrder {
   source: string;
   checkedAt: string;
+  /** 법규집 뷰어 링크 노출 (HTTPS 보완 전까지 false) */
+  viewerLinks: boolean;
   parts: { no: string; title: string; items: BookEntry[] }[];
   groups: { 법령: string[]; 정관: string[]; 운영규정: string[]; 시행규칙: string[] };
   aliases: Record<string, string>;
@@ -51,6 +53,7 @@ export function getOfficialOrder(): OfficialOrder {
   return {
     source: y.source,
     checkedAt: y.checkedAt,
+    viewerLinks: y.viewerLinks === true,
     parts,
     groups: { 법령: titles('법령'), 정관: titles('정관'), 운영규정: titles('운영규정'), 시행규칙: titles('시행규칙') },
     aliases: y.aliases ?? {},

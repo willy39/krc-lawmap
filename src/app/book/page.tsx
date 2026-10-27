@@ -15,11 +15,7 @@ export default function BookPage() {
       <div>
         <h1 className="text-xl font-bold">대한적십자사 법규집</h1>
         <p className="text-sm text-muted">
-          대한적십자사 법규집(
-          <a className="underline" href={book.source} target="_blank" rel="noopener noreferrer">
-            {book.source.replace(/^https?:\/\//, '')}
-          </a>
-          )과 같은 편제·순번입니다. 항목을 누르면 상세 패널, ‘원문↗’은 국가법령정보센터, ‘법규집↗’은 대한적십자사 법규집 화면입니다. ({fmtDate(book.checkedAt)} 기준)
+          대한적십자사 법규집과 같은 편제·순번입니다. 항목을 누르면 본문을 팝업으로 읽을 수 있고(조문 목차·본문 찾기·← → 로 이전/다음 규정), ‘원문↗’은 국가법령정보센터 원문입니다. ({fmtDate(book.checkedAt)} 기준)
         </p>
       </div>
       <nav aria-label="법규집 편 바로가기" className="flex flex-wrap gap-1.5">

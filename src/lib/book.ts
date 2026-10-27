@@ -6,10 +6,11 @@ import { getBookLaws, getNorms, getOfficialOrder } from './data';
 
 /**
  * 법규집 7개 편을 법규집과 같은 순번(편마다 1부터)으로.
- * I~IV 는 law.go.kr 수집본과 명칭으로 연결, V~VII 은 법규집에만 있는 항목이라 법규집 뷰어로 연결한다.
+ * I~IV 는 law.go.kr 수집본과 명칭으로 연결, V~VII 은 법규집에만 있는 항목이다.
+ * 법규집 뷰어 링크(krcUrl)는 viewerLinks 가 true 일 때만 넣는다(HTTPS 미지원 — 보완 전까지 숨김).
  * 법규집에 없는 수집본은 넣지 않는다.
  */
-export function getBook(): { groups: BookGroup[]; source: string; checkedAt: string } {
+export function getBook(): { groups: BookGroup[]; source: string; checkedAt: string; viewerLinks: boolean } {
   const norms = getNorms();
   const order = getOfficialOrder();
   const key = (t: string) => t.replace(/\s/g, '');
@@ -44,8 +45,8 @@ export function getBook(): { groups: BookGroup[]; source: string; checkedAt: str
       // 유관법령: 법규집 수록본과 최신 법령을 함께 (법규집보다 뒤에 공포된 개정이 있으면 표시)
       const law = !pool ? bookLaws.find((l) => key(l.name) === key(e.title)) : undefined;
       const latest = law && { ...law, newer: !!(law.promulgatedAt && noteDate(e.note) && law.promulgatedAt > noteDate(e.note)!) };
-      return { no: i + 1, label: english ? e.title : shorten(n?.title ?? e.title), norm: n, english, krcUrl: e.url, note: e.note, krcOnly: !pool, latest };
+      return { no: i + 1, label: english ? e.title : shorten(n?.title ?? e.title), norm: n, english, krcUrl: order.viewerLinks ? e.url : undefined, note: e.note, krcOnly: !pool, latest };
     }),
   }));
-  return { groups, source: order.source, checkedAt: order.checkedAt };
+  return { groups, source: order.source, checkedAt: order.checkedAt, viewerLinks: order.viewerLinks };
 }
