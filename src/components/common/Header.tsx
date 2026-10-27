@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useStore } from '@/lib/store';
 import { fmtDate } from '@/lib/format';
 import { Legend } from './Legend';
-import { GuideButton, HowtoButton } from './GuideDialog';
+import { GuideButton, HowtoButton, MakingButton } from './GuideDialog';
 
 const TABS = [
   { href: '/', label: '체계도' },
@@ -36,6 +36,7 @@ export function Header() {
         <div className="ml-auto flex items-center gap-3">
           <GuideButton />
           <HowtoButton />
+          <MakingButton />
           <Legend />
           <button
             type="button"

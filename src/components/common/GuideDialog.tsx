@@ -1,5 +1,5 @@
 'use client';
-// 헤더 팝업 버튼 — 사용안내(글)·사용안내(영상) (Esc·바깥 클릭으로 닫기, 포커스 이동·복귀, 배경 스크롤 잠금)
+// 헤더 팝업 버튼 — 사용안내(글)·사용안내(영상)·제작기 (Esc·바깥 클릭으로 닫기, 포커스 이동·복귀, 배경 스크롤 잠금)
 import Link from 'next/link';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { withBase } from '@/lib/links';
@@ -92,6 +92,16 @@ export function HowtoButton() {
   return (
     <PopupButton icon="🎬" label="사용안내" title="법규 지도 사용 안내" full={{ href: src, external: true }} wide bare>
       {() => <iframe src={src} title="법규 지도 사용 안내 — 화면별 사용법 애니메이션" className="block h-[78vh] w-full border-0 bg-[#ecece8]" />}
+    </PopupButton>
+  );
+}
+
+/** 제작기 — Claude 채팅으로 만든 제작 과정 애니메이션(public/making/index.html)을 팝업으로 */
+export function MakingButton() {
+  const src = withBase('/making/');
+  return (
+    <PopupButton icon="🎬" label="제작기" title="법규 지도 제작기" full={{ href: src, external: true }} wide bare>
+      {() => <iframe src={src} title="법규 지도 제작기 — 제작 과정 애니메이션" className="block h-[78vh] w-full border-0 bg-[#e7eae5]" />}
     </PopupButton>
   );
 }
