@@ -20,4 +20,5 @@
 - `npm run build` — 정적 export(out/). GitHub Pages는 `NEXT_PUBLIC_BASE_PATH=/<repo>`
 - `npm run package:internal` — 내부 서버(https://apps.redcross.or.kr/law/, WebtoB)용 zip. 절차: docs/deploy-webtob.md
 - 외부 CDN 금지: 웹폰트 등 리소스는 public/ 에 내장한다(내부망 배포)
+- 방문 집계(GoatCounter)는 공개 배포 빌드에만 `NEXT_PUBLIC_GOATCOUNTER` 로 켠다. 내부 서버 빌드에는 넣지 않는다. 절차: docs/analytics.md
 - 번들러는 webpack(`--webpack`) 사용: Turbopack CSS 워커는 샌드박스 환경에서 포트 바인딩에 실패한다.

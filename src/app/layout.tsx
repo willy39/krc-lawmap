@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Suspense } from 'react';
 import './globals.css';
 import { DataProvider } from '@/lib/store';
 import { withBase } from '@/lib/links';
@@ -6,6 +7,7 @@ import { getAliases, getMeta, getNorms, getOrderRank, getRelations } from '@/lib
 import { DemoBanner, Footer, Header } from '@/components/common/Header';
 import { DetailPanel } from '@/components/common/DetailPanel';
 import { CommandPalette } from '@/components/common/CommandPalette';
+import { Analytics } from '@/components/common/Analytics';
 
 export const metadata: Metadata = {
   title: { default: '대한적십자사 법규 지도', template: '%s · 대한적십자사 법규 지도' },
@@ -34,6 +36,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <DetailPanel />
           <CommandPalette />
+          <Suspense>
+            <Analytics />
+          </Suspense>
         </DataProvider>
       </body>
     </html>

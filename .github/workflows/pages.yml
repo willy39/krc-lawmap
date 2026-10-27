@@ -22,6 +22,8 @@ jobs:
         env:
           NEXT_TELEMETRY_DISABLED: 1
           NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          # 방문 집계(GoatCounter 사이트 코드) — 저장소 Variables 의 GOATCOUNTER_CODE. 비어 있으면 집계 안 함 (docs/analytics.md)
+          NEXT_PUBLIC_GOATCOUNTER: ${{ vars.GOATCOUNTER_CODE }}
       - run: touch out/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

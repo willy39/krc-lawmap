@@ -72,6 +72,10 @@ npm run data -- --check-links
 vercel deploy --prod      # 로컬에서 수동 배포 (프로젝트: hwangdonghwan-7895s-projects/krc-lawmap)
 ```
 
+### 방문 집계
+
+GitHub Pages·Vercel 은 GoatCounter 로 사이트별 사용 현황을 집계합니다(내부 서버 빌드는 제외). 설정·대시보드: **[docs/analytics.md](docs/analytics.md)**
+
 ### 내부 서버 — https://apps.redcross.or.kr/law/ (WebtoB)
 
 정적 파일만 서비스하므로 JEUS 없이 WebtoB 로 충분합니다. 설정 예시·배포·주간 갱신 절차: **[docs/deploy-webtob.md](docs/deploy-webtob.md)**
