@@ -4,13 +4,13 @@
 
 | 배포처 | 주소 | 집계 설정 위치 | 대시보드 |
 |---|---|---|---|
-| GitHub Pages | https://willy39.github.io/krc-lawmap/ | 저장소 Variables `GOATCOUNTER_CODE` | https://krc-lawmap-gh.goatcounter.com |
-| Vercel | https://krc-lawmap.vercel.app | Vercel 환경변수 `NEXT_PUBLIC_GOATCOUNTER` | https://krc-lawmap-vercel.goatcounter.com |
+| GitHub Pages | https://willy39.github.io/krc-lawmap/ | 저장소 Variables `GOATCOUNTER_CODE` | https://lawmap-github.goatcounter.com |
+| Vercel | https://krc-lawmap.vercel.app | Vercel 환경변수 `NEXT_PUBLIC_GOATCOUNTER` | https://lawmap-vercel.goatcounter.com |
 | 내부 서버(/law) | https://apps.redcross.or.kr/law/ | **집계하지 않음** | WebtoB 접근 로그 사용 |
 
 GitHub Pages는 방문 로그를 제공하지 않고, Vercel 무료 요금제는 로그 보존·분석이 제한적이어서 외부 집계 서비스(GoatCounter)를 씁니다.
 
-등록된 코드(2026. 10. 27.): GitHub Pages `krc-lawmap-gh`, Vercel `krc-lawmap-vercel`.
+등록된 코드(2026. 10. 27.): GitHub Pages `lawmap-github`, Vercel `lawmap-vercel`.
 
 ## 동작 방식
 - 화면을 열거나 화면을 옮길 때마다 `https://<코드>.goatcounter.com/count` 로 이미지 요청 1건을 보냅니다(`src/components/common/Analytics.tsx`).
@@ -24,10 +24,10 @@ GitHub Pages는 방문 로그를 제공하지 않고, Vercel 무료 요금제는
 - localhost에서는 보내지 않습니다.
 
 ## 처음 설정 (한 번)
-1. https://www.goatcounter.com 에서 계정을 만들고 첫 사이트 코드를 정합니다(예: `krc-lawmap-gh`).
-2. GoatCounter **Settings › Sites › Add site** 에서 두 번째 사이트를 추가합니다(예: `krc-lawmap-vercel`). 계정 하나로 사이트 두 개를 오가며 볼 수 있습니다.
-3. GitHub 저장소 **Settings › Secrets and variables › Actions › Variables** 에 `GOATCOUNTER_CODE` = `krc-lawmap-gh` 를 넣습니다. Secret이 아니라 Variable에 넣어야 합니다.
-4. Vercel 프로젝트 **Settings › Environment Variables** 에 `NEXT_PUBLIC_GOATCOUNTER` = `krc-lawmap-vercel` 을 넣습니다(Production).
+1. https://www.goatcounter.com 에서 계정을 만들고 첫 사이트 코드를 정합니다(예: `lawmap-github`).
+2. GoatCounter **Settings › Sites › Add site** 에서 두 번째 사이트를 추가합니다(예: `lawmap-vercel`). 계정 하나로 사이트 두 개를 오가며 볼 수 있습니다.
+3. GitHub 저장소 **Settings › Secrets and variables › Actions › Variables** 에 `GOATCOUNTER_CODE` = `lawmap-github` 를 넣습니다. Secret이 아니라 Variable에 넣어야 합니다.
+4. Vercel 프로젝트 **Settings › Environment Variables** 에 `NEXT_PUBLIC_GOATCOUNTER` = `lawmap-vercel` 을 넣습니다(Production).
 5. main에 다시 푸시하거나 각 배포를 다시 실행하면 집계가 시작됩니다.
    - GitHub Pages: Actions › Deploy GitHub Pages › Run workflow
    - Vercel: Deployments › Redeploy
