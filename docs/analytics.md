@@ -2,13 +2,15 @@
 
 공개 배포처 두 곳의 사용 현황을 **사이트별 대시보드**로 따로 봅니다.
 
-| 배포처 | 주소 | 집계 설정 위치 | 대시보드(예시 코드 기준) |
+| 배포처 | 주소 | 집계 설정 위치 | 대시보드 |
 |---|---|---|---|
 | GitHub Pages | https://willy39.github.io/krc-lawmap/ | 저장소 Variables `GOATCOUNTER_CODE` | https://krc-lawmap-gh.goatcounter.com |
 | Vercel | https://krc-lawmap.vercel.app | Vercel 환경변수 `NEXT_PUBLIC_GOATCOUNTER` | https://krc-lawmap-vercel.goatcounter.com |
 | 내부 서버(/law) | https://apps.redcross.or.kr/law/ | **집계하지 않음** | WebtoB 접근 로그 사용 |
 
 GitHub Pages는 방문 로그를 제공하지 않고, Vercel 무료 요금제는 로그 보존·분석이 제한적이어서 외부 집계 서비스(GoatCounter)를 씁니다.
+
+등록된 코드(2026. 10. 27.): GitHub Pages `krc-lawmap-gh`, Vercel `krc-lawmap-vercel`.
 
 ## 동작 방식
 - 화면을 열거나 화면을 옮길 때마다 `https://<코드>.goatcounter.com/count` 로 이미지 요청 1건을 보냅니다(`src/components/common/Analytics.tsx`).
