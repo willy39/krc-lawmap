@@ -1,11 +1,11 @@
 'use client';
-// 법규집 읽기 팝업 — 법규집 항목을 화면 가운데 큰 창으로 연다(조문 목차 · 본문 · 본문 찾기 · 이전/다음 규정)
-// 본문은 국가법령정보센터 수집본(data/build/fulltext.json, 지연 로딩). 법규집에만 있는 항목(V~VII)은 안내만 보인다.
+// 법규집 읽기 팝업 — 법규집 항목을 화면 가운데 큰 창으로 연다(목차 · 본문 · 본문 찾기 · 이전/다음 규정)
+// 본문: I~IV 는 국가법령정보센터 수집본(fulltext.json), V~VII 은 법규집 수록본(book-text.json, 빌드타임 수집). 둘 다 지연 로딩.
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { ArticleRow } from '@/types/model';
-import { useFullText, useStore } from '@/lib/store';
+import { useBookText, useFullText, useStore } from '@/lib/store';
 import { contentRegex, formatArticle, highlightParts } from '@/lib/fulltextSearch';
-import { lawArticleUrl } from '@/lib/links';
+import { inToc, unitsFromBlocks, unitsFromRows, unitText, type Unit } from '@/lib/bookUnits';
+import { lawArticleUrl, withBase } from '@/lib/links';
 import { fmtDate } from '@/lib/format';
 import { CaseBadge, KindChip, StatusBadges } from './Chips';
 import type { BookGroup, BookItem } from './RegulationBook';
@@ -31,28 +31,31 @@ function Marked({ text, q }: { text: string; q?: string }) {
   );
 }
 
-/** '제1조(목적) 본문…' → 머리('제1조(목적)')와 본문을 나눈다 */
-function splitHead(r: ArticleRow): { head: string; body: string } {
-  const text = r[2].trim();
-  const m = r[0] ? text.match(/^(제\s*\d+\s*조(?:\s*의\s*\d+)?\s*(?:\([^)]*\))?)\s*/) : null;
-  return m ? { head: m[1], body: text.slice(m[0].length) } : { head: '', body: text };
-}
+const tocLabel = (u: Unit) => (u.k === 'art' ? u.head : u.k === 'h' ? u.x : u.k === 'table' || u.k === 'img' ? (u.caption ?? '') : '');
 
 export function BookReader({ entries, index, onIndex, onClose }: { entries: BookEntryRef[]; index: number; onIndex: (i: number) => void; onClose: () => void }) {
   const { openDetail, normById } = useStore();
   const { group, item } = entries[index];
   const norm = item.norm;
   const ft = useFullText(!!norm);
-  const rows = norm ? ft?.[norm.id] : undefined;
+  const bt = useBookText(!norm && !!item.krcId);
+  const book = !norm && item.krcId ? bt?.[item.krcId] : undefined;
+  const loading = norm ? !ft : !!item.krcId && !bt;
+  const units = useMemo<Unit[]>(() => {
+    if (norm) return unitsFromRows(ft?.[norm.id] ?? []);
+    return book ? unitsFromBlocks(book.blocks) : [];
+  }, [norm, ft, book]);
   const [q, setQ] = useState('');
   const [cur, setCur] = useState(0);
   const [active, setActive] = useState(0);
   const panel = useRef<HTMLDivElement>(null);
   const body = useRef<HTMLDivElement>(null);
   const re = useMemo(() => contentRegex(q), [q]);
-  const matches = useMemo(() => (rows && re ? rows.map((r, i) => (re.test(r[2]) ? i : -1)).filter((i) => i >= 0) : []), [rows, re]);
+  const matches = useMemo(() => (re ? units.map((u, i) => (re.test(unitText(u)) ? i : -1)).filter((i) => i >= 0) : []), [units, re]);
   const parent = norm?.parentId ? normById.get(norm.parentId) : undefined;
   const repealed = /폐지/.test(item.note ?? '') || group.title === '폐지규정';
+  const toc = units.map((u, i) => [u, i] as const).filter(([u]) => inToc(u));
+  const articleCount = units.filter((u) => u.k === 'art').length;
 
   // 규정이 바뀌면 맨 위로, 찾기 초기화
   useEffect(() => {
@@ -62,7 +65,7 @@ export function BookReader({ entries, index, onIndex, onClose }: { entries: Book
   }, [index]);
   useEffect(() => setCur(0), [q]);
 
-  // 포커스 이동·복귀, 배경 스크롤 잠금, 키보드(Esc 닫기 · ←→ 이전/다음 규정)
+  // 포커스 이동·복귀, 배경 스크롤 잠금
   useEffect(() => {
     const prevFocus = document.activeElement as HTMLElement | null;
     panel.current?.focus();
@@ -73,6 +76,7 @@ export function BookReader({ entries, index, onIndex, onClose }: { entries: Book
       prevFocus?.focus();
     };
   }, []);
+  // 키보드: Esc 닫기 · ←→ 이전/다음 규정
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') return onClose();
@@ -84,10 +88,10 @@ export function BookReader({ entries, index, onIndex, onClose }: { entries: Book
     return () => window.removeEventListener('keydown', onKey);
   }, [index, entries.length, onIndex, onClose]);
 
-  // 목차에서 지금 읽는 조문 표시
+  // 목차에서 지금 읽는 곳 표시
   useEffect(() => {
     const box = body.current;
-    if (!box || !rows) return;
+    if (!box || !units.length) return;
     const io = new IntersectionObserver(
       (es) => {
         const top = es.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
@@ -97,7 +101,7 @@ export function BookReader({ entries, index, onIndex, onClose }: { entries: Book
     );
     box.querySelectorAll('[data-row]').forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [rows]);
+  }, [units]);
 
   const scrollTo = (i: number) => body.current?.querySelector(`[data-row="${i}"]`)?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   const step = (d: number) => {
@@ -108,7 +112,81 @@ export function BookReader({ entries, index, onIndex, onClose }: { entries: Book
   };
   const prevE = entries[index - 1];
   const nextE = entries[index + 1];
-  const articleCount = rows?.filter((r) => r[0]).length ?? 0;
+  const hq = re ? q : undefined;
+  const ring = (i: number) => (re && matches.includes(i) ? `bg-case-bg/60 ${matches[cur] === i ? 'ring-2 ring-case/50' : ''}` : '');
+
+  const renderUnit = (u: Unit, i: number) => {
+    if (u.k === 'h') {
+      const size = u.lv <= 1 ? 'text-base border-b border-border pb-1' : u.lv === 2 ? 'text-[15px]' : 'text-sm text-muted';
+      return (
+        <h3 key={i} data-row={i} className={`scroll-mt-4 rounded pt-4 font-bold first:pt-0 ${size} ${ring(i)}`}>
+          <Marked text={u.x} q={hq} />
+        </h3>
+      );
+    }
+    if (u.k === 'art')
+      return (
+        <section key={i} data-row={i} className={`scroll-mt-4 rounded-lg px-3 py-2 ${ring(i)}`}>
+          <h4 className="mb-1 flex flex-wrap items-baseline gap-x-2 text-[15px] font-bold">
+            <Marked text={u.head} q={hq} />
+            {u.no && norm?.source === 'law' && (
+              <a href={lawArticleUrl(norm.title, u.no)} target="_blank" rel="noopener noreferrer" className="text-xs font-normal text-muted underline">
+                원문 ↗
+              </a>
+            )}
+          </h4>
+          <p className="whitespace-pre-line text-[15px] leading-7">
+            <Marked text={formatArticle(u.x)} q={hq} />
+          </p>
+        </section>
+      );
+    if (u.k === 'p')
+      return (
+        <p key={i} data-row={i} className={`scroll-mt-4 rounded-lg px-3 py-1 whitespace-pre-line text-[15px] leading-7 ${ring(i)}`}>
+          <Marked text={u.x} q={hq} />
+        </p>
+      );
+    if (u.k === 'table')
+      return (
+        <figure key={i} data-row={i} className={`scroll-mt-4 rounded-lg px-1 py-2 ${ring(i)}`}>
+          {u.caption && (
+            <figcaption className="mb-2 text-sm font-bold">
+              <Marked text={u.caption} q={hq} />
+            </figcaption>
+          )}
+          <div className="overflow-x-auto rounded-md border border-border">
+            <table className="w-full border-collapse text-[13px] leading-relaxed">
+              <tbody>
+                {u.rows.map((row, r) => (
+                  <tr key={r}>
+                    {row.map((c, k) => {
+                      const Tag = c.h ? 'th' : 'td';
+                      return (
+                        <Tag key={k} colSpan={c.cs} rowSpan={c.rs} className={`border border-border px-2 py-1.5 align-top whitespace-pre-line break-keep ${c.h ? 'bg-surface-2 text-center font-semibold' : ''}`}>
+                          <Marked text={c.x} q={hq} />
+                        </Tag>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </figure>
+      );
+    return (
+      <figure key={i} data-row={i} className={`scroll-mt-4 rounded-lg p-1 ${ring(i)}`}>
+        <img src={withBase(`/data/${u.src}`)} width={u.w} height={u.h} loading="lazy" alt={u.caption ?? '법규집 그림'} className="mx-auto h-auto max-w-full rounded border border-border bg-white" />
+        {u.caption && <figcaption className="mt-1 text-center text-xs text-muted">{u.caption}</figcaption>}
+      </figure>
+    );
+  };
+
+  const source = norm
+    ? '본문은 국가법령정보센터 수집본이며, 법적 효력은 원문에 있습니다.'
+    : book
+      ? `본문은 대한적십자사 법규집 수록본입니다(${fmtDate(book.fetchedAt)} 수집).`
+      : '';
 
   return (
     <div className="fixed inset-0 z-[65] flex items-center justify-center bg-black/50 p-2 backdrop-blur-[2px] sm:p-6" onClick={onClose}>
@@ -135,6 +213,7 @@ export function BookReader({ entries, index, onIndex, onClose }: { entries: Book
                 {norm && <KindChip norm={norm} />}
                 {norm && <span>시행 {fmtDate(norm.effectiveAt)}</span>}
                 {item.note && <span>법규집 {item.note}</span>}
+                {!norm && book && <span>법규집 수록본</span>}
                 {parent && <span>상위: {parent.shortTitle ?? parent.title}</span>}
                 {repealed && <span className="rounded bg-surface-2 px-1.5 text-[11px]">폐지</span>}
                 {norm && <StatusBadges norm={{ ...norm, flags: norm.flags.filter((f) => f !== 'NO_PARENT') }} />}
@@ -162,37 +241,45 @@ export function BookReader({ entries, index, onIndex, onClose }: { entries: Book
               <CaseBadge norm={norm} />
             </div>
           )}
+          {item.latest && (
+            <p className="tnum mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg bg-surface-2 px-3 py-2 text-xs">
+              <span className="text-muted">최신 법령</span>
+              <a href={item.latest.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-law hover:underline">
+                {item.latest.name} 원문 ↗
+              </a>
+              <span className="text-muted">
+                시행 {fmtDate(item.latest.effectiveAt)} ({fmtDate(item.latest.promulgatedAt)} {item.latest.revisionType})
+              </span>
+              {item.latest.newer && <span className="rounded bg-case-bg px-1.5 font-semibold text-case">아래 법규집 수록본 이후 개정</span>}
+            </p>
+          )}
         </header>
 
         {/* 본문 */}
-        {norm && !ft ? (
-          <p className="p-7 text-sm text-muted">조문 본문 불러오는 중…</p>
-        ) : rows?.length ? (
+        {loading ? (
+          <p className="p-7 text-sm text-muted">본문 불러오는 중…</p>
+        ) : units.length ? (
           <div className="grid min-h-0 flex-1 md:grid-cols-[250px_minmax(0,1fr)]">
-            <nav aria-label="조문 목차" className="hidden min-h-0 overflow-y-auto border-r border-border bg-bg/60 px-3 py-3 md:block">
-              <p className="tnum mb-2 px-2 text-xs font-semibold text-muted">목차 · {articleCount}개 조문</p>
-              <ol className="space-y-0.5 text-[13px]">
-                {rows.map((r, i) =>
-                  r[0] ? (
-                    <li key={i}>
+            <nav aria-label="목차" className="hidden min-h-0 overflow-y-auto border-r border-border bg-bg/60 px-3 py-3 md:block">
+              <p className="tnum mb-2 px-2 text-xs font-semibold text-muted">목차{articleCount ? ` · ${articleCount}개 조문` : ''}</p>
+              {toc.length ? (
+                <ol className="space-y-0.5 text-[13px]">
+                  {toc.map(([u, i]) => (
+                    <li key={i} className={u.k === 'h' && u.lv <= 1 ? 'pt-2' : ''}>
                       <button
                         type="button"
                         onClick={() => scrollTo(i)}
                         aria-current={active === i ? 'true' : undefined}
-                        className={`w-full truncate rounded px-2 py-1 text-left hover:bg-surface-2 ${active === i ? 'bg-surface-2 font-semibold text-text' : 'text-muted'} ${re && matches.includes(i) ? 'border-l-2 border-case' : ''}`}
+                        className={`w-full truncate rounded px-2 py-1 text-left hover:bg-surface-2 ${u.k === 'h' ? 'text-xs font-bold text-text' : active === i ? 'bg-surface-2 font-semibold text-text' : 'text-muted'} ${re && matches.includes(i) ? 'border-l-2 border-case' : ''}`}
                       >
-                        <span className="tnum">{r[0]}</span> {r[1]}
+                        {tocLabel(u)}
                       </button>
                     </li>
-                  ) : (
-                    <li key={i} className="px-2 pt-2 pb-0.5 text-xs font-bold text-text">
-                      <button type="button" onClick={() => scrollTo(i)} className="text-left hover:underline">
-                        {r[2]}
-                      </button>
-                    </li>
-                  ),
-                )}
-              </ol>
+                  ))}
+                </ol>
+              ) : (
+                <p className="px-2 text-xs text-muted">조문 구분이 없는 문서입니다.</p>
+              )}
             </nav>
             <div className="flex min-h-0 flex-col">
               <div className="flex items-center gap-2 border-b border-border px-5 py-2 sm:px-8">
@@ -208,75 +295,33 @@ export function BookReader({ entries, index, onIndex, onClose }: { entries: Book
                 <span className="tnum shrink-0 text-xs text-muted" aria-live="polite">
                   {re ? `${matches.length ? cur + 1 : 0}/${matches.length}` : ''}
                 </span>
-                <button type="button" onClick={() => step(-1)} disabled={!matches.length} className="rounded border border-border px-2 py-1 text-sm disabled:opacity-40" aria-label="이전 일치 조문">
+                <button type="button" onClick={() => step(-1)} disabled={!matches.length} className="rounded border border-border px-2 py-1 text-sm disabled:opacity-40" aria-label="이전 일치">
                   ↑
                 </button>
-                <button type="button" onClick={() => step(1)} disabled={!matches.length} className="rounded border border-border px-2 py-1 text-sm disabled:opacity-40" aria-label="다음 일치 조문">
+                <button type="button" onClick={() => step(1)} disabled={!matches.length} className="rounded border border-border px-2 py-1 text-sm disabled:opacity-40" aria-label="다음 일치">
                   ↓
                 </button>
               </div>
               <div ref={body} className="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-8">
-                <article className="mx-auto max-w-[72ch] space-y-4">
-                  {rows.map((r, i) => {
-                    const hq = re ? q : undefined;
-                    if (!r[0])
-                      return (
-                        <h3 key={i} data-row={i} className="scroll-mt-4 border-b border-border pt-4 pb-1 text-base font-bold first:pt-0">
-                          <Marked text={r[2]} q={hq} />
-                        </h3>
-                      );
-                    const { head, body: text } = splitHead(r);
-                    const hit = re ? matches.includes(i) : false;
-                    return (
-                      <section key={i} data-row={i} className={`scroll-mt-4 rounded-lg px-3 py-2 ${hit ? 'bg-case-bg/60' : ''} ${hit && matches[cur] === i ? 'ring-2 ring-case/50' : ''}`}>
-                        {head && (
-                          <h4 className="mb-1 flex flex-wrap items-baseline gap-x-2 text-[15px] font-bold">
-                            <Marked text={head} q={hq} />
-                            {norm?.source === 'law' && (
-                              <a href={lawArticleUrl(norm.title, r[0])} target="_blank" rel="noopener noreferrer" className="text-xs font-normal text-muted underline">
-                                원문 ↗
-                              </a>
-                            )}
-                          </h4>
-                        )}
-                        <p className="whitespace-pre-line text-[15px] leading-7">
-                          <Marked text={formatArticle(text)} q={hq} />
-                        </p>
-                      </section>
-                    );
-                  })}
-                  <p className="pt-2 text-xs text-muted">본문은 국가법령정보센터 수집본이며, 법적 효력은 원문에 있습니다.</p>
+                <article className="mx-auto max-w-[76ch] space-y-3 break-keep">
+                  {units.map(renderUnit)}
+                  <p className="pt-2 text-xs text-muted">{source}</p>
                 </article>
               </div>
             </div>
           </div>
         ) : (
           <div className="min-h-0 flex-1 overflow-y-auto px-5 py-8 sm:px-8">
-            <div className="mx-auto max-w-xl space-y-4 text-sm">
-              <div className="rounded-xl border border-border bg-bg p-5 leading-relaxed">
-                {norm ? (
-                  <p>수집된 조문 본문이 없습니다. 위 ‘원문 보기 ↗’에서 국가법령정보센터 원문을 확인하세요.</p>
-                ) : (
-                  <>
-                    <p className="font-semibold">
-                      {item.english ? '영문본은 국가법령정보센터에 등재되어 있지 않아 본문을 제공하지 않습니다.' : '이 항목은 대한적십자사 법규집에만 수록되어 있어 본문을 아직 제공하지 않습니다.'}
-                    </p>
-                    <p className="mt-2 text-muted">대한적십자사 법규집 화면은 보안 접속(HTTPS) 보완 후 연결할 예정입니다. 그 전에는 담당 부서에 문의하세요.</p>
-                  </>
-                )}
-              </div>
-              {item.latest && (
-                <div className="rounded-xl border border-border p-5">
-                  <p className="text-xs font-semibold text-muted">최신 법령 (국가법령정보센터)</p>
-                  <a href={item.latest.url} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block text-base font-bold text-law hover:underline">
-                    {item.latest.name} 원문 ↗
-                  </a>
-                  <p className="tnum mt-1 text-xs text-muted">
-                    시행 {fmtDate(item.latest.effectiveAt)} ({fmtDate(item.latest.promulgatedAt)} {item.latest.revisionType})
-                    {item.note ? ` · 법규집 수록본 ${item.note}` : ''}
-                  </p>
-                  {item.latest.newer && <p className="mt-2 inline-block rounded bg-case-bg px-2 py-0.5 text-xs font-semibold text-case">법규집 수록본 이후 개정되었습니다</p>}
-                </div>
+            <div className="mx-auto max-w-xl rounded-xl border border-border bg-bg p-5 text-sm leading-relaxed">
+              {norm ? (
+                <p>수집된 조문 본문이 없습니다. 위 ‘원문 보기 ↗’에서 국가법령정보센터 원문을 확인하세요.</p>
+              ) : book ? (
+                <p>대한적십자사 법규집에도 이 항목의 본문이 등록되어 있지 않습니다{repealed ? '(폐지된 규정)' : ''}.</p>
+              ) : (
+                <>
+                  <p className="font-semibold">{item.english ? '영문본은 본문을 제공하지 않습니다.' : '이 항목의 본문을 아직 수집하지 못했습니다.'}</p>
+                  <p className="mt-2 text-muted">대한적십자사 법규집 화면은 보안 접속(HTTPS) 보완 후 연결할 예정입니다.</p>
+                </>
               )}
             </div>
           </div>

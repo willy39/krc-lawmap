@@ -18,7 +18,7 @@ grep -q "\"$BASE_PATH/_next/" out/index.html || { echo "✗ out/index.html 의 �
 grep -q "$BASE_PATH/fonts/pretendard/" out/index.html || { echo "✗ 웹폰트 경로가 $BASE_PATH/fonts/ 가 아닙니다" >&2; exit 1; }
 if grep -rqs "cdn.jsdelivr.net" out --include=*.html; then echo "✗ 외부 CDN 참조가 남아 있습니다" >&2; exit 1; fi
 if grep -rqsE "[?&]OC=[^*]" out; then echo "✗ 산출물에 법제처 인증키(OC=)가 노출되어 있습니다" >&2; exit 1; fi
-for f in index.html 404.html tree/index.html book/index.html data/norms.json data/fulltext.json fonts/pretendard/pretendardvariable-dynamic-subset.css making/index.html howto/index.html; do
+for f in index.html 404.html tree/index.html book/index.html data/norms.json data/fulltext.json data/book-text.json fonts/pretendard/pretendardvariable-dynamic-subset.css making/index.html howto/index.html; do
   [ -f "out/$f" ] || { echo "✗ out/$f 없음" >&2; exit 1; }
 done
 

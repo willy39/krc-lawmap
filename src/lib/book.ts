@@ -45,7 +45,7 @@ export function getBook(): { groups: BookGroup[]; source: string; checkedAt: str
       // 유관법령: 법규집 수록본과 최신 법령을 함께 (법규집보다 뒤에 공포된 개정이 있으면 표시)
       const law = !pool ? bookLaws.find((l) => key(l.name) === key(e.title)) : undefined;
       const latest = law && { ...law, newer: !!(law.promulgatedAt && noteDate(e.note) && law.promulgatedAt > noteDate(e.note)!) };
-      return { no: i + 1, label: english ? e.title : shorten(n?.title ?? e.title), norm: n, english, krcUrl: order.viewerLinks ? e.url : undefined, note: e.note, krcOnly: !pool, latest };
+      return { no: i + 1, label: english ? e.title : shorten(n?.title ?? e.title), norm: n, english, krcUrl: order.viewerLinks ? e.url : undefined, krcId: e.url?.split('/').pop(), note: e.note, krcOnly: !pool, latest };
     }),
   }));
   return { groups, source: order.source, checkedAt: order.checkedAt, viewerLinks: order.viewerLinks };

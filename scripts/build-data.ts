@@ -14,6 +14,7 @@ import { mask } from './lib/lawApi.ts';
 import { collectNorms } from './collect/norms.ts';
 import { collectCases, type CaseDetailCache } from './collect/cases.ts';
 import { collectBookLaws } from './collect/bookLaws.ts';
+import { collectKrcBook } from './collect/krcBook.ts';
 import { classifyNorms } from './classify.ts';
 import { normalizeCase } from './normalize.ts';
 import { scoreCases } from './score.ts';
@@ -81,6 +82,9 @@ async function main() {
 
     console.log('▶ 법규집 연계 법령');
     writeFileSync(join(BUILD, 'book-laws.json'), `${JSON.stringify(await collectBookLaws(cfg, api), null, 1)}\n`);
+
+    console.log('▶ 법규집 본문(V~VII, law.redcross.or.kr)');
+    writeFileSync(join(BUILD, 'book-text.json'), `${JSON.stringify((await collectKrcBook()).text)}\n`);
 
     console.log('▶ 판례·해석 수집');
     const c = await collectCases(cfg, api, detailCache);

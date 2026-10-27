@@ -56,6 +56,7 @@ cp .env.example .env  # LAW_OC=<법제처 Open API 인증키>
 set -a; . ./.env; set +a
 npm run probe         # P0 실측 → docs/api-probe.md
 npm run data -- --check-links
+npm run data:book     # 법규집 V~VII 본문만 갱신 (law.redcross.or.kr, 키 불필요)
 ```
 
 ## 배포

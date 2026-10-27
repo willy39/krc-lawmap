@@ -15,6 +15,7 @@
     "probe": "NODE_USE_ENV_PROXY=1 node --import tsx scripts/probe.ts",
     "prebuild": "node --import tsx scripts/publish-data.ts",
     "predev": "node --import tsx scripts/publish-data.ts",
+    "data:book": "NODE_USE_ENV_PROXY=1 node --import tsx scripts/krc-book.ts",
     "package:internal": "bash scripts/package-internal.sh"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "node-html-parser": "9.0.4",
     "postcss": "^8.5.30",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",

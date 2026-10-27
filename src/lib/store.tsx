@@ -1,7 +1,7 @@
 'use client';
 // 전역 데이터 컨텍스트: 규범 축(초기 로딩) + 판례·해석 축(지연 로딩) + 상세 패널 상태
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import type { CaseItem, DatasetMeta, FullText, NormItem, Relation } from '@/types/model';
+import type { BookText, CaseItem, DatasetMeta, FullText, NormItem, Relation } from '@/types/model';
 import { withBase } from './links';
 
 export type DetailTab = 'overview' | 'articles' | 'text' | 'cases' | 'ordinances' | 'summary' | 'norms' | 'same';
@@ -115,4 +115,31 @@ export function useFullText(enabled: boolean): FullText | null {
     };
   }, [enabled, ft]);
   return ft;
+}
+
+// 법규집에만 있는 항목(V~VII) 본문 — 법규집 읽기 팝업에서 그 항목을 열 때만 내려받는다 (book-text.json)
+let btPromise: Promise<BookText> | null = null;
+let btCache: BookText | null = null;
+export function loadBookText(): Promise<BookText> {
+  btPromise ??= fetch(withBase('/data/book-text.json'))
+    .then((r) => (r.ok ? r.json() : {}))
+    .then((f: BookText) => (btCache = f))
+    .catch(() => {
+      btPromise = null;
+      return {};
+    });
+  return btPromise;
+}
+
+export function useBookText(enabled: boolean): BookText | null {
+  const [bt, setBt] = useState<BookText | null>(btCache);
+  useEffect(() => {
+    if (!enabled || bt) return;
+    let alive = true;
+    loadBookText().then((f) => alive && setBt(f));
+    return () => {
+      alive = false;
+    };
+  }, [enabled, bt]);
+  return bt;
 }

@@ -15,6 +15,7 @@ export interface BookItem {
   norm?: NormItem;
   english?: boolean;
   krcUrl?: string; // 법규집 뷰어
+  krcId?: string; // 법규집 뷰어 문서 ID — V~VII 본문(book-text.json) 키
   note?: string; // 법규집에 적힌 개정·폐지 정보
   krcOnly?: boolean; // 법규집에만 있는 편(V~VII)
   latest?: BookLaw & { newer: boolean }; // 유관법령의 최신 법령(국가법령정보센터)
@@ -142,7 +143,7 @@ export function RegulationBook({ groups, source, checkedAt, viewerLinks }: { gro
         ) : (
           'law.redcross.or.kr'
         )}
-        , {fmtDate(checkedAt)} 확인) · I~IV 내용·시행일: 국가법령정보센터 수집본 · V~VII: 법규집에만 수록 · 항목을 누르면 본문 팝업
+        , {fmtDate(checkedAt)} 확인) · I~IV 내용·시행일: 국가법령정보센터 수집본 · V~VII 본문: 법규집 수록본 · 항목을 누르면 본문 팝업
       </p>
       {reading !== null && reading >= 0 && <BookReader entries={entries} index={reading} onIndex={setReading} onClose={close} />}
     </div>

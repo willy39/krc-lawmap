@@ -5,6 +5,8 @@
 source: http://law.redcross.or.kr/law
 # 법규집 뷰어(law.redcross.or.kr) 링크 노출 여부 — HTTPS 미지원이라 보완 전까지 false (2026-10-27). 보완 후 url 을 https 로 바꾸고 true
 viewerLinks: false
+# 법규집 뷰어의 책 ID — V~VII 본문 수집(scripts/collect/krcBook.ts)에 쓴다. 본문 주소: /r/viewer/content/<viewerBook>/<문서 ID>
+viewerBook: b52a03fbe60bd985
 checkedAt: "2026-10-26"
 parts:
   - no: I

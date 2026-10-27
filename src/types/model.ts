@@ -127,3 +127,19 @@ export interface BookLaw {
 export type ArticleRow = [string, string, string];
 /** 규범 ID → 조문 본문 (data/build/fulltext.json, 조문 내용 검색 시에만 지연 로딩) */
 export type FullText = Record<string, ArticleRow[]>;
+
+/** 법규집 본문 블록 — 법규집에만 있는 항목(V~VII)의 본문 (data/build/book-text.json) */
+export type BookCell = { x: string; h?: 1; cs?: number; rs?: number };
+export type BookBlock =
+  | { t: 'h'; lv: number; x: string }
+  | { t: 'p'; x: string }
+  | { t: 'table'; caption?: string; rows: BookCell[][] }
+  | { t: 'img'; src: string; w?: number; h?: number; caption?: string };
+export interface BookTextEntry {
+  title: string;
+  blocks: BookBlock[];
+  /** 수집일 YYYY-MM-DD */
+  fetchedAt: string;
+}
+/** 법규집 뷰어 문서 ID → 본문 */
+export type BookText = Record<string, BookTextEntry>;
