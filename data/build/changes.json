@@ -1,5 +1,98 @@
 {
- "generatedAt": "2026-10-26T06:41:21.314Z",
- "previousGeneratedAt": "2026-10-26T01:50:20.734Z",
- "entries": []
+ "generatedAt": "2026-11-09T00:27:23.331Z",
+ "previousGeneratedAt": "2026-10-26T06:41:21.314Z",
+ "entries": [
+  {
+   "kind": "NORM_ADDED",
+   "id": "ordin:2268534",
+   "title": "전남광주통합특별시교육청 헌혈교육 활성화 조례",
+   "date": "2026-10-28",
+   "detail": "조례"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "pi:2141987",
+   "title": "대한적십자사 인사관리 시행규칙",
+   "date": "2026-10-01",
+   "detail": "시행규칙"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "pi:2141979",
+   "title": "대한적십자사 정관",
+   "date": "2026-09-01",
+   "detail": "정관"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "pi:2141983",
+   "title": "대한적십자사 무기계약직원 운영규정",
+   "date": "2026-04-01",
+   "detail": "규정"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "pi:2142009",
+   "title": "대한적십자사 직원 및 고용원 정원 운영규정",
+   "date": "2026-04-01",
+   "detail": "규정"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "pi:2142007",
+   "title": "대한적십자사 직원 보수 운영규정",
+   "date": "2026-04-01",
+   "detail": "규정"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "pi:2141985",
+   "title": "대한적십자사 계약사무 시행규칙",
+   "date": "2026-04-01",
+   "detail": "시행규칙"
+  },
+  {
+   "kind": "NORM_ADDED",
+   "id": "pi:2142011",
+   "title": "대한적십자사 보건기관 장비심의 시행규칙",
+   "date": "2026-04-01",
+   "detail": "시행규칙"
+  },
+  {
+   "kind": "NORM_REMOVED",
+   "id": "pi:2140571",
+   "title": "대한적십자사 무기계약직원 운영규정",
+   "date": "2026-01-01"
+  },
+  {
+   "kind": "NORM_REMOVED",
+   "id": "pi:2140569",
+   "title": "대한적십자사 직원 및 고용원 정원 운영규정",
+   "date": "2026-01-01"
+  },
+  {
+   "kind": "NORM_REMOVED",
+   "id": "pi:2140565",
+   "title": "대한적십자사 직원 보수 운영규정",
+   "date": "2026-01-01"
+  },
+  {
+   "kind": "NORM_REMOVED",
+   "id": "pi:2140527",
+   "title": "대한적십자사 인사관리 시행규칙",
+   "date": "2026-01-01"
+  },
+  {
+   "kind": "NORM_REMOVED",
+   "id": "pi:2137309",
+   "title": "대한적십자사 계약사무 시행규칙",
+   "date": "2025-04-01"
+  },
+  {
+   "kind": "NORM_REMOVED",
+   "id": "pi:2117105",
+   "title": "대한적십자사 정관",
+   "date": "2025-01-01"
+  }
+ ]
 }

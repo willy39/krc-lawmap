@@ -1,16 +1,16 @@
 {
- "baseDate": "2026-10-26",
- "generatedAt": "2026-10-26T06:41:21.314Z",
+ "baseDate": "2026-11-09",
+ "generatedAt": "2026-11-09T00:27:23.331Z",
  "mode": "live",
  "counts": {
   "norms": {
    "law": 9,
    "eflaw": 0,
    "admrul": 16,
-   "ordin": 494,
+   "ordin": 495,
    "trty": 26,
-   "pi": 76,
-   "total": 621
+   "pi": 77,
+   "total": 623
   },
   "cases": {
    "prec": 24,
@@ -24,10 +24,10 @@
   }
  },
  "apiTotalCnt": {
-  "pi": 95
+  "pi": 103
  },
  "brokenLinks": 0,
- "unverifiedLinks": 1,
+ "unverifiedLinks": 0,
  "relevance": {
   "auto": 40,
   "candidate": 20
